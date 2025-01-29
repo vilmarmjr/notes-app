@@ -2,7 +2,9 @@
   "name": "@frontend-mentor-notes/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "serve:web": "nx serve web"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~19.1.0",

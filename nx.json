@@ -64,8 +64,28 @@
     "@nx/angular:application": {
       "e2eTestRunner": "playwright",
       "linter": "eslint",
-      "style": "css",
-      "unitTestRunner": "jest"
+      "style": "none",
+      "unitTestRunner": "jest",
+      "changeDetection": "OnPush",
+      "inlineTemplate": true,
+      "selector": "n",
+      "prefix": "n"
+    },
+    "@nx/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "style": "none",
+      "changeDetection": "OnPush",
+      "inlineTemplate": true,
+      "selector": "n",
+      "prefix": "n"
+    },
+    "@nx/angular:component": {
+      "style": "none",
+      "changeDetection": "OnPush",
+      "inlineTemplate": true,
+      "selector": "n",
+      "prefix": "n"
     }
   }
 }

@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NxWelcomeComponent } from './nx-welcome.component';
 
 @Component({
   imports: [NxWelcomeComponent, RouterModule],
-  selector: 'app-root',
+  selector: 'n-root',
   template: `
-    <app-nx-welcome />
+    <n-nx-welcome />
     <router-outlet />
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   title = 'web';

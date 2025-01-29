@@ -5,8 +5,10 @@ import { NxWelcomeComponent } from './nx-welcome.component';
 @Component({
   imports: [NxWelcomeComponent, RouterModule],
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  template: `
+    <app-nx-welcome />
+    <router-outlet />
+  `,
 })
 export class AppComponent {
   title = 'web';

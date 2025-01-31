@@ -5,10 +5,10 @@ const { join } = require('path');
 module.exports = {
   content: [
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
+    join(__dirname, '../../libs/web/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
-    extend: {},
     colors: {
       'neutral-950': '#0E121B',
       'neutral-900': '#191B25',
@@ -29,6 +29,32 @@ module.exports = {
       'green-100': '#D1FBE9',
       'red-500': '#FB3748',
       'red-100': '#FFD5D8',
+    },
+    fontSize: {
+      'preset-1': [
+        '1.5rem',
+        { fontWeight: '700', letterSpacing: '-0.5px', lineHeight: '120%' },
+      ],
+      'preset-2': [
+        '1.25rem',
+        { fontWeight: '700', letterSpacing: '-0.5px', lineHeight: '120%' },
+      ],
+      'preset-3': [
+        '1rem',
+        { fontWeight: '500', letterSpacing: '-0.3px', lineHeight: '120%' },
+      ],
+      'preset-4': [
+        '0.875rem',
+        { fontWeight: '500', letterSpacing: '-0.2px', lineHeight: '120%' },
+      ],
+      'preset-5': [
+        '0.875rem',
+        { fontWeight: '400', letterSpacing: '-0.2px', lineHeight: '120%' },
+      ],
+      'preset-6': [
+        '0.75rem',
+        { fontWeight: '400', letterSpacing: '-0.2px', lineHeight: '120%' },
+      ],
     },
   },
   plugins: [],

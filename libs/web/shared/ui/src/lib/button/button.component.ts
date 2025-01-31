@@ -2,11 +2,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'n-login',
+  selector: 'n-button',
   imports: [CommonModule],
   template: `
-    <p class="text-neutral-600">login works!</p>
+    <button
+      class="bg-blue-500 px-4 py-3 rounded-lg text-neutral-0 hover:bg-blue-700 transition-all"
+    >
+      <ng-content />
+    </button>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {}
+export class ButtonComponent {}

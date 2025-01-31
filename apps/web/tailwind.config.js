@@ -56,6 +56,11 @@ module.exports = {
         { fontWeight: '400', letterSpacing: '-0.2px', lineHeight: '120%' },
       ],
     },
+    fontFamily: {
+      sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+      serif: ['Noto Serif', 'ui-serif', 'Georgia'],
+      mono: ['Source Code Pro', 'ui-monospace', 'SFMono-Regular'],
+    },
   },
   plugins: [],
 };

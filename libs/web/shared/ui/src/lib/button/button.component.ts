@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <button
-      class="bg-blue-500 px-4 py-3 rounded-lg text-neutral-0 hover:bg-blue-700 transition-all"
+      class="bg-blue-500 px-4 py-3 rounded-lg text-neutral-0 hover:bg-blue-700 transition-all text-preset-4"
     >
       <ng-content />
     </button>

@@ -7,7 +7,7 @@ import { ButtonComponent } from '@web/shared/ui';
   imports: [CommonModule, ButtonComponent],
   template: `
     <p>Notes works!</p>
-    <n-button>New note</n-button>
+    <n-button>Primary Button</n-button>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

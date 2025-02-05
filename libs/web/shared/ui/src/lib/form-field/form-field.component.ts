@@ -38,23 +38,23 @@ const inputContainerVariants = cva(
   },
   template: `
     <label [attr.for]="input().id" class="flex flex-col gap-2">
-      @if(label()) {
-      <ng-content select="[nLabel]" />
+      @if (label()) {
+        <ng-content select="[nLabel]" />
       }
       <div [class]="inputContainerClass()">
         @if (prefix()) {
-        <ng-content select="[nPrefix]" />
+          <ng-content select="[nPrefix]" />
         }
         <ng-content select="input[nInput]" />
         @if (suffix()) {
-        <ng-content select="[nSuffix]" />
+          <ng-content select="[nSuffix]" />
         }
       </div>
     </label>
     @if (input().hasError() && error()) {
-    <ng-content select="[nError]" />
+      <ng-content select="[nError]" />
     } @else if (hint()) {
-    <ng-content select="[nHint]" />
+      <ng-content select="[nHint]" />
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -29,6 +29,7 @@ module.exports = {
       'green-100': '#D1FBE9',
       'red-500': '#FB3748',
       'red-100': '#FFD5D8',
+      transparent: 'transparent',
     },
     fontSize: {
       'preset-1': [

@@ -56,8 +56,8 @@ export class InputDirective implements OnInit {
       );
       combineLatest([status$, touched$])
         .pipe(takeUntilDestroyed(this._destroyRef))
-        .subscribe(([status]) => {
-          this._hasError.set(status === 'INVALID' && control.touched);
+        .subscribe(([status, touched]) => {
+          this._hasError.set(status === 'INVALID' && touched);
         });
     }
   }

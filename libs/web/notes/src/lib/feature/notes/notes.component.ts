@@ -5,6 +5,7 @@ import {
   ErrorDirective,
   FormFieldComponent,
   HintDirective,
+  IconDirective,
   InputDirective,
   LabelDirective,
 } from '@web/shared/ui';
@@ -25,12 +26,16 @@ import {
     LabelDirective,
     HintDirective,
     ErrorDirective,
+    IconDirective,
     FormsModule,
     ReactiveFormsModule,
   ],
   template: `
-    <div class="flex flex-col gap-3 w-[180px] p-3">
-      <button nButton variant="primary">Primary button</button>
+    <div class="flex flex-col gap-3 w-[200px] p-3">
+      <button nButton variant="primary">
+        <n-icon name="hidePassword" />
+        Primary button
+      </button>
       <button nButton variant="primary" [disabled]="true">Primary button</button>
       <button nButton variant="secondary">Secondary button</button>
       <button nButton variant="secondary" [disabled]="true">Secondary button</button>
@@ -45,7 +50,10 @@ import {
       <n-form-field>
         <span nLabel>Text field</span>
         <input nInput placeholder="My text" [formControl]="textControl" />
-        <span nHint>This is a hint text to help user.</span>
+        <div nHint class="flex items-center gap-2">
+          <n-icon name="info" size="16" />
+          <span>This is a hint text to help user.</span>
+        </div>
         <span nError>The field is required</span>
       </n-form-field>
       <n-form-field>

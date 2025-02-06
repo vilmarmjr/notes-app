@@ -15,6 +15,11 @@ export default [
           prefix: 'n',
           style: 'camelCase',
         },
+        {
+          type: 'element',
+          prefix: 'n',
+          style: 'kebab-case',
+        },
       ],
       '@angular-eslint/component-selector': [
         'error',

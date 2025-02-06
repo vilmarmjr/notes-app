@@ -2,7 +2,7 @@ import { computed, Directive, input } from '@angular/core';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const buttonVariants = cva(
-  'px-4 py-3 rounded-lg text-preset-4 transition-colors outline-4 outline-neutral-400 outline-offset-4 flex gap-2 justify-center items-center disabled:bg-neutral-100 disabled:text-neutral-300 disabled:border-none disabled:cursor-not-allowed',
+  'px-4 py-3 rounded-lg text-preset-4 transition-colors outline-4 outline-neutral-400 outline-offset-4 flex gap-2 justify-center items-center text-left disabled:bg-neutral-100 disabled:text-neutral-300 disabled:border-none disabled:cursor-not-allowed',
   {
     variants: {
       variant: {

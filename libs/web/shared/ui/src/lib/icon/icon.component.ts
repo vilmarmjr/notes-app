@@ -1,4 +1,4 @@
-import { computed, Directive, inject, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { icons } from './icons';
 
@@ -9,8 +9,9 @@ export type IconName = keyof typeof icons;
 
 const ONE_REM_IN_PIXELS = 16;
 
-@Directive({
+@Component({
   selector: 'n-icon',
+  template: '',
   host: {
     '[innerHTML]': 'icon()',
     '[style.width]': 'sizeInRem()',
@@ -18,14 +19,14 @@ const ONE_REM_IN_PIXELS = 16;
     class: 'inline-block',
   },
 })
-export class IconDirective {
-  private domSanitizer = inject(DomSanitizer);
+export class IconComponent {
+  private _domSanitizer = inject(DomSanitizer);
 
   public name = input.required<IconName>();
   public size = input<IconSize>(20);
 
   protected sizeInRem = computed(() => `${Number(this.size()) / ONE_REM_IN_PIXELS}rem`);
   protected icon = computed(() =>
-    this.domSanitizer.bypassSecurityTrustHtml(icons[this.name()]),
+    this._domSanitizer.bypassSecurityTrustHtml(icons[this.name()]),
   );
 }

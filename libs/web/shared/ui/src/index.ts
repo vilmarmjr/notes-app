@@ -6,4 +6,4 @@ export * from './lib/form-field/error.directive';
 export * from './lib/form-field/prefix.directive';
 export * from './lib/form-field/suffix.directive';
 export * from './lib/input/input.directive';
-export * from './lib/icon/icon.directive';
+export * from './lib/icon/icon.component';

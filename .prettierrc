@@ -7,5 +7,7 @@
   "bracketSpacing": true,
   "printWidth": 90,
   "arrowParens": "avoid",
-  "htmlWhitespaceSensitivity": "ignore"
+  "htmlWhitespaceSensitivity": "ignore",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindFunctions": ["cva"]
 }

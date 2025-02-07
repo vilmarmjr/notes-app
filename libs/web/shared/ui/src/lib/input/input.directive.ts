@@ -13,7 +13,7 @@ import { cva } from 'class-variance-authority';
 import { NgControl, TouchedChangeEvent } from '@angular/forms';
 import { combineLatest, filter, map, startWith } from 'rxjs';
 
-const inputVariants = cva('w-full outline-none text-preset-5 bg-transparent', {
+const inputVariants = cva('text-preset-5 w-full bg-transparent outline-none', {
   variants: {
     disabled: {
       false: 'text-neutral-950 placeholder-neutral-500',

@@ -31,7 +31,7 @@ import {
     ReactiveFormsModule,
   ],
   template: `
-    <div class="flex flex-col gap-3 w-[200px] p-3">
+    <div class="flex w-[200px] flex-col gap-3 p-3">
       <button nButton variant="primary">
         <n-icon name="hidePassword" />
         Primary button
@@ -42,7 +42,7 @@ import {
       <button nButton variant="border">Border button</button>
       <button nButton variant="border" [disabled]="true">Border button</button>
     </div>
-    <div class="flex flex-col gap-3 w-[300px] p-3">
+    <div class="flex w-[300px] flex-col gap-3 p-3">
       <n-form-field>
         <span nLabel>Number field</span>
         <input nInput type="number" />

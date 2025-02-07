@@ -23,14 +23,14 @@ import {
     IconComponent,
   ],
   template: `
-    <div class="h-full w-full bg-neutral-100 flex items-center justify-center p-4">
+    <div class="flex h-full w-full items-center justify-center bg-neutral-100 p-4">
       <div
-        class="w-full max-w-[540px] bg-neutral-0 p-12 flex flex-col items-center border border-neutral-200 rounded-xl shadow-lg"
+        class="bg-neutral-0 flex w-full max-w-[540px] flex-col items-center rounded-xl border border-neutral-200 p-12 shadow-lg"
       >
         <img src="assets/img/logo.svg" alt="Notes App Logo" class="mb-4" />
-        <h1 class="text-preset-1 text-neutral-950 mb-2">Welcome to Notes</h1>
-        <p class="text-preset-5 text-neutral-600 mb-10">Please log in to continue</p>
-        <form class="w-full flex flex-col gap-4 mb-4">
+        <h1 class="text-preset-1 mb-2 text-neutral-950">Welcome to Notes</h1>
+        <p class="text-preset-5 mb-10 text-neutral-600">Please log in to continue</p>
+        <form class="mb-4 flex w-full flex-col gap-4">
           <n-form-field>
             <span nLabel>Email Address</span>
             <input nInput type="email" placeholder="email@example.com" />
@@ -42,8 +42,8 @@ import {
           <button nButton type="submit">Log in</button>
         </form>
         <n-divider class="mb-6" />
-        <p class="text-preset-5 text-neutral-600 mb-4">Or log in with:</p>
-        <button nButton variant="border" class="w-full mb-4">
+        <p class="text-preset-5 mb-4 text-neutral-600">Or log in with:</p>
+        <button nButton variant="border" class="mb-4 w-full">
           <n-icon name="google" />
           Google
         </button>

@@ -15,7 +15,7 @@ import { PrefixDirective } from './prefix.directive';
 import { SuffixDirective } from './suffix.directive';
 
 const inputContainerVariants = cva(
-  'py-3 px-4 border rounded-lg outline-2 outline-offset-2 outline-neutral-500 focus-within:outline flex gap-2',
+  'flex gap-2 rounded-lg border px-4 py-3 outline-2 outline-offset-2 outline-neutral-500 focus-within:outline',
   {
     variants: {
       disabled: {

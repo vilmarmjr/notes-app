@@ -19,6 +19,11 @@
           {
             "glob": "**/*",
             "input": "apps/web/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/web/shared/assets/src/lib",
+            "output": "assets"
           }
         ],
         "styles": ["apps/web/src/styles.css"],

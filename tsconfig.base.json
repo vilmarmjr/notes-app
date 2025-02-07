@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@frontend-mentor-notes/assets": ["libs/web/shared/assets/src/index.ts"],
       "@web/auth": ["libs/web/auth/src/index.ts"],
       "@web/notes": ["libs/web/notes/src/index.ts"],
       "@web/settings": ["libs/web/settings/src/index.ts"],

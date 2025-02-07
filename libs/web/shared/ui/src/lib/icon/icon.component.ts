@@ -1,4 +1,10 @@
-import { Component, computed, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { icons } from './icons';
 
@@ -18,6 +24,7 @@ const ONE_REM_IN_PIXELS = 16;
     '[style.height]': 'sizeInRem()',
     class: 'inline-block',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent {
   private _domSanitizer = inject(DomSanitizer);

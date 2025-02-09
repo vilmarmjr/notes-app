@@ -11,7 +11,7 @@ import { EmailFieldComponent } from '../../ui/email-field/email-field.component'
 import { PasswordFieldComponent } from '../../ui/password-field/password-field.component';
 
 @Component({
-  selector: 'n-login',
+  selector: 'n-signup',
   imports: [
     CommonModule,
     ButtonDirective,
@@ -39,13 +39,15 @@ import { PasswordFieldComponent } from '../../ui/password-field/password-field.c
           class="mb-4"
         />
         <h1 class="text-preset-1 dark:text-base-white mb-2 text-neutral-950">
-          Welcome to Notes
+          Create your account
         </h1>
-        <p class="text-preset-5 mb-10 text-center">Please log in to continue</p>
+        <p class="text-preset-5 mb-10 text-center">
+          Sign up to start organizing your notes and boost your productivity.
+        </p>
         <form class="mb-4 flex w-full flex-col gap-4">
           <n-email-field />
-          <n-password-field [showForgotLink]="true" />
-          <button nButton type="submit">Log in</button>
+          <n-password-field hint="At least 8 characters" />
+          <button nButton type="submit">Sign up</button>
         </form>
         <n-divider class="mb-6" />
         <p class="text-preset-5 mb-4">Or log in with:</p>
@@ -55,12 +57,12 @@ import { PasswordFieldComponent } from '../../ui/password-field/password-field.c
         </button>
         <n-divider class="mb-4" />
         <p class="text-preset-5">
-          No account yet?
+          Already have an account?
           <a
             class="dark:text-base-white text-neutral-950 hover:underline"
-            routerLink="/signup"
+            routerLink="/login"
           >
-            Sign up
+            Login
           </a>
         </p>
       </div>
@@ -68,7 +70,7 @@ import { PasswordFieldComponent } from '../../ui/password-field/password-field.c
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
+export class SignupComponent {
   private _themeService = inject(ThemeService);
 
   protected theme = this._themeService.theme;

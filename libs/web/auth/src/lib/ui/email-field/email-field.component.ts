@@ -7,7 +7,7 @@ import { FormFieldComponent, InputDirective, LabelDirective } from '@web/shared/
   imports: [CommonModule, FormFieldComponent, LabelDirective, InputDirective],
   template: `
     <n-form-field>
-      <span nLabel>Email Address</span>
+      <span nLabel>Email address</span>
       <input nInput type="email" placeholder="email@example.com" />
     </n-form-field>
   `,

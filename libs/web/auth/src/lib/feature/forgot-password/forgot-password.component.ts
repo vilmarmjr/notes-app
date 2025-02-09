@@ -25,7 +25,7 @@ import { EmailFieldComponent } from '../../ui/email-field/email-field.component'
         <h1 class="text-preset-1 dark:text-base-white mb-2 text-neutral-950">
           Forgotten your password?
         </h1>
-        <p class="text-preset-5 mb-10">
+        <p class="text-preset-5 mb-10 text-center">
           Enter your email below, and we'll send you a link to reset it.
         </p>
         <form class="flex w-full flex-col gap-4">

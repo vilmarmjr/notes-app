@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,12 +6,11 @@ import {
   contentChild,
   effect,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { InputDirective } from '../input/input.directive';
-import { LabelDirective } from './label.directive';
-import { HintDirective } from './hint.directive';
 import { cva } from 'class-variance-authority';
+import { InputDirective } from '../input/input.directive';
 import { ErrorDirective } from './error.directive';
+import { HintDirective } from './hint.directive';
+import { LabelDirective } from './label.directive';
 import { PrefixDirective } from './prefix.directive';
 import { SuffixDirective } from './suffix.directive';
 
@@ -19,11 +19,12 @@ const inputContainerVariants = cva(
   {
     variants: {
       disabled: {
-        false: 'hover:bg-neutral-50',
+        false: 'hover:bg-neutral-50 dark:hover:bg-neutral-900',
         true: 'bg-neutral-50',
       },
       error: {
-        false: 'border-neutral-300 focus-within:border-neutral-950',
+        false:
+          'dark:focus-within:border-base-white border-neutral-300 focus-within:border-neutral-950',
         true: 'border-red-500',
       },
     },

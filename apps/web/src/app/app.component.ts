@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ThemeService } from '@web/shared/ui';
 
 @Component({
   imports: [RouterModule],
@@ -10,5 +11,9 @@ import { RouterModule } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'web';
+  private _themeService = inject(ThemeService);
+
+  constructor() {
+    this._themeService.setInitialTheme();
+  }
 }

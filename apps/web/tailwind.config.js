@@ -22,6 +22,8 @@ module.exports = {
       'neutral-100': '#F3F5F8',
       'neutral-50': '#F5F7FA',
       'neutral-0': '#FFFFFF',
+      'base-black': '#000',
+      'base-white': '#fff',
       'blue-700': '#2547D0',
       'blue-500': '#335CFF',
       'blue-50': '#EBF1FF',
@@ -65,7 +67,9 @@ module.exports = {
     boxShadow: {
       sm: '0px 4px 6px rgba(240, 240, 240, 0.6)',
       lg: '0px 8px 12px rgba(240, 240, 240, 0.6)',
+      none: 'none',
     },
   },
   plugins: [],
+  darkMode: 'selector',
 };

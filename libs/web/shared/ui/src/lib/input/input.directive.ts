@@ -8,16 +8,17 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { generateInputId } from './generate-input-id';
-import { cva } from 'class-variance-authority';
 import { NgControl, TouchedChangeEvent } from '@angular/forms';
+import { cva } from 'class-variance-authority';
 import { combineLatest, filter, map, startWith } from 'rxjs';
+import { generateInputId } from './generate-input-id';
 
 const inputVariants = cva('text-preset-5 w-full bg-transparent outline-none', {
   variants: {
     disabled: {
-      false: 'text-neutral-950 placeholder-neutral-500',
-      true: 'text-neutral-300 placeholder-neutral-300',
+      false:
+        'dark:text-base-white text-neutral-950 placeholder-neutral-500 dark:placeholder-neutral-300',
+      true: 'text-neutral-300 placeholder-neutral-300 dark:text-neutral-500',
     },
   },
 });

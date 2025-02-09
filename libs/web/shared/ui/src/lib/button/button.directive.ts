@@ -10,7 +10,7 @@ export const buttonVariants = cva(
         secondary:
           'hover:bg-neutral-0 border border-solid border-neutral-100 bg-neutral-100 text-neutral-600 hover:border-neutral-300 hover:text-neutral-950',
         border:
-          'bg-neutral-0 border border-solid border-neutral-300 text-neutral-950 hover:border-neutral-100 hover:bg-neutral-100 hover:text-neutral-600',
+          'dark:text-base-white border border-solid border-neutral-300 bg-transparent text-neutral-950 hover:border-neutral-100 hover:bg-neutral-100 hover:text-neutral-600',
       },
     },
     defaultVariants: {

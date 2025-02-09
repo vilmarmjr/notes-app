@@ -4,27 +4,23 @@ import { RouterLink } from '@angular/router';
 import {
   ButtonDirective,
   DividerComponent,
-  FormFieldComponent,
   IconComponent,
-  InputDirective,
-  LabelDirective,
   ThemeService,
 } from '@web/shared/ui';
+import { EmailFieldComponent } from '../../ui/email-field/email-field.component';
 import { PasswordFieldComponent } from '../../ui/password-field/password-field.component';
 
 @Component({
   selector: 'n-login',
   imports: [
     CommonModule,
-    FormFieldComponent,
-    InputDirective,
     ButtonDirective,
-    LabelDirective,
     DividerComponent,
     RouterLink,
     IconComponent,
     NgOptimizedImage,
     PasswordFieldComponent,
+    EmailFieldComponent,
   ],
   template: `
     <div
@@ -47,10 +43,7 @@ import { PasswordFieldComponent } from '../../ui/password-field/password-field.c
         </h1>
         <p class="text-preset-5 mb-10">Please log in to continue</p>
         <form class="mb-4 flex w-full flex-col gap-4">
-          <n-form-field>
-            <span nLabel>Email Address</span>
-            <input nInput type="email" placeholder="email@example.com" />
-          </n-form-field>
+          <n-email-field />
           <n-password-field />
           <button nButton type="submit">Log in</button>
         </form>

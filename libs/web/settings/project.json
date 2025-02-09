@@ -4,7 +4,7 @@
   "sourceRoot": "libs/web/settings/src",
   "prefix": "n",
   "projectType": "library",
-  "tags": [],
+  "tags": ["web:settings"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

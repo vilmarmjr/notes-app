@@ -4,7 +4,7 @@
   "sourceRoot": "libs/web/shared/ui/src",
   "prefix": "n",
   "projectType": "library",
-  "tags": [],
+  "tags": ["web:ui"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

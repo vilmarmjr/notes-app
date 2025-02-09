@@ -17,8 +17,26 @@ export default [
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
           depConstraints: [
             {
-              sourceTag: '*',
-              onlyDependOnLibsWithTags: ['*'],
+              sourceTag: 'webapp',
+              onlyDependOnLibsWithTags: [
+                'web:ui',
+                'web:assets',
+                'web:auth',
+                'web:notes',
+                'web:settings',
+              ],
+            },
+            {
+              sourceTag: 'web:auth',
+              onlyDependOnLibsWithTags: ['web:ui', 'web:assets'],
+            },
+            {
+              sourceTag: 'web:notes',
+              onlyDependOnLibsWithTags: ['web:ui', 'web:assets'],
+            },
+            {
+              sourceTag: 'web:settings',
+              onlyDependOnLibsWithTags: ['web:ui', 'web:assets'],
             },
           ],
         },

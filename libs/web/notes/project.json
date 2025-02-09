@@ -4,7 +4,7 @@
   "sourceRoot": "libs/web/notes/src",
   "prefix": "n",
   "projectType": "library",
-  "tags": [],
+  "tags": ["web:notes"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

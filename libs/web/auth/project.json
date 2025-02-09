@@ -4,7 +4,7 @@
   "sourceRoot": "libs/web/auth/src",
   "prefix": "n",
   "projectType": "library",
-  "tags": [],
+  "tags": ["web:auth"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

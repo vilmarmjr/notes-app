@@ -15,7 +15,7 @@ import { PrefixDirective } from './prefix.directive';
 import { SuffixDirective } from './suffix.directive';
 
 const inputContainerVariants = cva(
-  'flex gap-2 rounded-lg border px-4 py-3 outline-2 outline-offset-2 outline-neutral-500 focus-within:outline',
+  'flex h-11 gap-2 rounded-lg border px-4 py-3 outline-2 outline-offset-2 outline-neutral-500 focus-within:outline',
   {
     variants: {
       disabled: {
@@ -24,7 +24,7 @@ const inputContainerVariants = cva(
       },
       error: {
         false:
-          'dark:focus-within:border-base-white border-neutral-300 focus-within:border-neutral-950',
+          'dark:focus-within:border-base-white border-neutral-300 focus-within:border-neutral-950 dark:border-neutral-600',
         true: 'border-red-500',
       },
     },

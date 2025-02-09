@@ -2,7 +2,7 @@ import { computed, Directive, input } from '@angular/core';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const buttonVariants = cva(
-  'text-preset-4 flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-left outline-4 outline-offset-4 outline-neutral-400 transition-colors disabled:cursor-not-allowed disabled:border-none disabled:bg-neutral-100 disabled:text-neutral-300',
+  'text-preset-4 flex h-11 items-center justify-center gap-2 rounded-lg px-4 py-3 text-left outline-4 outline-offset-4 outline-neutral-400 transition-colors disabled:cursor-not-allowed disabled:border-none disabled:bg-neutral-100 disabled:text-neutral-300',
   {
     variants: {
       variant: {
@@ -10,7 +10,7 @@ export const buttonVariants = cva(
         secondary:
           'hover:bg-neutral-0 border border-solid border-neutral-100 bg-neutral-100 text-neutral-600 hover:border-neutral-300 hover:text-neutral-950',
         border:
-          'dark:text-base-white border border-solid border-neutral-300 bg-transparent text-neutral-950 hover:border-neutral-100 hover:bg-neutral-100 hover:text-neutral-600',
+          'dark:text-base-white border border-solid border-neutral-300 bg-transparent text-neutral-950 hover:border-neutral-100 hover:bg-neutral-100 hover:text-neutral-600 dark:border-neutral-600',
       },
     },
     defaultVariants: {

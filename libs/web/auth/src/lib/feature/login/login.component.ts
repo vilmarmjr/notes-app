@@ -10,6 +10,7 @@ import {
   LabelDirective,
   ThemeService,
 } from '@web/shared/ui';
+import { PasswordFieldComponent } from '../../ui/password-field/password-field.component';
 
 @Component({
   selector: 'n-login',
@@ -23,6 +24,7 @@ import {
     RouterLink,
     IconComponent,
     NgOptimizedImage,
+    PasswordFieldComponent,
   ],
   template: `
     <div
@@ -49,10 +51,7 @@ import {
             <span nLabel>Email Address</span>
             <input nInput type="email" placeholder="email@example.com" />
           </n-form-field>
-          <n-form-field>
-            <span nLabel>Password</span>
-            <input nInput type="password" />
-          </n-form-field>
+          <n-password-field />
           <button nButton type="submit">Log in</button>
         </form>
         <n-divider class="mb-6" />

@@ -5,7 +5,7 @@ const hintVariants = cva('text-preset-6', {
   variants: {
     disabled: {
       true: 'text-neutral-300',
-      false: 'text-neutral-600',
+      false: 'text-neutral-600 dark:text-neutral-400',
     },
   },
 });

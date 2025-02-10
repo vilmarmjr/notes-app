@@ -1,12 +1,8 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import {
-  ButtonDirective,
-  DividerComponent,
-  IconComponent,
-  ThemeService,
-} from '@web/shared/ui';
+import { LogoComponent } from '@web/core/layout';
+import { ButtonDirective, DividerComponent, IconComponent } from '@web/shared/ui';
 import { EmailFieldComponent } from '../../ui/email-field/email-field.component';
 import { PasswordFieldComponent } from '../../ui/password-field/password-field.component';
 
@@ -18,7 +14,7 @@ import { PasswordFieldComponent } from '../../ui/password-field/password-field.c
     DividerComponent,
     RouterLink,
     IconComponent,
-    NgOptimizedImage,
+    LogoComponent,
     PasswordFieldComponent,
     EmailFieldComponent,
   ],
@@ -29,15 +25,7 @@ import { PasswordFieldComponent } from '../../ui/password-field/password-field.c
       <div
         class="bg-neutral-0 flex w-full max-w-[540px] flex-col items-center rounded-xl border border-neutral-200 p-12 shadow-lg dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none"
       >
-        <img
-          [ngSrc]="
-            theme() === 'dark' ? 'assets/img/logo-dark.svg' : 'assets/img/logo-light.svg'
-          "
-          height="28"
-          width="96"
-          alt="Notes App Logo"
-          class="mb-4"
-        />
+        <n-logo class="mb-4" />
         <h1 class="text-preset-1 dark:text-base-white mb-2 text-neutral-950">
           Create your account
         </h1>
@@ -70,8 +58,4 @@ import { PasswordFieldComponent } from '../../ui/password-field/password-field.c
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignupComponent {
-  private _themeService = inject(ThemeService);
-
-  protected theme = this._themeService.theme;
-}
+export class SignupComponent {}

@@ -44,7 +44,7 @@ module.exports = {
       ],
       'preset-3': [
         '1rem',
-        { fontWeight: '500', letterSpacing: '-0.3px', lineHeight: '120%' },
+        { fontWeight: '600', letterSpacing: '-0.3px', lineHeight: '120%' },
       ],
       'preset-4': [
         '0.875rem',

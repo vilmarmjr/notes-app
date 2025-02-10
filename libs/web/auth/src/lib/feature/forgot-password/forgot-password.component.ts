@@ -12,7 +12,7 @@ import { EmailFieldComponent } from '../../ui/email-field/email-field.component'
       class="flex h-full w-full items-center justify-center bg-neutral-100 p-4 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300"
     >
       <div
-        class="bg-neutral-0 flex w-full max-w-[540px] flex-col items-center rounded-xl border border-neutral-200 p-12 shadow-lg dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none"
+        class="bg-neutral-0 flex w-full max-w-[540px] flex-col items-center rounded-xl border border-neutral-200 p-12 shadow-sm dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none"
       >
         <n-logo class="mb-4" />
         <h1 class="text-preset-1 dark:text-base-white mb-2 text-neutral-950">

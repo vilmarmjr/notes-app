@@ -64,11 +64,6 @@ module.exports = {
       serif: ['Noto Serif', 'ui-serif', 'Georgia'],
       mono: ['Source Code Pro', 'ui-monospace', 'SFMono-Regular'],
     },
-    boxShadow: {
-      sm: '0px 4px 6px rgba(240, 240, 240, 0.6)',
-      lg: '0px 8px 12px rgba(240, 240, 240, 0.6)',
-      none: 'none',
-    },
   },
   plugins: [],
   darkMode: 'selector',

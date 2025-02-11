@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BottomNavComponent, ContentComponent, HeaderComponent } from '@web/core/layout';
 import { DividerComponent } from '@web/shared/ui';
+import { CreateNoteButtonComponent } from '../../ui/create-note-button/create-note-button.component';
 
 @Component({
   selector: 'n-notes',
@@ -11,11 +12,12 @@ import { DividerComponent } from '@web/shared/ui';
     DividerComponent,
     ContentComponent,
     BottomNavComponent,
+    CreateNoteButtonComponent,
   ],
   template: `
     <div class="flex h-full flex-col">
       <n-header />
-      <n-content class="flex-1">
+      <n-content class="relative flex-1">
         <h1 class="text-preset-1 dark:text-base-white mb-4 text-neutral-950">
           All Notes
         </h1>
@@ -43,6 +45,7 @@ import { DividerComponent } from '@web/shared/ui';
             }
           }
         </ul>
+        <n-create-note-button class="absolute bottom-4 right-4 sm:bottom-8 sm:right-8" />
       </n-content>
       <n-bottom-nav />
     </div>

@@ -1,73 +1,90 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ButtonDirective,
-  ErrorDirective,
-  FormFieldComponent,
-  HintDirective,
-  IconComponent,
-  InputDirective,
-  LabelDirective,
-} from '@web/shared/ui';
-import {
-  FormControl,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { BottomNavComponent, ContentComponent, HeaderComponent } from '@web/core/layout';
+import { DividerComponent } from '@web/shared/ui';
 
 @Component({
   selector: 'n-notes',
   imports: [
     CommonModule,
-    ButtonDirective,
-    FormFieldComponent,
-    IconComponent,
-    InputDirective,
-    LabelDirective,
-    HintDirective,
-    ErrorDirective,
-    FormsModule,
-    ReactiveFormsModule,
+    HeaderComponent,
+    DividerComponent,
+    ContentComponent,
+    BottomNavComponent,
   ],
   template: `
-    <div class="flex w-[200px] flex-col gap-3 p-3">
-      <button nButton variant="primary">
-        <n-icon name="hidePassword" />
-        Primary button
-      </button>
-      <button nButton variant="primary" [disabled]="true">Primary button</button>
-      <button nButton variant="secondary">Secondary button</button>
-      <button nButton variant="secondary" [disabled]="true">Secondary button</button>
-      <button nButton variant="border">Border button</button>
-      <button nButton variant="border" [disabled]="true">Border button</button>
-    </div>
-    <div class="flex w-[300px] flex-col gap-3 p-3">
-      <n-form-field>
-        <span nLabel>Number field</span>
-        <input nInput type="number" />
-      </n-form-field>
-      <n-form-field>
-        <span nLabel>Text field</span>
-        <input nInput placeholder="My text" [formControl]="textControl" />
-        <div nHint class="flex items-center gap-2">
-          <n-icon name="info" size="16" />
-          <span>This is a hint text to help user.</span>
-        </div>
-        <span nError>The field is required</span>
-      </n-form-field>
-      <n-form-field>
-        <span nLabel>Text field</span>
-        <input nInput placeholder="My text" [disabled]="true" />
-        <span nHint>This is a hint text to help user.</span>
-      </n-form-field>
+    <div class="flex h-full flex-col">
+      <n-header />
+      <n-content class="flex-1">
+        <h1 class="text-preset-1 dark:text-base-white mb-4 text-neutral-950">
+          All Notes
+        </h1>
+        <ul>
+          @for (item of items; track $index; let last = $last) {
+            <li class="flex flex-col gap-3 rounded-md p-2">
+              <h2 class="text-preset-3 dark:text-base-white text-neutral-950">
+                {{ item.title }}
+              </h2>
+              <div class="flex flex-wrap gap-1">
+                @for (tag of item.tags; track tag) {
+                  <span
+                    class="text-preset-6 dark:text-base-white rounded-md bg-neutral-200 px-2 py-1 text-neutral-950 dark:bg-neutral-600"
+                  >
+                    {{ tag }}
+                  </span>
+                }
+              </div>
+              <p class="text-preset-6 text-neutral-700 dark:text-neutral-300">
+                {{ item.date }}
+              </p>
+            </li>
+            @if (!last) {
+              <n-divider />
+            }
+          }
+        </ul>
+      </n-content>
+      <n-bottom-nav />
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesComponent {
-  textControl = new FormControl('', {
-    nonNullable: true,
-    validators: [Validators.required],
-  });
+  items = [
+    {
+      title: 'React Performance Optimization',
+      tags: ['Dev', 'React'],
+      date: '29 Oct 2024',
+    },
+    {
+      title: 'Japan Travel Planning',
+      tags: ['Travel', 'Personal'],
+      date: '28 Oct 2024',
+    },
+    {
+      title: 'Favorite Pasta Recipes',
+      tags: ['Cooking', 'Recipes'],
+      date: '27 Oct 2024',
+    },
+    {
+      title: 'Weekly Workout Plan',
+      tags: ['Dev', 'React'],
+      date: '25 Oct 2024',
+    },
+    {
+      title: 'Meal Prep Ideas',
+      tags: ['Cooking', 'Health', 'Recipes'],
+      date: '12 Oct 2024',
+    },
+    {
+      title: 'Reading List',
+      tags: ['Personal', 'Dev'],
+      date: '05 Oct 2024',
+    },
+    {
+      title: 'Fitness Goals 2023',
+      tags: ['Fitness', 'Health', 'Personal'],
+      date: '22 Sep 2024',
+    },
+  ];
 }

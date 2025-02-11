@@ -13,8 +13,8 @@ import { ThemeService } from '@web/shared/ui';
 export class LogoComponent {
   private _themeService = inject(ThemeService);
 
-  private theme = this._themeService.theme;
+  private _theme = this._themeService.theme;
   protected src = computed(() =>
-    this.theme() === 'dark' ? 'assets/img/logo-dark.svg' : 'assets/img/logo-light.svg',
+    this._theme() === 'dark' ? 'assets/img/logo-dark.svg' : 'assets/img/logo-light.svg',
   );
 }

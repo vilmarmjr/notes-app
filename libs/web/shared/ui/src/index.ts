@@ -1,3 +1,4 @@
+export * from './lib/breakpoint/breakpoint.service';
 export * from './lib/button/button.directive';
 export * from './lib/divider/divider.component';
 export * from './lib/form-field/error.directive';

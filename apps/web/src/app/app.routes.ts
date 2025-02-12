@@ -5,7 +5,7 @@ import {
   ResetPasswordComponent,
   SignupComponent,
 } from '@web/auth';
-import { NotesComponent } from '@web/notes';
+import { NotesComponent, NotesDesktopComponent } from '@web/notes';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -14,4 +14,5 @@ export const appRoutes: Route[] = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'notes', component: NotesComponent },
+  { path: 'notes-desktop', component: NotesDesktopComponent },
 ];

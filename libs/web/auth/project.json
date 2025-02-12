@@ -2,7 +2,7 @@
   "name": "auth",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web/auth/src",
-  "prefix": "n",
+  "prefix": "nt",
   "projectType": "library",
   "tags": ["web:auth"],
   "targets": {

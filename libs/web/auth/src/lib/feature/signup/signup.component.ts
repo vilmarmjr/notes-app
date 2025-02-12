@@ -7,7 +7,7 @@ import { EmailFieldComponent } from '../../ui/email-field/email-field.component'
 import { PasswordFieldComponent } from '../../ui/password-field/password-field.component';
 
 @Component({
-  selector: 'n-signup',
+  selector: 'nt-signup',
   imports: [
     CommonModule,
     ButtonDirective,
@@ -25,7 +25,7 @@ import { PasswordFieldComponent } from '../../ui/password-field/password-field.c
       <div
         class="bg-neutral-0 flex w-full max-w-[540px] flex-col items-center rounded-xl border border-neutral-200 p-12 shadow-sm dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none"
       >
-        <n-logo class="mb-4" />
+        <nt-logo class="mb-4" />
         <h1 class="text-preset-1 dark:text-base-white mb-2 text-neutral-950">
           Create your account
         </h1>
@@ -33,17 +33,17 @@ import { PasswordFieldComponent } from '../../ui/password-field/password-field.c
           Sign up to start organizing your notes and boost your productivity.
         </p>
         <form class="mb-4 flex w-full flex-col gap-4">
-          <n-email-field />
-          <n-password-field hint="At least 8 characters" />
-          <button nButton type="submit">Sign up</button>
+          <nt-email-field />
+          <nt-password-field hint="At least 8 characters" />
+          <button ntButton type="submit">Sign up</button>
         </form>
-        <n-divider class="mb-6" />
+        <nt-divider class="mb-6" />
         <p class="text-preset-5 mb-4">Or log in with:</p>
-        <button nButton variant="border" class="mb-4 w-full">
-          <n-icon name="google" />
+        <button ntButton variant="border" class="mb-4 w-full">
+          <nt-icon name="google" />
           Google
         </button>
-        <n-divider class="mb-4" />
+        <nt-divider class="mb-4" />
         <p class="text-preset-5">
           Already have an account?
           <a

@@ -2,7 +2,7 @@
   "name": "notes",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web/notes/src",
-  "prefix": "n",
+  "prefix": "nt",
   "projectType": "library",
   "tags": ["web:notes"],
   "targets": {

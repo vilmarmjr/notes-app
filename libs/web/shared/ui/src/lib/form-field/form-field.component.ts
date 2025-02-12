@@ -32,7 +32,7 @@ const inputContainerVariants = cva(
 );
 
 @Component({
-  selector: 'n-form-field',
+  selector: 'nt-form-field',
   imports: [CommonModule],
   host: {
     class: 'flex flex-col gap-2',
@@ -40,22 +40,22 @@ const inputContainerVariants = cva(
   template: `
     <label [attr.for]="input().id" class="flex flex-col gap-2">
       @if (label()) {
-        <ng-content select="[nLabel]" />
+        <ng-content select="[ntLabel]" />
       }
       <div [class]="inputContainerClass()">
         @if (prefix()) {
-          <ng-content select="[nPrefix]" />
+          <ng-content select="[ntPrefix]" />
         }
-        <ng-content select="input[nInput]" />
+        <ng-content select="input[ntInput]" />
         @if (suffix()) {
-          <ng-content select="[nSuffix]" />
+          <ng-content select="[ntSuffix]" />
         }
       </div>
     </label>
     @if (input().hasError() && error()) {
-      <ng-content select="[nError]" />
+      <ng-content select="[ntError]" />
     } @else if (hint()) {
-      <ng-content select="[nHint]" />
+      <ng-content select="[ntHint]" />
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -11,7 +11,7 @@ import {
 } from '@web/shared/ui';
 
 @Component({
-  selector: 'n-password-field',
+  selector: 'nt-password-field',
   imports: [
     CommonModule,
     FormFieldComponent,
@@ -23,8 +23,8 @@ import {
     HintDirective,
   ],
   template: `
-    <n-form-field>
-      <div nLabel class="flex justify-between">
+    <nt-form-field>
+      <div ntLabel class="flex justify-between">
         <span>{{ label() }}</span>
         @if (showForgotLink()) {
           <a
@@ -35,21 +35,21 @@ import {
           </a>
         }
       </div>
-      <input nInput [type]="showPassword() ? 'text' : 'password'" />
-      <n-icon
-        nSuffix
+      <input ntInput [type]="showPassword() ? 'text' : 'password'" />
+      <nt-icon
+        ntSuffix
         class="cursor-pointer"
         role="button"
         [name]="showPassword() ? 'hidePassword' : 'showPassword'"
         (click)="toggleShowPassword($event)"
       />
       @if (hint()) {
-        <div nHint class="flex items-center gap-2">
-          <n-icon name="info" size="16" />
+        <div ntHint class="flex items-center gap-2">
+          <nt-icon name="info" size="16" />
           <span>{{ hint() }}</span>
         </div>
       }
-    </n-form-field>
+    </nt-form-field>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

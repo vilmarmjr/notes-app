@@ -3,13 +3,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormFieldComponent, InputDirective, LabelDirective } from '@web/shared/ui';
 
 @Component({
-  selector: 'n-email-field',
+  selector: 'nt-email-field',
   imports: [CommonModule, FormFieldComponent, LabelDirective, InputDirective],
   template: `
-    <n-form-field>
-      <span nLabel>Email address</span>
-      <input nInput type="email" placeholder="email@example.com" />
-    </n-form-field>
+    <nt-form-field>
+      <span ntLabel>Email address</span>
+      <input ntInput type="email" placeholder="email@example.com" />
+    </nt-form-field>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

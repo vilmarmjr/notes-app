@@ -68,8 +68,8 @@
       "unitTestRunner": "jest",
       "changeDetection": "OnPush",
       "inlineTemplate": true,
-      "selector": "n",
-      "prefix": "n"
+      "selector": "nt",
+      "prefix": "nt"
     },
     "@nx/angular:library": {
       "linter": "eslint",
@@ -77,15 +77,15 @@
       "style": "none",
       "changeDetection": "OnPush",
       "inlineTemplate": true,
-      "selector": "n",
-      "prefix": "n"
+      "selector": "nt",
+      "prefix": "nt"
     },
     "@nx/angular:component": {
       "style": "none",
       "changeDetection": "OnPush",
       "inlineTemplate": true,
-      "selector": "n",
-      "prefix": "n"
+      "selector": "nt",
+      "prefix": "nt"
     }
   }
 }

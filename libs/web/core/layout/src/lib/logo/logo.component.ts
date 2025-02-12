@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { ThemeService } from '@web/shared/ui';
 
 @Component({
-  selector: 'n-logo',
+  selector: 'nt-logo',
   imports: [CommonModule, NgOptimizedImage],
   template: `
     <img [ngSrc]="src()" height="28" width="96" alt="Notes App Logo" />

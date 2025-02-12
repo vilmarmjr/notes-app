@@ -5,7 +5,7 @@ import { DividerComponent } from '@web/shared/ui';
 import { CreateNoteButtonComponent } from '../../ui/create-note-button/create-note-button.component';
 
 @Component({
-  selector: 'n-notes',
+  selector: 'nt-notes',
   imports: [
     CommonModule,
     HeaderComponent,
@@ -16,8 +16,8 @@ import { CreateNoteButtonComponent } from '../../ui/create-note-button/create-no
   ],
   template: `
     <div class="flex h-full flex-col">
-      <n-header />
-      <n-content class="relative flex-1">
+      <nt-header />
+      <nt-content class="relative flex-1">
         <h1 class="text-preset-1 dark:text-base-white mb-4 text-neutral-950">
           All Notes
         </h1>
@@ -41,13 +41,13 @@ import { CreateNoteButtonComponent } from '../../ui/create-note-button/create-no
               </p>
             </li>
             @if (!last) {
-              <n-divider />
+              <nt-divider />
             }
           }
         </ul>
-        <n-create-note-button class="absolute bottom-4 right-4 sm:bottom-8 sm:right-8" />
-      </n-content>
-      <n-bottom-nav />
+        <nt-create-note-button class="absolute bottom-4 right-4 sm:bottom-8 sm:right-8" />
+      </nt-content>
+      <nt-bottom-nav />
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

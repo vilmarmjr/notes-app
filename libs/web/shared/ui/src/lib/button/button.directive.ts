@@ -22,7 +22,7 @@ export const buttonVariants = cva(
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
 
 @Directive({
-  selector: '[nButton]',
+  selector: '[ntButton]',
   host: {
     '[class]': 'computedClass()',
   },

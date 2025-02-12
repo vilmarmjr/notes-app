@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[nLabel]',
+  selector: '[ntLabel]',
   host: {
     class: 'text-neutral-950 text-preset-4 dark:text-base-white',
   },

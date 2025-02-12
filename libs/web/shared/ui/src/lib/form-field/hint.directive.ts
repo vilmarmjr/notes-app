@@ -11,7 +11,7 @@ const hintVariants = cva('text-preset-6', {
 });
 
 @Directive({
-  selector: '[nHint]',
+  selector: '[ntHint]',
   host: {
     '[class]': 'computedClass()',
   },

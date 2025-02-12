@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[nPrefix]',
+  selector: '[ntPrefix]',
 })
 export class PrefixDirective {}

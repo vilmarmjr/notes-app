@@ -13,7 +13,7 @@ export const dividerVariants = cva('block bg-neutral-200 dark:bg-neutral-800', {
 export type DividerVariants = VariantProps<typeof dividerVariants>;
 
 @Component({
-  selector: 'n-divider',
+  selector: 'nt-divider',
   template: '',
   host: {
     '[class]': 'computedClass()',

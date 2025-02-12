@@ -5,7 +5,7 @@ import { ButtonDirective } from '@web/shared/ui';
 import { EmailFieldComponent } from '../../ui/email-field/email-field.component';
 
 @Component({
-  selector: 'n-forgot-password',
+  selector: 'nt-forgot-password',
   imports: [CommonModule, ButtonDirective, EmailFieldComponent, LogoComponent],
   template: `
     <div
@@ -14,7 +14,7 @@ import { EmailFieldComponent } from '../../ui/email-field/email-field.component'
       <div
         class="bg-neutral-0 flex w-full max-w-[540px] flex-col items-center rounded-xl border border-neutral-200 p-12 shadow-sm dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none"
       >
-        <n-logo class="mb-4" />
+        <nt-logo class="mb-4" />
         <h1 class="text-preset-1 dark:text-base-white mb-2 text-neutral-950">
           Forgotten your password?
         </h1>
@@ -22,8 +22,8 @@ import { EmailFieldComponent } from '../../ui/email-field/email-field.component'
           Enter your email below, and we'll send you a link to reset it.
         </p>
         <form class="flex w-full flex-col gap-4">
-          <n-email-field />
-          <button nButton type="submit">Send reset link</button>
+          <nt-email-field />
+          <button ntButton type="submit">Send reset link</button>
         </form>
       </div>
     </div>

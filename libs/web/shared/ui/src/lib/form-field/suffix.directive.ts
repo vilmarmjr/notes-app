@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[nSuffix]',
+  selector: '[ntSuffix]',
 })
 export class SuffixDirective {}

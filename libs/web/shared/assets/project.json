@@ -2,7 +2,7 @@
   "name": "assets",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web/shared/assets/src",
-  "prefix": "n",
+  "prefix": "nt",
   "tags": ["web:assets"],
   "projectType": "library",
   "// targets": "to see all targets run: nx show project assets --web",

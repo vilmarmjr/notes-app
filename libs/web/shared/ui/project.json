@@ -2,7 +2,7 @@
   "name": "ui",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web/shared/ui/src",
-  "prefix": "n",
+  "prefix": "nt",
   "projectType": "library",
   "tags": ["web:ui"],
   "targets": {

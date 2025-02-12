@@ -2,7 +2,7 @@
   "name": "layout",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web/core/layout/src",
-  "prefix": "n",
+  "prefix": "nt",
   "projectType": "library",
   "tags": ["web:core"],
   "targets": {

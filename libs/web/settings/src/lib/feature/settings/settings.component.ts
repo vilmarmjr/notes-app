@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'n-settings',
+  selector: 'nt-settings',
   imports: [CommonModule],
   template: `
     <p>Settings works!</p>

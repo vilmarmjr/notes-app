@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'n-content',
+  selector: 'nt-content',
   imports: [CommonModule],
   template: `
     <div

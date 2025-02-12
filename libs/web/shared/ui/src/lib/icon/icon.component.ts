@@ -16,7 +16,7 @@ export type IconName = keyof typeof icons;
 const ONE_REM_IN_PIXELS = 16;
 
 @Component({
-  selector: 'n-icon',
+  selector: 'nt-icon',
   template: '',
   host: {
     '[innerHTML]': 'icon()',

@@ -4,7 +4,7 @@ import { ThemeService } from '@web/shared/ui';
 
 @Component({
   imports: [RouterModule],
-  selector: 'n-root',
+  selector: 'nt-root',
   template: `
     <router-outlet />
   `,

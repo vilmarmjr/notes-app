@@ -12,14 +12,14 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'n',
+          prefix: 'nt',
         },
       ],
       '@angular-eslint/component-selector': [
         'error',
         {
           type: 'element',
-          prefix: 'n',
+          prefix: 'nt',
           style: 'kebab-case',
         },
       ],

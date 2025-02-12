@@ -24,7 +24,7 @@ const inputVariants = cva('text-preset-5 w-full bg-transparent outline-none', {
 });
 
 @Directive({
-  selector: 'input[nInput]',
+  selector: 'input[ntInput]',
   host: {
     '[attr.id]': 'id',
     '[attr.disabled]': 'disabledAttr()',

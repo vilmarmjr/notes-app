@@ -18,7 +18,7 @@ const anchorVariants = cva(
 );
 
 @Component({
-  selector: 'n-bottom-nav',
+  selector: 'nt-bottom-nav',
   imports: [CommonModule, RouterLink, DividerComponent, IconComponent],
   template: `
     <nav class="shadow-sm">
@@ -28,13 +28,13 @@ const anchorVariants = cva(
         @for (item of items; track item.routerLink; let last = $last) {
           <li>
             <a [routerLink]="item.routerLink" [class]="item.class">
-              <n-icon size="24" [name]="item.icon" />
+              <nt-icon size="24" [name]="item.icon" />
               <span class="text-preset-6 hidden sm:inline">{{ item.label }}</span>
             </a>
           </li>
           @if (!last) {
             <div class="hidden sm:flex">
-              <n-divider direction="vertical" />
+              <nt-divider direction="vertical" />
             </div>
           }
         }

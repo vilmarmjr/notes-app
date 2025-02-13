@@ -1,27 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import {
-  FormFieldComponent,
-  HintDirective,
-  IconComponent,
-  InputDirective,
-  LabelDirective,
-  SuffixDirective,
-} from '@web/shared/ui';
+import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
 
 @Component({
   selector: 'nt-password-field',
-  imports: [
-    CommonModule,
-    FormFieldComponent,
-    IconComponent,
-    InputDirective,
-    LabelDirective,
-    RouterLink,
-    SuffixDirective,
-    HintDirective,
-  ],
+  imports: [CommonModule, IconComponent, RouterLink, FormFieldModule, InputDirective],
   template: `
     <nt-form-field>
       <div ntLabel class="flex justify-between">

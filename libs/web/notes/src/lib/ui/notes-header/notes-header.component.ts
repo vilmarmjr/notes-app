@@ -1,21 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {
-  FormFieldComponent,
-  IconComponent,
-  InputDirective,
-  PrefixDirective,
-} from '@web/shared/ui';
+import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
 
 @Component({
   selector: 'nt-notes-header',
-  imports: [
-    CommonModule,
-    FormFieldComponent,
-    InputDirective,
-    PrefixDirective,
-    IconComponent,
-  ],
+  imports: [CommonModule, FormFieldModule, InputDirective, IconComponent],
   template: `
     <header class="flex h-20 items-center justify-between px-8">
       <h1 class="text-preset-1 dark:text-base-white text-neutral-950">All notes</h1>

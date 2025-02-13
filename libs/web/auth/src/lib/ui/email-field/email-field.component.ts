@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormFieldComponent, InputDirective, LabelDirective } from '@web/shared/ui';
+import { FormFieldModule, InputDirective } from '@web/shared/ui';
 
 @Component({
   selector: 'nt-email-field',
-  imports: [CommonModule, FormFieldComponent, LabelDirective, InputDirective],
+  imports: [CommonModule, FormFieldModule, InputDirective],
   template: `
     <nt-form-field>
       <span ntLabel>Email address</span>

@@ -5,3 +5,4 @@
 - [ ] Add icon button component
 - [ ] Fix hover styles
 - [ ] Change NoteActionsComponent buttons to justify-start (need to use twMerge to merge classes)
+- [ ] Fix notes list overflow

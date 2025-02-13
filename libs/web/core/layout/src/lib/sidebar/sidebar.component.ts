@@ -8,9 +8,7 @@ import { SidebarItemComponent } from './sidebar-item.component';
   selector: 'nt-sidebar',
   imports: [CommonModule, LogoComponent, DividerComponent, SidebarItemComponent],
   template: `
-    <aside
-      class="flex h-full w-64 flex-col overflow-y-auto border-r border-neutral-200 px-4 py-5 dark:border-neutral-800"
-    >
+    <aside class="flex h-full w-64 flex-col overflow-y-auto px-4 py-5">
       <nt-logo class="mb-5" />
       <ul class="mb-2 flex flex-col gap-1">
         <nt-sidebar-item

@@ -17,9 +17,7 @@ import {
     IconComponent,
   ],
   template: `
-    <header
-      class="flex h-20 items-center justify-between border-b border-solid border-neutral-200 px-8 dark:border-neutral-800"
-    >
+    <header class="flex h-20 items-center justify-between px-8">
       <h1 class="text-preset-1 dark:text-base-white text-neutral-950">All notes</h1>
       <div class="flex items-center gap-4">
         <nt-form-field>

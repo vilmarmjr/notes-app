@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SidebarComponent } from '@web/core/layout';
 import { ButtonDirective, DividerComponent, IconComponent } from '@web/shared/ui';
+import { NoteActionsComponent } from '../../ui/notes-actions/note-actions.component';
 import { NotesHeaderComponent } from '../../ui/notes-header/notes-header.component';
 import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
 
@@ -15,6 +16,7 @@ import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
     IconComponent,
     NotesListComponent,
     DividerComponent,
+    NoteActionsComponent,
   ],
   template: `
     <div class="bg-base-white flex h-full w-full dark:bg-neutral-950">
@@ -32,6 +34,9 @@ import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
             <nt-notes-list />
           </div>
           <nt-divider direction="vertical" />
+          <div class="flex-1">Main content</div>
+          <nt-divider direction="vertical" />
+          <nt-note-actions />
         </div>
       </div>
     </div>

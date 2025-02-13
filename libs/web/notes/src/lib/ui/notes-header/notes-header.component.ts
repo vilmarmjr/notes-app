@@ -20,7 +20,7 @@ import {
     <header class="flex h-20 items-center justify-between px-8">
       <h1 class="text-preset-1 dark:text-base-white text-neutral-950">All notes</h1>
       <div class="flex items-center gap-4">
-        <nt-form-field>
+        <nt-form-field class="w-72">
           <nt-icon ntPrefix name="search" class="text-neutral-500" />
           <input ntInput placeholder="Search by title, content, or tags..." />
         </nt-form-field>

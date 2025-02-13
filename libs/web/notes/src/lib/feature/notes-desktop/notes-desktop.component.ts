@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SidebarComponent } from '@web/core/layout';
 import { ButtonDirective, DividerComponent, IconComponent } from '@web/shared/ui';
-import { NoteActionsComponent } from '../../ui/notes-actions/note-actions.component';
+import { NoteActionsComponent } from '../../ui/note-actions/note-actions.component';
 import { NotesHeaderComponent } from '../../ui/notes-header/notes-header.component';
 import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
 

@@ -16,15 +16,19 @@ import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
   ],
   template: `
     <div class="flex h-full flex-col">
-      <nt-header />
-      <nt-content>
-        <h1 class="text-preset-1 dark:text-base-white mb-4 text-neutral-950">
-          All Notes
-        </h1>
-        <nt-notes-list />
-        <nt-create-note-button class="fixed bottom-20 right-5 sm:bottom-28 sm:right-8" />
-      </nt-content>
-      <nt-bottom-nav class="sticky bottom-0" />
+      <div class="flex flex-1 flex-col overflow-y-auto">
+        <nt-header />
+        <nt-content class="flex-1">
+          <h1 class="text-preset-1 dark:text-base-white mb-4 text-neutral-950">
+            All Notes
+          </h1>
+          <nt-notes-list />
+          <nt-create-note-button
+            class="fixed bottom-20 right-5 sm:bottom-28 sm:right-8"
+          />
+        </nt-content>
+      </div>
+      <nt-bottom-nav />
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

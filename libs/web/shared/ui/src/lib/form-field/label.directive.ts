@@ -1,9 +1,15 @@
-import { Directive } from '@angular/core';
+import { computed, Directive, input } from '@angular/core';
+import { ntMerge } from '@web/shared/utils';
 
 @Directive({
   selector: '[ntLabel]',
   host: {
-    class: 'text-neutral-950 text-preset-4 dark:text-base-white',
+    '[class]': 'computedClass()',
   },
 })
-export class LabelDirective {}
+export class LabelDirective {
+  public userClass = input<string>('', { alias: 'class' });
+  protected computedClass = computed(() =>
+    ntMerge('text-neutral-950 text-preset-4 dark:text-base-white', this.userClass()),
+  );
+}

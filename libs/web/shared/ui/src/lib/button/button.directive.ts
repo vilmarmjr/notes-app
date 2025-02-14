@@ -1,4 +1,5 @@
 import { computed, Directive, input } from '@angular/core';
+import { ntMerge } from '@web/shared/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const buttonVariants = cva(
@@ -29,5 +30,8 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
 })
 export class ButtonDirective {
   public variant = input<ButtonVariants['variant']>('primary');
-  protected computedClass = computed(() => buttonVariants({ variant: this.variant() }));
+  public userClass = input<string>('', { alias: 'class' });
+  protected computedClass = computed(() =>
+    ntMerge(buttonVariants({ variant: this.variant() }), this.userClass()),
+  );
 }

@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl, TouchedChangeEvent } from '@angular/forms';
+import { ntMerge } from '@web/shared/utils';
 import { cva } from 'class-variance-authority';
 import { combineLatest, filter, map, startWith } from 'rxjs';
 import { generateInputId } from './generate-input-id';
@@ -33,15 +34,18 @@ const inputVariants = cva('text-preset-5 w-full bg-transparent outline-none', {
 })
 export class InputDirective implements OnInit {
   protected disabledAttr = computed(() => this.disabled() || null);
-  protected computedClass = computed(() => inputVariants({ disabled: this.disabled() }));
+  protected computedClass = computed(() =>
+    ntMerge(inputVariants({ disabled: this.disabled() }), this.userClass()),
+  );
 
   private _hasError = signal(false);
   private _ngControl = inject(NgControl, { optional: true, self: true });
   private _destroyRef = inject(DestroyRef);
 
-  public readonly disabled = input(false);
-  public readonly id = generateInputId();
-  public readonly hasError = this._hasError.asReadonly();
+  public disabled = input(false);
+  public userClass = input<string>('', { alias: 'class' });
+  public id = generateInputId();
+  public hasError = this._hasError.asReadonly();
 
   ngOnInit(): void {
     const control = this._ngControl?.control;

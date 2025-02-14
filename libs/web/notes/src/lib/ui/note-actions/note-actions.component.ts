@@ -7,11 +7,11 @@ import { ButtonDirective, IconComponent } from '@web/shared/ui';
   imports: [CommonModule, ButtonDirective, IconComponent],
   template: `
     <div class="flex w-64 flex-col gap-3 px-4 py-5">
-      <button ntButton variant="border">
+      <button ntButton variant="border" class="justify-start">
         <nt-icon name="archive" />
         Archive note
       </button>
-      <button ntButton variant="border">
+      <button ntButton variant="border" class="justify-start">
         <nt-icon name="delete" />
         Delete note
       </button>

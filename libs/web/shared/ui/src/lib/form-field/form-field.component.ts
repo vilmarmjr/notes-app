@@ -5,7 +5,9 @@ import {
   computed,
   contentChild,
   effect,
+  input,
 } from '@angular/core';
+import { ntMerge } from '@web/shared/utils';
 import { cva } from 'class-variance-authority';
 import { InputDirective } from '../input/input.directive';
 import { ErrorDirective } from './error.directive';
@@ -35,7 +37,7 @@ const inputContainerVariants = cva(
   selector: 'nt-form-field',
   imports: [CommonModule],
   host: {
-    class: 'flex flex-col gap-2',
+    '[class]': 'computedClass()',
   },
   template: `
     <label [attr.for]="input().id" class="flex flex-col gap-2">
@@ -72,6 +74,10 @@ export class FormFieldComponent {
       disabled: this.input().disabled(),
       error: this.input().hasError(),
     }),
+  );
+  public userClass = input<string>('', { alias: 'class' });
+  protected computedClass = computed(() =>
+    ntMerge('flex flex-col gap-2', this.userClass()),
   );
 
   constructor() {

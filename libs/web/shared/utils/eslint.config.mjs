@@ -13,6 +13,7 @@ export default [
         {
           type: 'attribute',
           prefix: 'nt',
+          style: 'camelCase',
         },
       ],
       '@angular-eslint/component-selector': [
@@ -23,7 +24,6 @@ export default [
           style: 'kebab-case',
         },
       ],
-      '@angular-eslint/no-input-rename': 'off',
     },
   },
   {

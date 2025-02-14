@@ -20,6 +20,7 @@ export default [
               sourceTag: 'webapp',
               onlyDependOnLibsWithTags: [
                 'web:ui',
+                'web:utils',
                 'web:core',
                 'web:assets',
                 'web:auth',
@@ -29,19 +30,23 @@ export default [
             },
             {
               sourceTag: 'web:auth',
-              onlyDependOnLibsWithTags: ['web:ui', 'web:core'],
+              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:core'],
             },
             {
               sourceTag: 'web:notes',
-              onlyDependOnLibsWithTags: ['web:ui', 'web:core'],
+              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:core'],
             },
             {
               sourceTag: 'web:settings',
-              onlyDependOnLibsWithTags: ['web:ui', 'web:core'],
+              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:core'],
             },
             {
               sourceTag: 'web:core',
-              onlyDependOnLibsWithTags: ['web:ui'],
+              onlyDependOnLibsWithTags: ['web:ui', 'web:utils'],
+            },
+            {
+              sourceTag: 'web:ui',
+              onlyDependOnLibsWithTags: ['web:utils'],
             },
           ],
         },

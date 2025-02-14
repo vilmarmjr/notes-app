@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ntMerge } from '@web/shared/utils';
 import { cva, VariantProps } from 'class-variance-authority';
 
 export const dividerVariants = cva('block bg-neutral-200 dark:bg-neutral-800', {
@@ -22,7 +23,8 @@ export type DividerVariants = VariantProps<typeof dividerVariants>;
 })
 export class DividerComponent {
   public direction = input<DividerVariants['direction']>('horizontal');
+  public userClass = input<string>('', { alias: 'class' });
   protected computedClass = computed(() =>
-    dividerVariants({ direction: this.direction() }),
+    ntMerge(dividerVariants({ direction: this.direction() }), this.userClass()),
   );
 }

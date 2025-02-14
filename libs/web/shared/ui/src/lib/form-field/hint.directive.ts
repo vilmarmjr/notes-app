@@ -1,4 +1,5 @@
-import { computed, Directive, signal } from '@angular/core';
+import { computed, Directive, input, signal } from '@angular/core';
+import { ntMerge } from '@web/shared/utils';
 import { cva } from 'class-variance-authority';
 
 const hintVariants = cva('text-preset-6', {
@@ -17,8 +18,11 @@ const hintVariants = cva('text-preset-6', {
   },
 })
 export class HintDirective {
+  public userClass = input<string>('', { alias: 'class' });
+  protected computedClass = computed(() =>
+    ntMerge(hintVariants({ disabled: this._disabled() }), this.userClass()),
+  );
   private _disabled = signal(false);
-  protected computedClass = computed(() => hintVariants({ disabled: this._disabled() }));
 
   setDisabledState(isDisabled: boolean) {
     this._disabled.set(isDisabled);

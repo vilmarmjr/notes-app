@@ -42,14 +42,10 @@ const iconVariants = cva('', {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarItemComponent {
-  public readonly link = input.required<string>();
-  public readonly icon = input.required<IconName>();
-  public readonly label = input.required<string>();
-  public readonly isSelected = input(false);
-  protected readonly linkClass = computed(() =>
-    linkVariants({ isSelected: this.isSelected() }),
-  );
-  protected readonly iconClass = computed(() =>
-    iconVariants({ isSelected: this.isSelected() }),
-  );
+  public link = input.required<string>();
+  public icon = input.required<IconName>();
+  public label = input.required<string>();
+  public isSelected = input(false);
+  protected linkClass = computed(() => linkVariants({ isSelected: this.isSelected() }));
+  protected iconClass = computed(() => iconVariants({ isSelected: this.isSelected() }));
 }

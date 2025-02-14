@@ -22,10 +22,10 @@ import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
     <div class="bg-base-white flex h-full w-full dark:bg-neutral-950">
       <nt-sidebar />
       <nt-divider direction="vertical" />
-      <div class="flex flex-1 flex-col">
+      <div class="flex h-full flex-1 flex-col">
         <nt-notes-header />
         <nt-divider />
-        <div class="flex h-full">
+        <div class="flex min-h-0 flex-1">
           <div class="flex w-72 flex-col overflow-y-auto px-4 py-5">
             <button ntButton class="mb-4">
               <nt-icon name="plus" />

@@ -17,14 +17,14 @@ import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
   template: `
     <div class="flex h-full flex-col">
       <nt-header />
-      <nt-content class="relative flex-1">
+      <nt-content>
         <h1 class="text-preset-1 dark:text-base-white mb-4 text-neutral-950">
           All Notes
         </h1>
         <nt-notes-list />
-        <nt-create-note-button class="absolute bottom-4 right-4 sm:bottom-8 sm:right-8" />
+        <nt-create-note-button class="fixed bottom-20 right-5 sm:bottom-28 sm:right-8" />
       </nt-content>
-      <nt-bottom-nav />
+      <nt-bottom-nav class="sticky bottom-0" />
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

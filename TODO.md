@@ -4,4 +4,5 @@
 - [ ] Add i18n?
 - [ ] Add icon button component
 - [ ] Fix hover styles
-- [ ] Fix notes list overflow
+- [ ] Fix auth pages mobile paddings
+- [ ] Create UI components for auth pages

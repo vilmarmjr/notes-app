@@ -9,12 +9,13 @@ import {
   IconComponent,
 } from '@web/shared/ui';
 import { map } from 'rxjs';
+import { NotesPageType } from '../../types/notes-page-type';
 import { CreateNoteButtonComponent } from '../../ui/create-note-button/create-note-button.component';
 import { NotesHeaderComponent } from '../../ui/notes-header/notes-header.component';
+import { NotesListHintComponent } from '../../ui/notes-list-hint/notes-list-hint.component';
 import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
+import { NotesTitleComponent } from '../../ui/notes-title/notes-title.component';
 import { NoteEditorComponent } from '../note-editor/note-editor.component';
-
-export type NotesType = 'all' | 'archived' | 'search' | 'tags';
 
 @Component({
   selector: 'nt-notes',
@@ -27,32 +28,13 @@ export type NotesType = 'all' | 'archived' | 'search' | 'tags';
     IconComponent,
     ButtonDirective,
     NoteEditorComponent,
+    NotesTitleComponent,
+    NotesListHintComponent,
   ],
   template: `
     @if (lg()) {
       <div class="flex h-full flex-col">
-        <nt-notes-header>
-          <ng-container notesHeaderTitle>
-            @switch (type()) {
-              @case ('all') {
-                All notes
-              }
-              @case ('archived') {
-                Archived notes
-              }
-              @case ('tags') {
-                <span class="text-neutral-600 dark:text-neutral-300">Notes tagged:</span>
-                Dev
-              }
-              @case ('search') {
-                <span class="text-neutral-600 dark:text-neutral-300">
-                  Showing results for:
-                </span>
-                Dev
-              }
-            }
-          </ng-container>
-        </nt-notes-header>
+        <nt-notes-header [type]="type()" [tag]="tag()" [query]="query()" />
         <nt-divider />
         <div class="flex min-h-0 flex-1">
           <div class="flex w-72 flex-col overflow-y-auto px-4 py-5">
@@ -60,6 +42,14 @@ export type NotesType = 'all' | 'archived' | 'search' | 'tags';
               <nt-icon name="plus" />
               Create new note
             </button>
+            @if (type() !== 'search' && type() !== 'all') {
+              <nt-notes-list-hint
+                class="mb-4 block"
+                [type]="type()"
+                [tag]="tag()"
+                [query]="query()"
+              />
+            }
             <nt-notes-list />
           </div>
           <nt-divider direction="vertical" />
@@ -67,7 +57,20 @@ export type NotesType = 'all' | 'archived' | 'search' | 'tags';
         </div>
       </div>
     } @else {
-      <h1 class="text-preset-1 dark:text-base-white mb-4 text-neutral-950">All Notes</h1>
+      <nt-notes-title
+        class="mb-4 block"
+        [type]="type()"
+        [tag]="tag()"
+        [query]="query()"
+      />
+      @if (type() !== 'all') {
+        <nt-notes-list-hint
+          class="mb-4 block"
+          [type]="type()"
+          [tag]="tag()"
+          [query]="query()"
+        />
+      }
       <nt-notes-list />
       <nt-create-note-button class="fixed bottom-20 right-5 sm:bottom-28 sm:right-8" />
     }
@@ -78,6 +81,15 @@ export class NotesComponent {
   private _activatedRoute = inject(ActivatedRoute);
   protected lg = inject(BreakpointService).lg;
   protected type = toSignal(
-    this._activatedRoute.data.pipe(map<Data, NotesType>(data => data['type'])),
+    this._activatedRoute.data.pipe(map<Data, NotesPageType>(data => data['type'])),
+    { requireSync: true },
+  );
+  protected tag = toSignal(
+    this._activatedRoute.paramMap.pipe(map(params => params.get('tag'))),
+    { requireSync: true },
+  );
+  protected query = toSignal(
+    this._activatedRoute.queryParamMap.pipe(map(params => params.get('query'))),
+    { requireSync: true },
   );
 }

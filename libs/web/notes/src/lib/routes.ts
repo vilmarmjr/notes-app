@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { ShellComponent } from '@web/core/layout';
-import { NotesType } from './feature/notes/notes.component';
+import { NotesPageType } from './types/notes-page-type';
 
 export const notesRoutes: Route[] = [
   {
@@ -14,7 +14,7 @@ export const notesRoutes: Route[] = [
           import('./feature/notes-shell/notes-shell.component').then(
             c => c.NotesShellComponent,
           ),
-        data: { type: 'all' satisfies NotesType },
+        data: { type: 'all' satisfies NotesPageType },
       },
       {
         path: 'archived',
@@ -22,7 +22,7 @@ export const notesRoutes: Route[] = [
           import('./feature/notes-shell/notes-shell.component').then(
             c => c.NotesShellComponent,
           ),
-        data: { type: 'archived' satisfies NotesType },
+        data: { type: 'archived' satisfies NotesPageType },
       },
       {
         path: 'search',
@@ -30,7 +30,7 @@ export const notesRoutes: Route[] = [
           import('./feature/notes-shell/notes-shell.component').then(
             c => c.NotesShellComponent,
           ),
-        data: { type: 'search' satisfies NotesType },
+        data: { type: 'search' satisfies NotesPageType },
       },
       {
         path: 'tags',
@@ -38,7 +38,7 @@ export const notesRoutes: Route[] = [
           import('./feature/notes-shell/notes-shell.component').then(
             c => c.NotesShellComponent,
           ),
-        data: { type: 'tags' satisfies NotesType },
+        data: { type: 'tags' satisfies NotesPageType },
       },
       {
         path: 'tags/:tag',

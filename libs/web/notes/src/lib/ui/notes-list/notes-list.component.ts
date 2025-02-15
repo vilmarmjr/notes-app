@@ -80,17 +80,5 @@ export class NotesListComponent {
       date: '12 Oct 2024',
       class: linkVariants({ selected: false }),
     },
-    {
-      title: 'Reading List',
-      tags: ['Personal', 'Dev'],
-      date: '05 Oct 2024',
-      class: linkVariants({ selected: false }),
-    },
-    {
-      title: 'Fitness Goals 2023',
-      tags: ['Fitness', 'Health', 'Personal'],
-      date: '22 Sep 2024',
-      class: linkVariants({ selected: false }),
-    },
   ];
 }

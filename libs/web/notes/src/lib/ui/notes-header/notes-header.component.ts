@@ -1,15 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
+import { NotesPageType } from '../../types/notes-page-type';
+import { NotesTitleComponent } from '../notes-title/notes-title.component';
 
 @Component({
   selector: 'nt-notes-header',
-  imports: [CommonModule, FormFieldModule, InputDirective, IconComponent],
+  imports: [
+    CommonModule,
+    FormFieldModule,
+    InputDirective,
+    IconComponent,
+    NotesTitleComponent,
+  ],
   template: `
     <header class="flex h-20 items-center justify-between px-8">
-      <h1 class="text-preset-1 dark:text-base-white text-neutral-950">
-        <ng-content select="[notesHeaderTitle]">Notes</ng-content>
-      </h1>
+      <nt-notes-title [type]="type()" [tag]="tag()" [query]="query()" />
       <div class="flex items-center gap-4">
         <nt-form-field class="w-72">
           <nt-icon ntPrefix name="search" class="text-neutral-500" />
@@ -25,4 +31,8 @@ import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotesHeaderComponent {}
+export class NotesHeaderComponent {
+  public type = input.required<NotesPageType>();
+  public tag = input.required<string | null>();
+  public query = input.required<string | null>();
+}

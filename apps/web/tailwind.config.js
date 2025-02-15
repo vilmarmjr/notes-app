@@ -52,7 +52,7 @@ module.exports = {
       ],
       'preset-5': [
         '0.875rem',
-        { fontWeight: '400', letterSpacing: '-0.2px', lineHeight: '120%' },
+        { fontWeight: '400', letterSpacing: '-0.2px', lineHeight: '130%' },
       ],
       'preset-6': [
         '0.75rem',

@@ -11,19 +11,14 @@ import { SidebarItemComponent } from './sidebar-item.component';
     <aside class="flex h-full w-64 flex-col overflow-y-auto px-4 py-5">
       <nt-logo class="mb-5" />
       <ul class="mb-2 flex flex-col gap-1">
-        <nt-sidebar-item
-          link="/notes"
-          icon="home"
-          label="All notes"
-          [isSelected]="true"
-        />
-        <nt-sidebar-item link="/notes" icon="archive" label="Archived notes" />
+        <nt-sidebar-item link="/notes/all" icon="home" label="All notes" />
+        <nt-sidebar-item link="/notes/archived" icon="archive" label="Archived notes" />
       </ul>
       <nt-divider />
       <h3 class="text-preset-4 mb-2 mt-3 px-2 text-neutral-500">Tags</h3>
       <ul class="flex flex-col gap-1">
         @for (tag of tags; track tag) {
-          <nt-sidebar-item link="/tags" icon="tag" [label]="tag" />
+          <nt-sidebar-item icon="tag" [link]="'/notes/tags/' + tag" [label]="tag" />
         }
       </ul>
     </aside>

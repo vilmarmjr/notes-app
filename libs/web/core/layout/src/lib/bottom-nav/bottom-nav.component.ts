@@ -1,25 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { DividerComponent, IconComponent, IconName } from '@web/shared/ui';
-import { cva } from 'class-variance-authority';
-
-const anchorVariants = cva(
-  'flex flex-col items-center gap-1 rounded-md px-4 py-1 transition-colors',
-  {
-    variants: {
-      selected: {
-        false:
-          'text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-50 dark:hover:text-neutral-600',
-        true: 'bg-blue-50 text-blue-500 hover:bg-neutral-200',
-      },
-    },
-  },
-);
 
 @Component({
   selector: 'nt-bottom-nav',
-  imports: [CommonModule, RouterLink, DividerComponent, IconComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive, DividerComponent, IconComponent],
   template: `
     <nav class="shadow-sm">
       <ul
@@ -27,7 +13,11 @@ const anchorVariants = cva(
       >
         @for (item of items; track item.routerLink; let last = $last) {
           <li>
-            <a [routerLink]="item.routerLink" [class]="item.class">
+            <a
+              [routerLink]="item.routerLink"
+              class="flex flex-col items-center gap-1 rounded-md px-4 py-1 text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-50 dark:hover:text-neutral-600"
+              routerLinkActive="!bg-blue-50 !text-blue-500 !hover:bg-neutral-200"
+            >
               <nt-icon size="24" [name]="item.icon" />
               <span class="text-preset-6 hidden sm:inline">{{ item.label }}</span>
             </a>
@@ -48,37 +38,31 @@ export class BottomNavComponent {
     {
       label: 'Home',
       icon: 'home',
-      routerLink: '/notes',
-      class: anchorVariants({ selected: true }),
+      routerLink: '/notes/all',
     },
     {
       label: 'Search',
       icon: 'search',
-      routerLink: '/search',
-      class: anchorVariants({ selected: false }),
+      routerLink: '/notes/search',
     },
     {
       label: 'Archived',
       icon: 'archive',
-      routerLink: '/archived',
-      class: anchorVariants({ selected: false }),
+      routerLink: '/notes/archived',
     },
     {
       label: 'Tags',
       icon: 'tag',
-      routerLink: '/tags',
-      class: anchorVariants({ selected: false }),
+      routerLink: '/notes/tags',
     },
     {
       label: 'Settings',
       icon: 'settings',
       routerLink: '/settings',
-      class: anchorVariants({ selected: false }),
     },
   ] satisfies Array<{
     label: string;
     routerLink: string;
     icon: IconName;
-    class: string;
   }>;
 }

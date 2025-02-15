@@ -1,39 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IconComponent, IconName } from '@web/shared/ui';
-import { cva } from 'class-variance-authority';
-
-const linkVariants = cva(
-  'flex h-10 items-center gap-2 rounded-lg px-3 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800',
-  {
-    variants: {
-      isSelected: {
-        true: 'bg-neutral-100 text-neutral-950 dark:bg-neutral-800',
-        false: 'text-neutral-700 dark:text-neutral-200',
-      },
-    },
-  },
-);
-
-const iconVariants = cva('', {
-  variants: {
-    isSelected: {
-      true: 'text-blue-500',
-      false: '',
-    },
-  },
-});
 
 @Component({
   selector: 'nt-sidebar-item',
-  imports: [CommonModule, IconComponent, RouterLink],
+  imports: [CommonModule, IconComponent, RouterLink, RouterLinkActive],
   template: `
     <li>
-      <a [routerLink]="link()" [class]="linkClass()">
-        <nt-icon [name]="icon()" [class]="iconClass()" />
+      <a
+        #rla="routerLinkActive"
+        class="flex h-10 items-center gap-2 rounded-lg px-3 text-neutral-700 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
+        routerLinkActive="!bg-neutral-100 !text-neutral-950 !dark:bg-neutral-800"
+        [routerLink]="link()"
+      >
+        <nt-icon [name]="icon()" [class]="rla.isActive ? 'text-blue-500' : ''" />
         <span class="text-preset-4">{{ label() }}</span>
-        @if (isSelected()) {
+        @if (rla.isActive) {
           <nt-icon name="chevronRight" size="24" class="ml-auto" />
         }
       </a>
@@ -45,7 +28,4 @@ export class SidebarItemComponent {
   public link = input.required<string>();
   public icon = input.required<IconName>();
   public label = input.required<string>();
-  public isSelected = input(false);
-  protected linkClass = computed(() => linkVariants({ isSelected: this.isSelected() }));
-  protected iconClass = computed(() => iconVariants({ isSelected: this.isSelected() }));
 }

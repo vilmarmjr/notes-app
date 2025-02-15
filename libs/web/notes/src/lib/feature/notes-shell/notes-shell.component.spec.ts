@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoteShellComponent } from './note-shell.component';
+import { NotesShellComponent } from './notes-shell.component';
 
-describe('NoteShellComponent', () => {
-  let component: NoteShellComponent;
-  let fixture: ComponentFixture<NoteShellComponent>;
+describe('NotesShellComponent', () => {
+  let component: NotesShellComponent;
+  let fixture: ComponentFixture<NotesShellComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NoteShellComponent],
+      imports: [NotesShellComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NoteShellComponent);
+    fixture = TestBed.createComponent(NotesShellComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

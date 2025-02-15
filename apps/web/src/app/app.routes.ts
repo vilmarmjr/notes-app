@@ -19,14 +19,27 @@ export const appRoutes: Route[] = [
     path: '',
     component: ShellComponent,
     children: [
-      { path: '', redirectTo: 'notes', pathMatch: 'full' },
+      { path: '', redirectTo: 'notes/all', pathMatch: 'full' },
+      { path: 'notes', redirectTo: 'notes/all', pathMatch: 'full' },
       {
-        path: 'notes',
-        loadComponent: () => import('@web/notes').then(c => c.NotesComponent),
+        path: 'notes/all',
+        loadComponent: () => import('@web/notes').then(c => c.NotesShellComponent),
       },
       {
-        path: 'notes/:id',
-        loadComponent: () => import('@web/notes').then(c => c.NoteShellComponent),
+        path: 'notes/archived',
+        loadComponent: () => import('@web/notes').then(c => c.NotesShellComponent),
+      },
+      {
+        path: 'notes/search',
+        loadComponent: () => import('@web/notes').then(c => c.NotesShellComponent),
+      },
+      {
+        path: 'notes/tags',
+        loadComponent: () => import('@web/notes').then(c => c.NotesShellComponent),
+      },
+      {
+        path: 'notes/tags/:tag',
+        loadComponent: () => import('@web/notes').then(c => c.NotesShellComponent),
       },
     ],
   },

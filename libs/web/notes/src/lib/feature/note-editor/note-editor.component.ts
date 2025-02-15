@@ -42,7 +42,7 @@ const noteContent = `Key performance optimization techniques:
         <nt-divider />
         <textarea
           [value]="noteContent()"
-          class="bg-base-white h-full w-full resize-none text-neutral-800 dark:bg-neutral-950 dark:text-neutral-100"
+          class="bg-base-white h-full w-full resize-none text-neutral-800 outline-0 dark:bg-neutral-950 dark:text-neutral-100"
         ></textarea>
         @if (lg()) {
           <nt-divider />

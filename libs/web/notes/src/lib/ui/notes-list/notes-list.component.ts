@@ -1,28 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { DividerComponent } from '@web/shared/ui';
-import { cva } from 'class-variance-authority';
-
-const linkVariants = cva(
-  'flex flex-col gap-3 rounded-md p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800',
-  {
-    variants: {
-      selected: {
-        true: 'bg-neutral-100 dark:bg-neutral-800',
-      },
-    },
-  },
-);
 
 @Component({
   selector: 'nt-notes-list',
-  imports: [CommonModule, DividerComponent, RouterLink],
+  imports: [CommonModule, DividerComponent, RouterLink, RouterLinkActive],
   template: `
     <ul class="flex flex-col gap-1">
-      @for (item of items; track $index; let index = $index; let last = $last) {
+      @for (item of items; track item.id; let last = $last) {
         <li>
-          <a [class]="item.class" [routerLink]="['/notes', index]">
+          <a
+            class="flex flex-col gap-3 rounded-md p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+            routerLinkActive="!bg-neutral-100 dark:!bg-neutral-800"
+            [routerLink]="['.']"
+            [queryParams]="{ note: item.id }"
+          >
             <h2 class="text-preset-3 dark:text-base-white text-neutral-950">
               {{ item.title }}
             </h2>
@@ -51,34 +44,34 @@ const linkVariants = cva(
 export class NotesListComponent {
   items = [
     {
+      id: '1',
       title: 'React Performance Optimization',
       tags: ['Dev', 'React'],
       date: '29 Oct 2024',
-      class: linkVariants({ selected: true }),
     },
     {
+      id: '2',
       title: 'Japan Travel Planning',
       tags: ['Travel', 'Personal'],
       date: '28 Oct 2024',
-      class: linkVariants({ selected: false }),
     },
     {
+      id: '3',
       title: 'Favorite Pasta Recipes',
       tags: ['Cooking', 'Recipes'],
       date: '27 Oct 2024',
-      class: linkVariants({ selected: false }),
     },
     {
+      id: '4',
       title: 'Weekly Workout Plan',
       tags: ['Dev', 'React'],
       date: '25 Oct 2024',
-      class: linkVariants({ selected: false }),
     },
     {
+      id: '5',
       title: 'Meal Prep Ideas',
       tags: ['Cooking', 'Health', 'Recipes'],
       date: '12 Oct 2024',
-      class: linkVariants({ selected: false }),
     },
   ];
 }

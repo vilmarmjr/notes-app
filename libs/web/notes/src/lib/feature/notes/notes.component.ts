@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Data } from '@angular/router';
 import {
   BreakpointService,
   ButtonDirective,
@@ -13,6 +13,8 @@ import { CreateNoteButtonComponent } from '../../ui/create-note-button/create-no
 import { NotesHeaderComponent } from '../../ui/notes-header/notes-header.component';
 import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
 import { NoteEditorComponent } from '../note-editor/note-editor.component';
+
+export type NotesType = 'all' | 'archived' | 'search' | 'tags';
 
 @Component({
   selector: 'nt-notes',
@@ -75,5 +77,7 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
 export class NotesComponent {
   private _activatedRoute = inject(ActivatedRoute);
   protected lg = inject(BreakpointService).lg;
-  protected type = toSignal(this._activatedRoute.data.pipe(map(data => data['type'])));
+  protected type = toSignal(
+    this._activatedRoute.data.pipe(map<Data, NotesType>(data => data['type'])),
+  );
 }

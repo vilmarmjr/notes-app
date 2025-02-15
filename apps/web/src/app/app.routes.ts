@@ -1,18 +1,33 @@
 import { Route } from '@angular/router';
-import {
-  ForgotPasswordComponent,
-  LoginComponent,
-  ResetPasswordComponent,
-  SignupComponent,
-} from '@web/auth';
-import { NotesComponent, NotesDesktopComponent } from '@web/notes';
+import { ShellComponent } from '@web/core/layout';
 
 export const appRoutes: Route[] = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'notes', component: NotesComponent },
-  { path: 'notes-desktop', component: NotesDesktopComponent },
+  { path: 'login', loadComponent: () => import('@web/auth').then(c => c.LoginComponent) },
+  {
+    path: 'signup',
+    loadComponent: () => import('@web/auth').then(c => c.SignupComponent),
+  },
+  {
+    path: 'forgot-password',
+    loadComponent: () => import('@web/auth').then(c => c.ForgotPasswordComponent),
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () => import('@web/auth').then(c => c.ResetPasswordComponent),
+  },
+  {
+    path: '',
+    component: ShellComponent,
+    children: [
+      { path: '', redirectTo: 'notes', pathMatch: 'full' },
+      {
+        path: 'notes',
+        loadComponent: () => import('@web/notes').then(c => c.NotesComponent),
+      },
+    ],
+  },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];

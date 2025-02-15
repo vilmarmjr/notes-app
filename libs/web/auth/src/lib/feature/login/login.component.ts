@@ -42,7 +42,7 @@ import { PasswordFieldComponent } from '../../ui/password-field/password-field.c
       <p class="text-preset-5">
         No account yet?
         <a
-          class="dark:text-base-white text-neutral-950 hover:underline"
+          class="dark:text-base-white text-neutral-950 hover:text-blue-500"
           routerLink="/signup"
         >
           Sign up

@@ -12,7 +12,7 @@ import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
         <span>{{ label() }}</span>
         @if (showForgotLink()) {
           <a
-            class="text-preset-6 text-neutral-600 underline dark:text-neutral-400"
+            class="text-preset-6 text-neutral-600 underline hover:text-blue-500 dark:text-neutral-400"
             routerLink="/forgot-password"
           >
             Forgot

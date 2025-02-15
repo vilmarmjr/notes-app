@@ -16,7 +16,7 @@ import { DividerComponent, IconComponent, IconName } from '@web/shared/ui';
             <a
               [routerLink]="item.routerLink"
               class="flex flex-col items-center gap-1 rounded-md px-4 py-1 text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-50 dark:hover:text-neutral-600"
-              routerLinkActive="!bg-blue-50 !text-blue-500 !hover:bg-neutral-200"
+              routerLinkActive="!bg-blue-50 !text-blue-500 hover:!bg-neutral-200"
             >
               <nt-icon size="24" [name]="item.icon" />
               <span class="text-preset-6 hidden sm:inline">{{ item.label }}</span>

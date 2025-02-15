@@ -11,7 +11,7 @@ import { IconComponent, IconName } from '@web/shared/ui';
       <a
         #rla="routerLinkActive"
         class="flex h-10 items-center gap-2 rounded-lg px-3 text-neutral-700 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
-        routerLinkActive="!bg-neutral-100 !text-neutral-950 !dark:bg-neutral-800"
+        routerLinkActive="!bg-neutral-100 !text-neutral-950 dark:!bg-neutral-800 dark:!text-base-white"
         [routerLink]="link()"
       >
         <nt-icon [name]="icon()" [class]="rla.isActive ? 'text-blue-500' : ''" />

@@ -1,13 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import {
-  BreakpointService,
-  ButtonDirective,
-  DividerComponent,
-  IconComponent,
-  IconName,
-} from '@web/shared/ui';
-import { NoteActionsComponent } from '../../ui/note-actions/note-actions.component';
+import { BreakpointService, DividerComponent } from '@web/shared/ui';
+import { NoteAsideActionsComponent } from '../../ui/note-aside-actions/note-aside-actions.component';
+import { NoteBottomActionsComponent } from '../../ui/note-bottom-actions/note-bottom-actions.component';
+import { NoteDetailsTableComponent } from '../../ui/note-details-table/note-details-table.component';
 
 const noteContent = `Key performance optimization techniques:
 
@@ -26,9 +22,9 @@ const noteContent = `Key performance optimization techniques:
   imports: [
     CommonModule,
     DividerComponent,
-    NoteActionsComponent,
-    IconComponent,
-    ButtonDirective,
+    NoteAsideActionsComponent,
+    NoteBottomActionsComponent,
+    NoteDetailsTableComponent,
   ],
   template: `
     <div class="flex h-full min-h-0 w-full">
@@ -36,19 +32,7 @@ const noteContent = `Key performance optimization techniques:
         <h1 class="text-preset-1 dark:text-base-white text-neutral-950">
           React Performance Optimization
         </h1>
-        <table class="text-preset-5 flex flex-col gap-4">
-          @for (detail of details; track detail.label) {
-            <tr class="flex items-center">
-              <td
-                class="flex w-32 items-center gap-2 text-neutral-700 dark:text-neutral-300"
-              >
-                <nt-icon [name]="detail.icon" size="16" />
-                <span>{{ detail.label }}</span>
-              </td>
-              <td class="dark:text-base-white text-neutral-950">{{ detail.value }}</td>
-            </tr>
-          }
-        </table>
+        <nt-note-details-table />
         <nt-divider />
         <textarea
           [value]="noteContent()"
@@ -56,15 +40,12 @@ const noteContent = `Key performance optimization techniques:
         ></textarea>
         @if (lg()) {
           <nt-divider />
-          <div class="flex gap-4">
-            <button ntButton>Save note</button>
-            <button ntButton variant="secondary">Cancel</button>
-          </div>
+          <nt-note-bottom-actions />
         }
       </div>
       @if (lg()) {
         <nt-divider direction="vertical" />
-        <nt-note-actions />
+        <nt-note-aside-actions />
       }
     </div>
   `,
@@ -73,11 +54,5 @@ const noteContent = `Key performance optimization techniques:
 export class NoteEditorComponent {
   private breakpointService = inject(BreakpointService);
   protected lg = this.breakpointService.lg;
-
-  protected details = [
-    { icon: 'tag', label: 'Tags', value: 'Dev, React' },
-    { icon: 'clock', label: 'Last edited', value: '29 Oct 2024' },
-  ] satisfies Array<{ icon: IconName; label: string; value: string }>;
-
   protected noteContent = signal(noteContent);
 }

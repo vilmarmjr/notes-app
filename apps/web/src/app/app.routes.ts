@@ -24,6 +24,10 @@ export const appRoutes: Route[] = [
         path: 'notes',
         loadComponent: () => import('@web/notes').then(c => c.NotesComponent),
       },
+      {
+        path: 'notes/:id',
+        loadComponent: () => import('@web/notes').then(c => c.NoteShellComponent),
+      },
     ],
   },
   {

@@ -32,7 +32,7 @@ const noteContent = `Key performance optimization techniques:
   ],
   template: `
     <div class="flex h-full min-h-0 w-full">
-      <div class="flex flex-1 flex-col gap-4 px-6 py-5">
+      <div class="flex flex-1 flex-col gap-4 lg:px-6 lg:py-5">
         <h1 class="text-preset-1 dark:text-base-white text-neutral-950">
           React Performance Optimization
         </h1>
@@ -62,8 +62,8 @@ const noteContent = `Key performance optimization techniques:
           </div>
         }
       </div>
-      <nt-divider direction="vertical" />
       @if (lg()) {
+        <nt-divider direction="vertical" />
         <nt-note-actions />
       }
     </div>

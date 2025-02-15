@@ -7,9 +7,9 @@ import {
   IconComponent,
 } from '@web/shared/ui';
 import { CreateNoteButtonComponent } from '../../ui/create-note-button/create-note-button.component';
-import { NoteActionsComponent } from '../../ui/note-actions/note-actions.component';
 import { NotesHeaderComponent } from '../../ui/notes-header/notes-header.component';
 import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
+import { NoteEditorComponent } from '../note-editor/note-editor.component';
 
 @Component({
   selector: 'nt-notes',
@@ -20,8 +20,8 @@ import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
     NotesHeaderComponent,
     DividerComponent,
     IconComponent,
-    NoteActionsComponent,
     ButtonDirective,
+    NoteEditorComponent,
   ],
   template: `
     @if (lg()) {
@@ -37,9 +37,7 @@ import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
             <nt-notes-list />
           </div>
           <nt-divider direction="vertical" />
-          <div class="flex-1">Main content</div>
-          <nt-divider direction="vertical" />
-          <nt-note-actions />
+          <nt-note-editor class="flex-1" />
         </div>
       </div>
     } @else {

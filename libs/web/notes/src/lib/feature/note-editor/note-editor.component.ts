@@ -4,6 +4,7 @@ import { BreakpointService, DividerComponent } from '@web/shared/ui';
 import { NoteAsideActionsComponent } from '../../ui/note-aside-actions/note-aside-actions.component';
 import { NoteBottomActionsComponent } from '../../ui/note-bottom-actions/note-bottom-actions.component';
 import { NoteDetailsTableComponent } from '../../ui/note-details-table/note-details-table.component';
+import { NoteTopActionsComponent } from '../../ui/note-top-actions/note-top-actions.component';
 
 const noteContent = `Key performance optimization techniques:
 
@@ -23,12 +24,17 @@ const noteContent = `Key performance optimization techniques:
     CommonModule,
     DividerComponent,
     NoteAsideActionsComponent,
+    NoteTopActionsComponent,
     NoteBottomActionsComponent,
     NoteDetailsTableComponent,
   ],
   template: `
     <div class="flex h-full min-h-0 w-full">
       <div class="flex flex-1 flex-col gap-4 lg:px-6 lg:py-5">
+        @if (!lg()) {
+          <nt-note-top-actions />
+          <nt-divider />
+        }
         <h1 class="text-preset-1 dark:text-base-white text-neutral-950">
           React Performance Optimization
         </h1>

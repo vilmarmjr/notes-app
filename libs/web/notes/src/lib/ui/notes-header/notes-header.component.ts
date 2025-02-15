@@ -7,7 +7,9 @@ import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
   imports: [CommonModule, FormFieldModule, InputDirective, IconComponent],
   template: `
     <header class="flex h-20 items-center justify-between px-8">
-      <h1 class="text-preset-1 dark:text-base-white text-neutral-950">All notes</h1>
+      <h1 class="text-preset-1 dark:text-base-white text-neutral-950">
+        <ng-content select="[notesHeaderTitle]">Notes</ng-content>
+      </h1>
       <div class="flex items-center gap-4">
         <nt-form-field class="w-72">
           <nt-icon ntPrefix name="search" class="text-neutral-500" />

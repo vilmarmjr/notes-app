@@ -24,22 +24,27 @@ export const appRoutes: Route[] = [
       {
         path: 'notes/all',
         loadComponent: () => import('@web/notes').then(c => c.NotesShellComponent),
+        data: { type: 'all' },
       },
       {
         path: 'notes/archived',
         loadComponent: () => import('@web/notes').then(c => c.NotesShellComponent),
+        data: { type: 'archived' },
       },
       {
         path: 'notes/search',
         loadComponent: () => import('@web/notes').then(c => c.NotesShellComponent),
+        data: { type: 'search' },
       },
       {
         path: 'notes/tags',
         loadComponent: () => import('@web/notes').then(c => c.NotesShellComponent),
+        data: { type: 'tags' },
       },
       {
         path: 'notes/tags/:tag',
         loadComponent: () => import('@web/notes').then(c => c.NotesShellComponent),
+        data: { type: 'tags' },
       },
     ],
   },

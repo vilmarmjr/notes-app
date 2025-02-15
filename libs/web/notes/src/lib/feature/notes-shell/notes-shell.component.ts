@@ -20,11 +20,9 @@ import { NotesComponent } from '../notes/notes.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesShellComponent {
-  private _breakpointService = inject(BreakpointService);
-  private _activatedRoute = inject(ActivatedRoute);
-  private _noteId = this._activatedRoute.queryParamMap.pipe(
+  private _noteId = inject(ActivatedRoute).queryParamMap.pipe(
     map(params => params.get('note')),
   );
   protected noteId = toSignal(this._noteId);
-  protected lg = this._breakpointService.lg;
+  protected lg = inject(BreakpointService).lg;
 }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute, Data, RouterLink } from '@angular/router';
 import {
   BreakpointService,
   ButtonDirective,
@@ -30,6 +30,7 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
     NoteEditorComponent,
     NotesTitleComponent,
     NotesListHintComponent,
+    RouterLink,
   ],
   template: `
     @if (lg()) {
@@ -57,6 +58,17 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
         </div>
       </div>
     } @else {
+      @if (type() === 'tags') {
+        <div class="mb-4 flex justify-start">
+          <a
+            class="text-preset-5 dark:text-base-white flex items-center gap-1 text-neutral-600"
+            routerLink="/notes/tags"
+          >
+            <nt-icon name="arrowLeft" />
+            All tags
+          </a>
+        </div>
+      }
       <nt-notes-title
         class="mb-4 block"
         [type]="type()"

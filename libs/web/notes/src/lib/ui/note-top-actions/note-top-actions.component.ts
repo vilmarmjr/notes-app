@@ -1,17 +1,16 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { CommonModule, Location } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { IconComponent } from '@web/shared/ui';
 
 @Component({
   selector: 'nt-note-top-actions',
-  imports: [CommonModule, IconComponent, RouterLink],
+  imports: [CommonModule, IconComponent],
   template: `
     <div class="flex justify-between gap-4 text-neutral-600 dark:text-neutral-300">
-      <a class="text-preset-5 flex items-center gap-1" routerLink="..">
+      <button class="text-preset-5 flex items-center gap-1" (click)="location.back()">
         <nt-icon name="arrowLeft" />
         Go back
-      </a>
+      </button>
       <div class="flex items-center gap-4">
         <button class="text-preset-5 flex items-center justify-center">
           <nt-icon name="delete" />
@@ -32,4 +31,6 @@ import { IconComponent } from '@web/shared/ui';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NoteTopActionsComponent {}
+export class NoteTopActionsComponent {
+  protected location = inject(Location);
+}

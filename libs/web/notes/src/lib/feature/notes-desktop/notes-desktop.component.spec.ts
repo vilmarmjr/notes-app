@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NotesComponent } from './notes.component';
+import { NotesDesktopComponent } from './notes-desktop.component';
 
-describe('NotesComponent', () => {
-  let component: NotesComponent;
-  let fixture: ComponentFixture<NotesComponent>;
+describe('NotesDesktopComponent', () => {
+  let component: NotesDesktopComponent;
+  let fixture: ComponentFixture<NotesDesktopComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NotesComponent],
+      imports: [NotesDesktopComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NotesComponent);
+    fixture = TestBed.createComponent(NotesDesktopComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

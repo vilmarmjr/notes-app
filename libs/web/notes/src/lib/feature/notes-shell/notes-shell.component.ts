@@ -5,16 +5,24 @@ import { ActivatedRoute } from '@angular/router';
 import { BreakpointService } from '@web/shared/ui';
 import { map } from 'rxjs';
 import { NoteEditorComponent } from '../note-editor/note-editor.component';
-import { NotesComponent } from '../notes/notes.component';
+import { NotesDesktopComponent } from '../notes-desktop/notes-desktop.component';
+import { NotesMobileComponent } from '../notes-mobile/notes-mobile.component';
 
 @Component({
   selector: 'nt-notes-shell',
-  imports: [CommonModule, NoteEditorComponent, NotesComponent],
+  imports: [
+    CommonModule,
+    NoteEditorComponent,
+    NotesDesktopComponent,
+    NotesMobileComponent,
+  ],
   template: `
-    @if (lg() || !noteId()) {
-      <nt-notes />
-    } @else {
+    @if (lg()) {
+      <nt-notes-desktop />
+    } @else if (noteId()) {
       <nt-note-editor />
+    } @else {
+      <nt-notes-mobile />
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

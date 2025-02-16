@@ -73,5 +73,23 @@ export class NotesListComponent {
       tags: ['Cooking', 'Health', 'Recipes'],
       date: '12 Oct 2024',
     },
+    {
+      id: '6',
+      title: 'Favorite Pasta Recipes',
+      tags: ['Cooking', 'Recipes'],
+      date: '27 Oct 2024',
+    },
+    {
+      id: '7',
+      title: 'Weekly Workout Plan',
+      tags: ['Dev', 'React'],
+      date: '25 Oct 2024',
+    },
+    {
+      id: '8',
+      title: 'Meal Prep Ideas',
+      tags: ['Cooking', 'Health', 'Recipes'],
+      date: '12 Oct 2024',
+    },
   ];
 }

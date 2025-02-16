@@ -3,13 +3,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SettingsShellComponent } from '../settings-shell/settings-shell.component';
 
 @Component({
-  selector: 'nt-font-theme',
+  selector: 'nt-settings',
   imports: [CommonModule, SettingsShellComponent],
   template: `
-    <nt-settings-shell>
-      <p>font-theme works!</p>
+    <nt-settings-shell [withMenu]="false">
+      <p>settings works!</p>
     </nt-settings-shell>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FontThemeComponent {}
+export class SettingsComponent {}

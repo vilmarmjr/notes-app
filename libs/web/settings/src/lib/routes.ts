@@ -1,11 +1,23 @@
+import { inject } from '@angular/core';
 import { Route } from '@angular/router';
 import { ShellComponent } from '@web/core/layout';
+import { BreakpointService } from '@web/shared/ui';
 
 export const settingsRoutes: Route[] = [
   {
     path: '',
     component: ShellComponent,
     children: [
+      {
+        path: '',
+        redirectTo: () => (inject(BreakpointService).lg() ? 'color-theme' : 'all'),
+        pathMatch: 'full',
+      },
+      {
+        path: 'all',
+        loadComponent: () =>
+          import('./feature/settings/settings.component').then(c => c.SettingsComponent),
+      },
       {
         path: 'color-theme',
         loadComponent: () =>
@@ -29,7 +41,7 @@ export const settingsRoutes: Route[] = [
       },
       {
         path: '**',
-        redirectTo: 'color-theme',
+        redirectTo: 'all',
       },
     ],
   },

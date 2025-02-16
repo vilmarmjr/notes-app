@@ -35,9 +35,7 @@ export const notesRoutes: Route[] = [
       {
         path: 'tags',
         loadComponent: () =>
-          import('./feature/notes-shell/notes-shell.component').then(
-            c => c.NotesShellComponent,
-          ),
+          import('./feature/tags/tags.component').then(c => c.TagsComponent),
         data: { type: 'tags' satisfies NotesPageType },
       },
       {

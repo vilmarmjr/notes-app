@@ -9,7 +9,7 @@ import { DividerComponent, IconComponent, IconName } from '@web/shared/ui';
   template: `
     <nav class="shadow-sm">
       <ul
-        class="bg-base-white flex justify-around border-t border-neutral-200 px-4 py-3 sm:px-8 dark:border-neutral-800 dark:bg-neutral-950"
+        class="bg-base-white flex justify-between border-t border-neutral-200 px-4 py-3 sm:px-8 dark:border-neutral-800 dark:bg-neutral-950"
       >
         @for (item of items; track item.routerLink; let last = $last) {
           <li>

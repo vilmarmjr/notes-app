@@ -6,7 +6,7 @@ import { LogoComponent } from '../logo/logo.component';
   selector: 'nt-header',
   imports: [CommonModule, LogoComponent],
   template: `
-    <header class="w-full bg-neutral-100 px-4 py-3 sm:px-8 sm:py-4 dark:bg-neutral-800">
+    <header class="w-full bg-neutral-100 p-4 sm:px-8 sm:py-4 dark:bg-neutral-800">
       <nt-logo />
     </header>
   `,

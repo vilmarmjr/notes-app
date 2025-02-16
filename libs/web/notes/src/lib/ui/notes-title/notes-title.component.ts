@@ -15,12 +15,22 @@ import { NotesPageType } from '../../types/notes-page-type';
           Archived notes
         }
         @case ('tags') {
-          <span class="text-neutral-600 dark:text-neutral-300">Notes tagged:</span>
-          {{ tag() }}
+          @if (tag(); as tag) {
+            <span class="text-neutral-600 dark:text-neutral-300">Notes tagged:</span>
+            {{ tag }}
+          } @else {
+            Tags
+          }
         }
         @case ('search') {
-          <span class="text-neutral-600 dark:text-neutral-300">Showing results for:</span>
-          {{ query() }}
+          @if (query(); as query) {
+            <span class="text-neutral-600 dark:text-neutral-300">
+              Showing results for:
+            </span>
+            {{ query }}
+          } @else {
+            Search
+          }
         }
       }
     </h1>

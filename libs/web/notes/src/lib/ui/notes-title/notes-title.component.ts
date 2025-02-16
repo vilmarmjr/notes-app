@@ -39,6 +39,6 @@ import { NotesPageType } from '../../types/notes-page-type';
 })
 export class NotesTitleComponent {
   public type = input.required<NotesPageType>();
-  public tag = input.required<string | null>();
-  public query = input.required<string | null>();
+  public tag = input<string | null>(null);
+  public query = input<string | null>(null);
 }

@@ -12,10 +12,18 @@ import { NotesPageType } from '../../types/notes-page-type';
           All your archived notes are stored here. You can restore or delete them anytime.
         }
         @case ('tags') {
-          All notes with the "{{ tag() }}" tag are shown here.
+          @if (tag(); as tag) {
+            All notes with the "{{ tag }}" tag are shown here.
+          } @else {
+            All notes with the selected tag are shown here.
+          }
         }
         @case ('search') {
-          All notes matching "{{ query() }}" are displayed below.
+          @if (query(); as query) {
+            All notes matching "{{ query }}" are displayed below.
+          } @else {
+            All notes matching your search query are displayed below.
+          }
         }
       }
     </p>
@@ -24,6 +32,6 @@ import { NotesPageType } from '../../types/notes-page-type';
 })
 export class NotesListHintComponent {
   public type = input.required<NotesPageType>();
-  public tag = input.required<string | null>();
-  public query = input.required<string | null>();
+  public tag = input<string | null>(null);
+  public query = input<string | null>(null);
 }

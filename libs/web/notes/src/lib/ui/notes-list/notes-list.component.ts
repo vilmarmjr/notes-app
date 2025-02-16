@@ -15,6 +15,7 @@ import { DividerComponent } from '@web/shared/ui';
             routerLinkActive="!bg-neutral-100 dark:!bg-neutral-800"
             [routerLink]="['.']"
             [queryParams]="{ note: item.id }"
+            queryParamsHandling="merge"
           >
             <h2 class="text-preset-3 dark:text-base-white text-neutral-950">
               {{ item.title }}

@@ -15,6 +15,7 @@ import { NotesHeaderComponent } from '../../ui/notes-header/notes-header.compone
 import { NotesListHintComponent } from '../../ui/notes-list-hint/notes-list-hint.component';
 import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
 import { NotesTitleComponent } from '../../ui/notes-title/notes-title.component';
+import { SearchFieldComponent } from '../../ui/search-field/search-field.component';
 import { NoteEditorComponent } from '../note-editor/note-editor.component';
 
 @Component({
@@ -31,6 +32,7 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
     NotesTitleComponent,
     NotesListHintComponent,
     RouterLink,
+    SearchFieldComponent,
   ],
   template: `
     @if (lg()) {
@@ -69,12 +71,10 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
           </a>
         </div>
       }
-      <nt-notes-title
-        class="mb-4 block"
-        [type]="type()"
-        [tag]="tag()"
-        [query]="query()"
-      />
+      <nt-notes-title class="mb-4 block" [type]="type()" [tag]="tag()" />
+      @if (type() === 'search') {
+        <nt-search-field class="mb-4 block w-full" [query]="query()" />
+      }
       @if (type() !== 'all') {
         <nt-notes-list-hint
           class="mb-4 block"

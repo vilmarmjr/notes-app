@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute, Data, RouterLink } from '@angular/router';
 import { IconComponent } from '@web/shared/ui';
 import { map } from 'rxjs';
 import { NotesPageType } from '../../types/notes-page-type';
@@ -21,6 +21,7 @@ import { SearchFieldComponent } from '../../ui/search-field/search-field.compone
     NotesListHintComponent,
     NotesListComponent,
     CreateNoteButtonComponent,
+    RouterLink,
   ],
   template: `
     @if (type() === 'tags') {

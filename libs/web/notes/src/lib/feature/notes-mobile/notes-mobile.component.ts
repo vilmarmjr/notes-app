@@ -35,7 +35,9 @@ import { SearchFieldComponent } from '../../ui/search-field/search-field.compone
         </a>
       </div>
     }
-    <nt-notes-title class="mb-4 block" [type]="type()" [tag]="tag()" />
+    <h1 class="text-preset-1 dark:text-base-white mb-4 block text-neutral-950">
+      <nt-notes-title [type]="type()" [tag]="tag()" />
+    </h1>
     @if (type() === 'search') {
       <nt-search-field class="mb-4 block w-full" [query]="query()" />
     }

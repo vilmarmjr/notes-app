@@ -4,14 +4,14 @@ import { RouterModule } from '@angular/router';
 import { BreakpointService, DividerComponent } from '@web/shared/ui';
 import { BottomNavComponent } from '../bottom-nav/bottom-nav.component';
 import { ContentComponent } from '../content/content.component';
-import { HeaderComponent } from '../header/header.component';
+import { MobileHeaderComponent } from '../mobile-header/mobile-header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'nt-shell',
   imports: [
     CommonModule,
-    HeaderComponent,
+    MobileHeaderComponent,
     ContentComponent,
     BottomNavComponent,
     SidebarComponent,
@@ -30,7 +30,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
     } @else {
       <div class="flex h-full flex-col">
         <div class="flex flex-1 flex-col overflow-y-auto">
-          <nt-header />
+          <nt-mobile-header />
           <nt-content class="flex-1">
             <router-outlet />
           </nt-content>

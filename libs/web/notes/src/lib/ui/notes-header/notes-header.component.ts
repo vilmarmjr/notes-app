@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DesktopHeaderComponent } from '@web/core/layout';
 import { IconComponent } from '@web/shared/ui';
 import { NotesPageType } from '../../types/notes-page-type';
 import { NotesTitleComponent } from '../notes-title/notes-title.component';
@@ -14,11 +15,17 @@ import { SearchFieldComponent } from '../search-field/search-field.component';
     NotesTitleComponent,
     SearchFieldComponent,
     RouterLink,
+    DesktopHeaderComponent,
   ],
   template: `
-    <header class="flex h-20 items-center justify-between px-8">
-      <nt-notes-title [type]="type()" [tag]="tag()" [query]="query()" />
-      <div class="flex items-center gap-4">
+    <nt-desktop-header>
+      <nt-notes-title
+        desktopHeaderTitle
+        [type]="type()"
+        [tag]="tag()"
+        [query]="query()"
+      />
+      <div desktopHeaderActions class="flex items-center gap-4">
         @if (showSearch()) {
           <nt-search-field [query]="query()" class="w-72" />
         }
@@ -29,7 +36,7 @@ import { SearchFieldComponent } from '../search-field/search-field.component';
           <nt-icon name="settings" size="24" />
         </button>
       </div>
-    </header>
+    </nt-desktop-header>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

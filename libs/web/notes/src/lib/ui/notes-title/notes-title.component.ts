@@ -6,34 +6,30 @@ import { NotesPageType } from '../../types/notes-page-type';
   selector: 'nt-notes-title',
   imports: [CommonModule],
   template: `
-    <h1 class="text-preset-1 dark:text-base-white text-neutral-950">
-      @switch (type()) {
-        @case ('all') {
-          All notes
-        }
-        @case ('archived') {
-          Archived notes
-        }
-        @case ('tags') {
-          @if (tag(); as tag) {
-            <span class="text-neutral-600 dark:text-neutral-300">Notes tagged:</span>
-            {{ tag }}
-          } @else {
-            Tags
-          }
-        }
-        @case ('search') {
-          @if (query(); as query) {
-            <span class="text-neutral-600 dark:text-neutral-300">
-              Showing results for:
-            </span>
-            {{ query }}
-          } @else {
-            Search
-          }
+    @switch (type()) {
+      @case ('all') {
+        All notes
+      }
+      @case ('archived') {
+        Archived notes
+      }
+      @case ('tags') {
+        @if (tag(); as tag) {
+          <span class="text-neutral-600 dark:text-neutral-300">Notes tagged:</span>
+          {{ tag }}
+        } @else {
+          Tags
         }
       }
-    </h1>
+      @case ('search') {
+        @if (query(); as query) {
+          <span class="text-neutral-600 dark:text-neutral-300">Showing results for:</span>
+          {{ query }}
+        } @else {
+          Search
+        }
+      }
+    }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

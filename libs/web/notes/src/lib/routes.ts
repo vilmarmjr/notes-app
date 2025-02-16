@@ -7,7 +7,6 @@ export const notesRoutes: Route[] = [
     path: '',
     component: ShellComponent,
     children: [
-      { path: '', redirectTo: 'all', pathMatch: 'full' },
       {
         path: 'all',
         loadComponent: () =>
@@ -45,6 +44,10 @@ export const notesRoutes: Route[] = [
             c => c.NotesShellComponent,
           ),
         data: { type: 'tags' },
+      },
+      {
+        path: '**',
+        redirectTo: 'all',
       },
     ],
   },

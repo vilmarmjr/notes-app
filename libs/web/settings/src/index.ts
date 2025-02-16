@@ -1,1 +1,1 @@
-export * from './lib/feature/settings/settings.component';
+export * from './lib/routes';

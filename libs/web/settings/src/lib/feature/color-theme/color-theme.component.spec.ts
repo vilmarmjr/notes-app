@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SettingsComponent } from './settings.component';
+import { ColorThemeComponent } from './color-theme.component';
 
-describe('SettingsComponent', () => {
-  let component: SettingsComponent;
-  let fixture: ComponentFixture<SettingsComponent>;
+describe('ColorThemeComponent', () => {
+  let component: ColorThemeComponent;
+  let fixture: ComponentFixture<ColorThemeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SettingsComponent],
+      imports: [ColorThemeComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SettingsComponent);
+    fixture = TestBed.createComponent(ColorThemeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

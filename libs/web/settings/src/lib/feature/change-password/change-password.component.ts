@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'nt-settings',
+  selector: 'nt-change-password',
   imports: [CommonModule],
   template: `
-    <p>Settings works!</p>
+    <p>change-password works!</p>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsComponent {}
+export class ChangePasswordComponent {}

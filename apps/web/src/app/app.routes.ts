@@ -15,6 +15,10 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('@web/auth').then(c => c.ResetPasswordComponent),
   },
   {
+    path: 'settings',
+    loadChildren: () => import('@web/settings').then(m => m.settingsRoutes),
+  },
+  {
     path: 'notes',
     loadChildren: () => import('@web/notes').then(m => m.notesRoutes),
   },

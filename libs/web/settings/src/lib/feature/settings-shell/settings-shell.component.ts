@@ -1,11 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { DesktopHeaderComponent } from '@web/core/layout';
-import { BreakpointService, DividerComponent } from '@web/shared/ui';
+import {
+  BreakpointService,
+  DividerComponent,
+  NavButtonComponent,
+  NavComponent,
+  NavLinkComponent,
+} from '@web/shared/ui';
 
 @Component({
   selector: 'nt-settings-shell',
-  imports: [CommonModule, DesktopHeaderComponent, DividerComponent],
+  imports: [
+    CommonModule,
+    DesktopHeaderComponent,
+    DividerComponent,
+    NavComponent,
+    NavLinkComponent,
+    NavButtonComponent,
+  ],
   template: `
     @if (lg()) {
       <div class="flex h-full flex-col">
@@ -13,7 +26,25 @@ import { BreakpointService, DividerComponent } from '@web/shared/ui';
         <nt-divider />
         <div class="flex min-h-0 flex-1">
           @if (withMenu()) {
-            <div class="flex w-72 flex-col overflow-y-auto px-4 py-5">menu</div>
+            <div class="flex w-72 flex-col overflow-y-auto px-4 py-5">
+              <nt-nav class="mb-2">
+                <nt-nav-link
+                  link="/settings/color-theme"
+                  icon="sun"
+                  label="Color theme"
+                />
+                <nt-nav-link link="/settings/font-theme" icon="font" label="Font theme" />
+                <nt-nav-link
+                  link="/settings/change-password"
+                  icon="lock"
+                  label="Change password"
+                />
+              </nt-nav>
+              <nt-divider class="mb-2" />
+              <nt-nav>
+                <nt-nav-button icon="logout" label="Logout" />
+              </nt-nav>
+            </div>
             <nt-divider direction="vertical" />
           }
           <div class="flex-1 p-5">

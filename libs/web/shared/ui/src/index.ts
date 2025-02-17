@@ -10,4 +10,7 @@ export * from './lib/form-field/prefix.directive';
 export * from './lib/form-field/suffix.directive';
 export * from './lib/icon/icon.component';
 export * from './lib/input/input.directive';
+export * from './lib/nav/nav-button.component';
+export * from './lib/nav/nav-link.component';
+export * from './lib/nav/nav.component';
 export * from './lib/theme/theme.service';

@@ -1,40 +1,41 @@
-import { effect, Injectable, signal } from '@angular/core';
+import { computed, effect, Injectable, signal } from '@angular/core';
 
-export type Theme = 'light' | 'dark';
+export type Theme = 'light' | 'dark' | 'system';
 
-const THEME_KEY = 'notes-theme';
+const themes: Theme[] = ['light', 'dark', 'system'];
+const themeKey = 'notes-theme';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
-  private _theme = signal<Theme>('light');
+  private _theme = signal<Theme>('system');
   public readonly theme = this._theme.asReadonly();
+  public readonly isDarkTheme = computed(() => {
+    const theme = this._theme();
+    return (
+      theme === 'dark' ||
+      (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    );
+  });
 
   constructor() {
     effect(() => {
-      const theme = this._theme();
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-      localStorage.setItem(THEME_KEY, theme);
+      document.documentElement.classList.toggle('dark', this.isDarkTheme());
+      localStorage.setItem(themeKey, this._theme());
     });
   }
 
-  setInitialTheme(): void {
-    const savedTheme = localStorage.getItem(THEME_KEY) as Theme | null;
+  setInitialTheme() {
+    const savedTheme = localStorage.getItem(themeKey) as Theme | null;
+    const theme = savedTheme || 'system';
 
-    if (savedTheme === 'light') {
-      return this._theme.set('light');
-    }
-
-    if (
-      savedTheme === 'dark' ||
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-    ) {
-      return this._theme.set('dark');
+    if (themes.includes(theme)) {
+      this._theme.set(theme);
     }
   }
 
-  toggleTheme(): void {
-    this._theme.update(theme => (theme === 'light' ? 'dark' : 'light'));
+  setTheme(theme: Theme) {
+    return this._theme.set(theme);
   }
 }

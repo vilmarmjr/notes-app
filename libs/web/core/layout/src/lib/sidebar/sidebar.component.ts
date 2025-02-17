@@ -1,17 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DividerComponent, NavComponent, NavLinkComponent } from '@web/shared/ui';
+import { DividerComponent, NavModule } from '@web/shared/ui';
 import { LogoComponent } from '../logo/logo.component';
 
 @Component({
   selector: 'nt-sidebar',
-  imports: [
-    CommonModule,
-    LogoComponent,
-    DividerComponent,
-    NavComponent,
-    NavLinkComponent,
-  ],
+  imports: [CommonModule, LogoComponent, DividerComponent, NavModule],
   template: `
     <aside class="flex h-full w-64 flex-col overflow-y-auto px-4 py-5">
       <nt-logo class="mb-5" />

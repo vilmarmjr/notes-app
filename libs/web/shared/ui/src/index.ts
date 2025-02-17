@@ -13,4 +13,5 @@ export * from './lib/input/input.directive';
 export * from './lib/nav/nav-button.component';
 export * from './lib/nav/nav-link.component';
 export * from './lib/nav/nav.component';
+export * from './lib/nav/nav.module';
 export * from './lib/theme/theme.service';

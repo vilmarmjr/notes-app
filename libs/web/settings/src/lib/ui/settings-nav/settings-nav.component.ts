@@ -1,21 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {
-  DividerComponent,
-  IconName,
-  NavButtonComponent,
-  NavComponent,
-  NavLinkComponent,
-} from '@web/shared/ui';
+import { DividerComponent, IconName, NavModule } from '@web/shared/ui';
 @Component({
   selector: 'nt-settings-nav',
-  imports: [
-    CommonModule,
-    NavComponent,
-    NavLinkComponent,
-    NavButtonComponent,
-    DividerComponent,
-  ],
+  imports: [CommonModule, NavModule, DividerComponent],
   template: `
     <nt-nav class="mb-2 block">
       @for (item of linkItems; track item.link) {

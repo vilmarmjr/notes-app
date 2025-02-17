@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { SettingsHeaderComponent } from '../../ui/settings-header/settings-header.component';
 import { SettingsShellComponent } from '../settings-shell/settings-shell.component';
 @Component({
   selector: 'nt-change-password',
-  imports: [CommonModule, SettingsShellComponent],
+  imports: [CommonModule, SettingsShellComponent, SettingsHeaderComponent],
   template: `
     <nt-settings-shell>
-      <p>change-password works!</p>
+      <nt-settings-header title="Change password" />
     </nt-settings-shell>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

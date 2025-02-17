@@ -9,38 +9,44 @@ import { RadioButtonLabelDirective } from './radio-button-label.directive';
   selector: 'nt-radio-button',
   imports: [CommonModule],
   template: `
-    <div class="flex items-center gap-4 rounded-xl border border-neutral-200 p-4">
-      <label class="flex w-full items-center gap-4" [for]="id">
-        @if (icon()) {
-          <div
-            class="flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200"
-          >
-            <ng-content select="[ntRadioButtonIcon]" />
-          </div>
-        }
-        <div class="mr-auto flex flex-col gap-1">
-          <span class="text-preset-4 text-neutral-950">
-            <ng-content select="[ntRadioButtonLabel]" />
-          </span>
-          @if (description()) {
-            <span class="text-preset-6 text-neutral-700">
-              <ng-content select="[ntRadioButtonDescription]" />
-            </span>
-          }
+    <label
+      class="flex cursor-pointer items-center gap-4 rounded-xl border border-neutral-200 p-4 hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800 [&:has(input:checked)]:bg-neutral-100 [&:has(input:checked)]:dark:bg-neutral-800"
+      [for]="id"
+    >
+      @if (icon()) {
+        <div
+          class="bg-base-white dark:text-base-white flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-950 dark:border-neutral-700 dark:bg-neutral-950"
+        >
+          <ng-content select="[ntRadioButtonIcon]" />
         </div>
-      </label>
+      }
+      <div class="mr-auto flex flex-col gap-1">
+        <span class="text-preset-4 dark:text-base-white text-neutral-950">
+          <ng-content select="[ntRadioButtonLabel]" />
+        </span>
+        @if (description()) {
+          <span class="text-preset-6 text-neutral-700 dark:text-neutral-300">
+            <ng-content select="[ntRadioButtonDescription]" />
+          </span>
+        }
+      </div>
       <input
+        #input
+        class="h-4 w-4 flex-shrink-0 appearance-none rounded-full border-2 border-neutral-200 checked:border-4 checked:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-100 dark:border-neutral-600 dark:focus:ring-offset-neutral-800"
         type="radio"
         [id]="id"
+        [name]="name()"
         [value]="value()"
-        class="h-4 w-4 border-gray-300 bg-gray-100 text-red-500"
+        [checked]="checked()"
       />
-    </div>
+    </label>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RadioButtonComponent<T> {
   public value = input<T>();
+  public checked = input(false);
+  public name = input.required<string>();
   protected id = generateRadioButtonId();
   protected icon = contentChild(RadioButtonIconDirective);
   protected label = contentChild.required(RadioButtonLabelDirective);

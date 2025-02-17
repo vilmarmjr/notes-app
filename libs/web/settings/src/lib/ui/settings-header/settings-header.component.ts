@@ -10,7 +10,7 @@ import { IconComponent } from '@web/shared/ui';
     <div class="flex flex-col gap-3 lg:gap-1">
       @if (showBackButton()) {
         <a
-          class="text-preset-5 dark:text-base-white flex items-center gap-1 text-neutral-600 lg:hidden"
+          class="text-preset-5 dark:text-base-white flex items-center gap-1 self-start text-neutral-600 lg:hidden"
           routerLink="/settings"
         >
           <nt-icon name="arrowLeft" />

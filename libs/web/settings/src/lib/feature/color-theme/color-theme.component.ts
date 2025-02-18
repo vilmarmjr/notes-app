@@ -21,21 +21,21 @@ import { SettingsShellComponent } from '../settings-shell/settings-shell.compone
         class="mb-6 block"
       />
       <nt-radio-group class="block max-w-[520px]">
-        <nt-radio-button name="color-theme" value="light">
+        <nt-radio-button value="light">
           <nt-icon ntRadioButtonIcon name="sun" />
           <ng-container ntRadioButtonLabel>Light mode</ng-container>
           <ng-container ntRadioButtonDescription>
             Pick a clean and classic light theme
           </ng-container>
         </nt-radio-button>
-        <nt-radio-button name="color-theme" value="dark">
+        <nt-radio-button value="dark">
           <nt-icon ntRadioButtonIcon name="moon" />
           <ng-container ntRadioButtonLabel>Dark mode</ng-container>
           <ng-container ntRadioButtonDescription>
             Select a sleek and modern dark theme
           </ng-container>
         </nt-radio-button>
-        <nt-radio-button name="color-theme" value="system">
+        <nt-radio-button value="system">
           <nt-icon ntRadioButtonIcon name="systemTheme" />
           <ng-container ntRadioButtonLabel>System</ng-container>
           <ng-container ntRadioButtonDescription>

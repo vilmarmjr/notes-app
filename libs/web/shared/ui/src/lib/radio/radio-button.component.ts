@@ -1,9 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, contentChild, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  contentChild,
+  inject,
+  input,
+} from '@angular/core';
 import { generateRadioButtonId } from './generate-radio-button-id';
 import { RadioButtonDescriptionDirective } from './radio-button-description.directive';
 import { RadioButtonIconDirective } from './radio-button-icon.directive';
 import { RadioButtonLabelDirective } from './radio-button-label.directive';
+import { RadioGroupComponent } from './radio-group.component';
 
 @Component({
   selector: 'nt-radio-button',
@@ -35,8 +42,8 @@ import { RadioButtonLabelDirective } from './radio-button-label.directive';
         class="h-4 w-4 flex-shrink-0 appearance-none rounded-full border-2 border-neutral-200 checked:border-4 checked:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-100 dark:border-neutral-600 dark:focus:ring-offset-neutral-800"
         type="radio"
         [id]="id"
-        [name]="name()"
         [value]="value()"
+        [name]="radioGroup?.id"
         [checked]="checked()"
       />
     </label>
@@ -46,9 +53,9 @@ import { RadioButtonLabelDirective } from './radio-button-label.directive';
 export class RadioButtonComponent<T> {
   public value = input<T>();
   public checked = input(false);
-  public name = input.required<string>();
   protected id = generateRadioButtonId();
   protected icon = contentChild(RadioButtonIconDirective);
   protected label = contentChild.required(RadioButtonLabelDirective);
   protected description = contentChild(RadioButtonDescriptionDirective);
+  protected radioGroup = inject(RadioGroupComponent, { optional: true, host: true });
 }

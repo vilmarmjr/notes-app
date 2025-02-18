@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { generateRadioGroupId } from './generate-radio-group-id';
 
 @Component({
   selector: 'nt-radio-group',
@@ -11,4 +12,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RadioGroupComponent {}
+export class RadioGroupComponent {
+  public readonly id = generateRadioGroupId();
+}

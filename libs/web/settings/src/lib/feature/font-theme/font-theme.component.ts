@@ -15,11 +15,7 @@ import { SettingsShellComponent } from '../settings-shell/settings-shell.compone
   ],
   template: `
     <nt-settings-shell>
-      <nt-settings-header
-        title="Font theme"
-        description="Choose your font theme:"
-        class="mb-6 block"
-      />
+      <nt-settings-header title="Font theme" description="Choose your font theme:" />
       <nt-radio-group class="block max-w-[520px]">
         <nt-radio-button value="sansSerif" [checked]="true">
           <nt-icon ntRadioButtonIcon name="fontSansSerif" />

@@ -7,7 +7,7 @@ import { IconComponent } from '@web/shared/ui';
   selector: 'nt-settings-header',
   imports: [CommonModule, IconComponent, RouterLink],
   template: `
-    <div class="flex flex-col gap-3 lg:gap-1">
+    <div class="mb-6 flex flex-col gap-3 lg:gap-1">
       @if (showBackButton()) {
         <a
           class="text-preset-5 dark:text-base-white flex items-center gap-1 self-start text-neutral-600 lg:hidden"

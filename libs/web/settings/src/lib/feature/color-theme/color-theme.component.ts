@@ -15,11 +15,7 @@ import { SettingsShellComponent } from '../settings-shell/settings-shell.compone
   ],
   template: `
     <nt-settings-shell>
-      <nt-settings-header
-        title="Color theme"
-        description="Choose your color theme:"
-        class="mb-6 block"
-      />
+      <nt-settings-header title="Color theme" description="Choose your color theme:" />
       <nt-radio-group class="block max-w-[520px]">
         <nt-radio-button value="light" [checked]="true">
           <nt-icon ntRadioButtonIcon name="sun" />

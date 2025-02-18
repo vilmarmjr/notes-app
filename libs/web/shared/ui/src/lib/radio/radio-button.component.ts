@@ -22,7 +22,7 @@ import { RadioGroupComponent } from './radio-group.component';
     >
       @if (icon()) {
         <div
-          class="bg-base-white dark:text-base-white flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-950 dark:border-neutral-700 dark:bg-neutral-950"
+          class="bg-base-white dark:text-base-white flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-neutral-200 text-neutral-950 dark:border-neutral-700 dark:bg-neutral-950"
         >
           <ng-content select="[ntRadioButtonIcon]" />
         </div>

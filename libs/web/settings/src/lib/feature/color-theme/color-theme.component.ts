@@ -21,7 +21,7 @@ import { SettingsShellComponent } from '../settings-shell/settings-shell.compone
         class="mb-6 block"
       />
       <nt-radio-group class="block max-w-[520px]">
-        <nt-radio-button value="light">
+        <nt-radio-button value="light" [checked]="true">
           <nt-icon ntRadioButtonIcon name="sun" />
           <ng-container ntRadioButtonLabel>Light mode</ng-container>
           <ng-container ntRadioButtonDescription>

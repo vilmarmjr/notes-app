@@ -4,6 +4,7 @@ import { PasswordFieldComponent } from '@web/shared/form';
 import { ButtonDirective } from '@web/shared/ui';
 import { SettingsHeaderComponent } from '../../ui/settings-header/settings-header.component';
 import { SettingsShellComponent } from '../settings-shell/settings-shell.component';
+
 @Component({
   selector: 'nt-change-password',
   imports: [

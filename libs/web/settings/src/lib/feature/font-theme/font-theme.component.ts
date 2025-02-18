@@ -17,7 +17,7 @@ import { SettingsShellComponent } from '../settings-shell/settings-shell.compone
     <nt-settings-shell>
       <nt-settings-header title="Font theme" description="Choose your font theme:" />
       <nt-radio-group class="block max-w-[520px]">
-        <nt-radio-button value="sansSerif" [checked]="true">
+        <nt-radio-button value="sansSerif">
           <nt-icon ntRadioButtonIcon name="fontSansSerif" />
           <ng-container ntRadioButtonLabel>Sans-serif</ng-container>
           <ng-container ntRadioButtonDescription>

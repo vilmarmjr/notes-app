@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   contentChild,
   inject,
   input,
@@ -43,19 +44,20 @@ import { RadioGroupComponent } from './radio-group.component';
         type="radio"
         [id]="id"
         [value]="value()"
-        [name]="radioGroup?.id"
         [checked]="checked()"
+        [name]="radioGroup.id"
+        (change)="radioGroup.select(value())"
       />
     </label>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RadioButtonComponent<T> {
-  public value = input<T>();
-  public checked = input(false);
+export class RadioButtonComponent<T = unknown> {
+  public value = input.required<T>();
   protected id = generateRadioButtonId();
   protected icon = contentChild(RadioButtonIconDirective);
   protected label = contentChild.required(RadioButtonLabelDirective);
   protected description = contentChild(RadioButtonDescriptionDirective);
-  protected radioGroup = inject(RadioGroupComponent, { optional: true, host: true });
+  protected radioGroup = inject(RadioGroupComponent, { host: true });
+  protected checked = computed(() => this.radioGroup.value() === this.value());
 }

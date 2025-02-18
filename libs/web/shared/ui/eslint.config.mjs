@@ -24,6 +24,7 @@ export default [
         },
       ],
       '@angular-eslint/no-input-rename': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
     },
   },
   {

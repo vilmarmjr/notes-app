@@ -7,7 +7,7 @@ import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
   imports: [CommonModule, FormFieldModule, IconComponent, InputDirective],
   template: `
     <nt-form-field>
-      <nt-icon ntPrefix name="search" class="text-neutral-500" />
+      <nt-icon ntPrefix name="search" />
       <input
         ntInput
         placeholder="Search by title, content, or tags..."

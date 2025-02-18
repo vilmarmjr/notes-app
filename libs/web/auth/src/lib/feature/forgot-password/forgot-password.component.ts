@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { LogoComponent } from '@web/core/layout';
+import { EmailFieldComponent } from '@web/shared/form';
 import { ButtonDirective } from '@web/shared/ui';
 import { AuthContainerComponent } from '../../ui/auth-container/auth-container.component';
-import { EmailFieldComponent } from '../../ui/email-field/email-field.component';
 
 @Component({
   selector: 'nt-forgot-password',

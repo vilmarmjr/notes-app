@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LogoComponent } from '@web/core/layout';
+import { EmailFieldComponent, PasswordFieldComponent } from '@web/shared/form';
 import { ButtonDirective, DividerComponent, IconComponent } from '@web/shared/ui';
 import { AuthContainerComponent } from '../../ui/auth-container/auth-container.component';
-import { EmailFieldComponent } from '../../ui/email-field/email-field.component';
-import { PasswordFieldComponent } from '../../ui/password-field/password-field.component';
 
 @Component({
   selector: 'nt-login',

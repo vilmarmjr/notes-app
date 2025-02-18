@@ -26,27 +26,32 @@ export default [
                 'web:auth',
                 'web:notes',
                 'web:settings',
+                'web:form',
               ],
             },
             {
               sourceTag: 'web:auth',
-              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:core'],
+              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:core', 'web:form'],
             },
             {
               sourceTag: 'web:notes',
-              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:core'],
+              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:core', 'web:form'],
             },
             {
               sourceTag: 'web:settings',
-              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:core'],
+              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:core', 'web:form'],
             },
             {
               sourceTag: 'web:core',
-              onlyDependOnLibsWithTags: ['web:ui', 'web:utils'],
+              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:form'],
             },
             {
               sourceTag: 'web:ui',
               onlyDependOnLibsWithTags: ['web:utils'],
+            },
+            {
+              sourceTag: 'web:form',
+              onlyDependOnLibsWithTags: ['web:ui', 'web:utils'],
             },
           ],
         },

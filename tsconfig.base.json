@@ -21,7 +21,8 @@
       "@web/settings": ["libs/web/settings/src/index.ts"],
       "@web/shared/assets": ["libs/web/shared/assets/src/index.ts"],
       "@web/shared/ui": ["libs/web/shared/ui/src/index.ts"],
-      "@web/shared/utils": ["libs/web/shared/utils/src/index.ts"]
+      "@web/shared/utils": ["libs/web/shared/utils/src/index.ts"],
+      "@web/shared/form": ["libs/web/shared/form/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

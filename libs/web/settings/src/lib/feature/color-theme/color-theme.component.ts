@@ -3,12 +3,12 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import {
   ButtonDirective,
+  ColorTheme,
+  ColorThemeService,
   IconComponent,
   IconName,
   RadioGroupChangeEvent,
   RadioModule,
-  Theme,
-  ThemeService,
 } from '@web/shared/ui';
 import { SettingsHeaderComponent } from '../../ui/settings-header/settings-header.component';
 import { SettingsShellComponent } from '../settings-shell/settings-shell.component';
@@ -17,7 +17,7 @@ type Option = {
   label: string;
   description: string;
   icon: IconName;
-  value: Theme;
+  value: ColorTheme;
 };
 
 @Component({
@@ -55,15 +55,11 @@ type Option = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColorThemeComponent {
-  private _themeService = inject(ThemeService);
+  private _colorThemeService = inject(ColorThemeService);
   private _fb = inject(FormBuilder);
 
-  protected light: Theme = 'light';
-  protected dark: Theme = 'dark';
-  protected system: Theme = 'system';
-
   protected form = this._fb.group({
-    theme: this._fb.nonNullable.control(this._themeService.theme()),
+    theme: this._fb.nonNullable.control(this._colorThemeService.theme()),
   });
 
   protected options: Option[] = [
@@ -87,7 +83,7 @@ export class ColorThemeComponent {
     },
   ];
 
-  protected onThemeChange(event: RadioGroupChangeEvent<Theme>) {
-    this._themeService.setTheme(event.value);
+  protected onThemeChange(event: RadioGroupChangeEvent<ColorTheme>) {
+    this._colorThemeService.setTheme(event.value);
   }
 }

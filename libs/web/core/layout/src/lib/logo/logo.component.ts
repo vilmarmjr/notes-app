@@ -1,6 +1,6 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { ThemeService } from '@web/shared/ui';
+import { ColorThemeService } from '@web/shared/ui';
 
 @Component({
   selector: 'nt-logo',
@@ -11,9 +11,9 @@ import { ThemeService } from '@web/shared/ui';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoComponent {
-  private _themeService = inject(ThemeService);
+  private _colorThemeService = inject(ColorThemeService);
 
-  private _isDarkTheme = this._themeService.isDarkTheme;
+  private _isDarkTheme = this._colorThemeService.isDarkTheme;
   protected src = computed(() =>
     this._isDarkTheme() ? 'assets/img/logo-dark.svg' : 'assets/img/logo-light.svg',
   );

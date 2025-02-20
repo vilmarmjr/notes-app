@@ -20,4 +20,5 @@ export * from './lib/radio/radio-button-label.directive';
 export * from './lib/radio/radio-button.component';
 export * from './lib/radio/radio-group.component';
 export * from './lib/radio/radio.module';
-export * from './lib/theme/theme.service';
+export * from './lib/theme/color-theme.service';
+export * from './lib/theme/font-theme.service';

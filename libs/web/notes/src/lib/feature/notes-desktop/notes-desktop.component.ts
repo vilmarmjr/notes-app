@@ -27,18 +27,13 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
       <nt-notes-header [type]="type()" [tag]="tag()" [query]="query()" />
       <nt-divider />
       <div class="flex min-h-0 flex-1">
-        <div class="flex w-72 flex-col overflow-y-auto px-4 py-5">
-          <button ntButton class="mb-4">
+        <div class="flex w-72 flex-col gap-4 overflow-y-auto px-4 py-5">
+          <button ntButton>
             <nt-icon name="plus" />
             Create new note
           </button>
           @if (type() !== 'search' && type() !== 'all') {
-            <nt-notes-list-hint
-              class="mb-4 block"
-              [type]="type()"
-              [tag]="tag()"
-              [query]="query()"
-            />
+            <nt-notes-list-hint [type]="type()" [tag]="tag()" [query]="query()" />
           }
           <nt-notes-list />
         </div>

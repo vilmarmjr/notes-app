@@ -1,8 +1,10 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { compare, hash } from 'bcrypt';
 import { Repository } from 'typeorm';
+import { ApplicationException } from '../core/validation/application-exception';
+import { AuthError } from '../core/validation/errors';
 import { LoginDto, LoginResponseDto } from './login.dto';
 import { SignupDto, SignupResponseDto } from './signup.dto';
 import { User } from './user.entity';
@@ -20,10 +22,7 @@ export class AuthService {
     });
 
     if (alreadyExists) {
-      throw new HttpException(
-        'User or email is already taken',
-        HttpStatus.UNPROCESSABLE_ENTITY,
-      );
+      throw new ApplicationException(AuthError.EMAIL_ALREADY_TAKEN);
     }
 
     const password = await hash(dto.password, 10);
@@ -39,13 +38,13 @@ export class AuthService {
     const user = await this.userRepository.findOneBy({ email: dto.email });
 
     if (!user) {
-      throw new HttpException('Email or password is incorrect', HttpStatus.UNAUTHORIZED);
+      throw new ApplicationException(AuthError.INCORRECT_EMAIL_OR_PASSWORD);
     }
 
     const isPasswordValid = await compare(dto.password, user.password);
 
     if (!isPasswordValid) {
-      throw new HttpException('Email or password is incorrect', HttpStatus.UNAUTHORIZED);
+      throw new ApplicationException(AuthError.INCORRECT_EMAIL_OR_PASSWORD);
     }
 
     const token = await this.jwtService.signAsync({ email: user.email });

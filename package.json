@@ -6,6 +6,11 @@
     "serve:web": "nx serve web",
     "prepare": "husky install"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "bcrypt"
+    ]
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~19.1.0",
@@ -19,12 +24,17 @@
     "@angular/router": "~19.1.0",
     "@nestjs/common": "^10.0.2",
     "@nestjs/core": "^10.0.2",
+    "@nestjs/jwt": "^11.0.0",
     "@nestjs/platform-express": "^10.0.2",
+    "@nestjs/typeorm": "^11.0.0",
     "axios": "^1.6.0",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.1",
+    "pg": "^8.13.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0",
     "tailwind-merge": "^3.0.1",
+    "typeorm": "^0.3.20",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
@@ -54,6 +64,7 @@
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@types/bcrypt": "^5.0.2",
     "@types/jest": "^29.5.12",
     "@types/node": "18.16.9",
     "@typescript-eslint/utils": "^8.19.0",

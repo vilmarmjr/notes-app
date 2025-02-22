@@ -3,4 +3,8 @@ export enum AuthError {
   INCORRECT_EMAIL_OR_PASSWORD = 'INCORRECT_EMAIL_OR_PASSWORD',
 }
 
-export type ApplicationError = AuthError;
+export enum FieldsError {
+  INVALID_FIELDS = 'INVALID_FIELDS',
+}
+
+export type ApplicationError = AuthError | FieldsError;

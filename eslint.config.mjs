@@ -17,7 +17,7 @@ export default [
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
           depConstraints: [
             {
-              sourceTag: 'webapp',
+              sourceTag: 'web',
               onlyDependOnLibsWithTags: [
                 'web:ui',
                 'web:utils',
@@ -27,23 +27,51 @@ export default [
                 'web:notes',
                 'web:settings',
                 'web:form',
+                'common:models',
               ],
             },
             {
+              sourceTag: 'server',
+              onlyDependOnLibsWithTags: ['common:models'],
+            },
+            {
               sourceTag: 'web:auth',
-              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:core', 'web:form'],
+              onlyDependOnLibsWithTags: [
+                'web:ui',
+                'web:utils',
+                'web:core',
+                'web:form',
+                'common:models',
+              ],
             },
             {
               sourceTag: 'web:notes',
-              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:core', 'web:form'],
+              onlyDependOnLibsWithTags: [
+                'web:ui',
+                'web:utils',
+                'web:core',
+                'web:form',
+                'common:models',
+              ],
             },
             {
               sourceTag: 'web:settings',
-              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:core', 'web:form'],
+              onlyDependOnLibsWithTags: [
+                'web:ui',
+                'web:utils',
+                'web:core',
+                'web:form',
+                'common:models',
+              ],
             },
             {
               sourceTag: 'web:core',
-              onlyDependOnLibsWithTags: ['web:ui', 'web:utils', 'web:form'],
+              onlyDependOnLibsWithTags: [
+                'web:ui',
+                'web:utils',
+                'web:form',
+                'common:models',
+              ],
             },
             {
               sourceTag: 'web:ui',

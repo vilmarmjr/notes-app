@@ -1,3 +1,4 @@
+import { LoginDto, LoginResponseDto, SignupDto, SignupResponseDto } from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -5,8 +6,6 @@ import { compare, hash } from 'bcrypt';
 import { Repository } from 'typeorm';
 import { ApplicationException } from '../core/validation/application.exception';
 import { AuthError } from '../core/validation/errors';
-import { LoginDto, LoginResponseDto } from './login.dto';
-import { SignupDto, SignupResponseDto } from './signup.dto';
 import { User } from './user.entity';
 
 @Injectable()

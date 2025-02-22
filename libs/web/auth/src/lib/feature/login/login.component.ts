@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '@web/core/layout';
 import { EmailFieldComponent, PasswordFieldComponent } from '@web/shared/form';
 import { ButtonDirective, DividerComponent, IconComponent } from '@web/shared/ui';
+import { AuthService } from '../../data-access/auth.service';
 import { AuthContainerComponent } from '../../ui/auth-container/auth-container.component';
 
 @Component({
@@ -18,6 +21,7 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
     PasswordFieldComponent,
     EmailFieldComponent,
     AuthContainerComponent,
+    ReactiveFormsModule,
   ],
   template: `
     <nt-auth-container>
@@ -26,7 +30,11 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
         Welcome to Notes
       </h1>
       <p class="text-preset-5 mb-10 text-center">Please log in to continue</p>
-      <form class="mb-4 flex w-full flex-col gap-4">
+      <form
+        class="mb-4 flex w-full flex-col gap-4"
+        [formGroup]="form"
+        (ngSubmit)="login()"
+      >
         <nt-email-field />
         <nt-password-field [showForgotLink]="true" />
         <button ntButton type="submit">Log in</button>
@@ -51,4 +59,22 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {}
+export class LoginComponent {
+  private _fb = inject(FormBuilder);
+  private _authService = inject(AuthService);
+  private _destroyRef = inject(DestroyRef);
+  private _router = inject(Router);
+
+  protected form = this._fb.group({
+    email: this._fb.nonNullable.control('', [Validators.email, Validators.required]),
+    password: this._fb.nonNullable.control('', [Validators.required]),
+  });
+
+  protected login() {
+    const { email, password } = this.form.getRawValue();
+    this._authService
+      .login({ email, password })
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe(() => this._router.navigate(['/']));
+  }
+}

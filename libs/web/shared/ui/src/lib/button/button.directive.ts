@@ -3,7 +3,7 @@ import { ntMerge } from '@web/shared/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const buttonVariants = cva(
-  'text-preset-4 flex h-11 items-center justify-center gap-2 rounded-lg px-4 py-3 text-left outline-4 outline-offset-4 outline-neutral-400 transition-colors disabled:cursor-not-allowed disabled:border-none disabled:bg-neutral-100 disabled:text-neutral-300',
+  'text-preset-4 flex h-11 items-center justify-center gap-2 rounded-lg px-4 py-3 text-left outline-4 outline-offset-4 outline-neutral-400 transition-colors disabled:cursor-not-allowed disabled:border-none disabled:bg-neutral-100 disabled:text-neutral-300 dark:disabled:bg-neutral-800',
   {
     variants: {
       variant: {

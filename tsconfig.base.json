@@ -15,9 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@common/models": ["libs/common/models/src/index.ts"],
       "@web/auth": ["libs/web/auth/src/index.ts"],
-      "@web/core/layout": ["libs/web/core/layout/src/index.ts"],
       "@web/core/interceptors": ["libs/web/core/interceptors/src/index.ts"],
+      "@web/core/layout": ["libs/web/core/layout/src/index.ts"],
       "@web/notes": ["libs/web/notes/src/index.ts"],
       "@web/settings": ["libs/web/settings/src/index.ts"],
       "@web/shared/assets": ["libs/web/shared/assets/src/index.ts"],

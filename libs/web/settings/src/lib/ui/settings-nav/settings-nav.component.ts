@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { DividerComponent, IconName, NavModule } from '@web/shared/ui';
 @Component({
   selector: 'nt-settings-nav',
@@ -12,12 +12,19 @@ import { DividerComponent, IconName, NavModule } from '@web/shared/ui';
     </nt-nav>
     <nt-divider class="mb-2 block" />
     <nt-nav>
-      <nt-nav-button icon="logout" label="Logout" />
+      <nt-nav-button
+        icon="logout"
+        label="Logout"
+        [disabled]="isLoggingOut()"
+        (click)="logOut.emit()"
+      />
     </nt-nav>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsNavComponent {
+  public logOut = output();
+  public isLoggingOut = input(false);
   protected linkItems = [
     {
       link: '/settings/color-theme',

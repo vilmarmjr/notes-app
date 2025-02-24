@@ -19,6 +19,8 @@ import { Response } from 'express';
 import { validateSchema } from '../core/validation/validation.pipe';
 import { AuthService } from './auth.service';
 
+const ACCESS_TOKEN_KEY = 'notes-at';
+
 @Controller()
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -46,7 +48,12 @@ export class AuthController {
     return { id, email };
   }
 
+  @Post('logout')
+  async logOut(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie(ACCESS_TOKEN_KEY);
+  }
+
   private setAccessToken(token: string, response: Response) {
-    response.cookie('notes-at', token, { httpOnly: true });
+    response.cookie(ACCESS_TOKEN_KEY, token, { httpOnly: true });
   }
 }

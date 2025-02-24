@@ -21,6 +21,7 @@ export default [
               onlyDependOnLibsWithTags: [
                 'web:ui',
                 'web:utils',
+                'web:data-access',
                 'web:core',
                 'web:assets',
                 'web:auth',
@@ -39,6 +40,7 @@ export default [
               onlyDependOnLibsWithTags: [
                 'web:ui',
                 'web:utils',
+                'web:data-access',
                 'web:core',
                 'web:form',
                 'common:models',
@@ -49,6 +51,7 @@ export default [
               onlyDependOnLibsWithTags: [
                 'web:ui',
                 'web:utils',
+                'web:data-access',
                 'web:core',
                 'web:form',
                 'common:models',
@@ -59,6 +62,7 @@ export default [
               onlyDependOnLibsWithTags: [
                 'web:ui',
                 'web:utils',
+                'web:data-access',
                 'web:core',
                 'web:form',
                 'common:models',
@@ -80,6 +84,10 @@ export default [
             {
               sourceTag: 'web:form',
               onlyDependOnLibsWithTags: ['web:ui', 'web:utils'],
+            },
+            {
+              sourceTag: 'web:data-access',
+              onlyDependOnLibsWithTags: ['common:models'],
             },
           ],
         },

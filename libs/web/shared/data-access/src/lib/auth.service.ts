@@ -15,6 +15,10 @@ export class AuthService {
     return this._http.post<LogInResponseDto>('login', dto);
   }
 
+  logOut() {
+    return this._http.post<void>('logout', null);
+  }
+
   signUp(dto: SignUpRequestDto) {
     return this._http.post<SignUpResponseDto>('signup', dto);
   }

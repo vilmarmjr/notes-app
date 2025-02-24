@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { DesktopHeaderComponent } from '@web/core/layout';
 import { BreakpointService, DividerComponent } from '@web/shared/ui';
+import { SettingsStore } from '../../store/settings.store';
 import { SettingsNavComponent } from '../../ui/settings-nav/settings-nav.component';
 
 @Component({
@@ -10,12 +11,16 @@ import { SettingsNavComponent } from '../../ui/settings-nav/settings-nav.compone
   template: `
     @if (lg()) {
       <div class="flex h-full flex-col">
-        <nt-desktop-header title="Settings"></nt-desktop-header>
+        <nt-desktop-header title="Settings" />
         <nt-divider />
         <div class="flex min-h-0 flex-1">
           @if (withNav()) {
             <div class="flex w-72 flex-col overflow-y-auto px-4 py-5">
-              <nt-settings-nav class="mb-2" />
+              <nt-settings-nav
+                class="mb-2"
+                [isLoggingOut]="store.isLoggingOut()"
+                (logOut)="store.logOut()"
+              />
             </div>
             <nt-divider direction="vertical" />
           }
@@ -35,5 +40,6 @@ import { SettingsNavComponent } from '../../ui/settings-nav/settings-nav.compone
 })
 export class SettingsShellComponent {
   public withNav = input(true);
+  protected store = inject(SettingsStore);
   protected lg = inject(BreakpointService).lg;
 }

@@ -8,3 +8,4 @@
 - [ ] Add unit and e2e tests
 - [ ] Improve NavComponent API
 - [ ] Add page titles based on current route
+- [ ] Add strict mode

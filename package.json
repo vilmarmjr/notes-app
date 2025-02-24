@@ -4,6 +4,8 @@
   "license": "MIT",
   "scripts": {
     "serve:web": "nx serve web",
+    "serve:server": "nx serve server",
+    "serve:all": "nx run-many --parallel --target=serve --projects=web,server",
     "prepare": "husky install"
   },
   "pnpm": {

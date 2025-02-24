@@ -1,4 +1,9 @@
-import { LoginDto, LoginResponseDto, SignupDto, SignupResponseDto } from '@common/models';
+import {
+  LoginRequestDto,
+  LoginResponseDto,
+  SignupRequestDto,
+  SignupResponseDto,
+} from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -15,7 +20,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signup(dto: SignupDto): Promise<SignupResponseDto> {
+  async signup(dto: SignupRequestDto): Promise<SignupResponseDto> {
     const alreadyExists = await this.userRepository.exists({
       where: { email: dto.email },
     });
@@ -33,7 +38,7 @@ export class AuthService {
     return { id: user.id, email: user.email, token };
   }
 
-  async login(dto: LoginDto): Promise<LoginResponseDto> {
+  async login(dto: LoginRequestDto): Promise<LoginResponseDto> {
     const user = await this.userRepository.findOneBy({ email: dto.email });
 
     if (!user) {

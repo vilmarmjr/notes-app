@@ -35,9 +35,9 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
         [formGroup]="form"
         (ngSubmit)="login()"
       >
-        <nt-email-field />
-        <nt-password-field [showForgotLink]="true" />
-        <button ntButton type="submit">Log in</button>
+        <nt-email-field formControlName="email" />
+        <nt-password-field formControlName="password" [showForgotLink]="true" />
+        <button ntButton type="submit" [disabled]="form.invalid">Log in</button>
       </form>
       <nt-divider class="mb-6" />
       <p class="text-preset-5 mb-4">Or log in with:</p>

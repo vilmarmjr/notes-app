@@ -1,11 +1,31 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NgControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
 
 @Component({
   selector: 'nt-password-field',
-  imports: [CommonModule, IconComponent, RouterLink, FormFieldModule, InputDirective],
+  imports: [
+    CommonModule,
+    IconComponent,
+    RouterLink,
+    FormFieldModule,
+    InputDirective,
+    ReactiveFormsModule,
+  ],
   template: `
     <nt-form-field>
       <div ntLabel class="flex justify-between">
@@ -14,16 +34,21 @@ import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
           <a
             class="text-preset-6 text-neutral-600 underline hover:text-blue-500 dark:text-neutral-400"
             routerLink="/forgot-password"
+            tabindex="-1"
           >
             Forgot
           </a>
         }
       </div>
-      <input ntInput [type]="showPassword() ? 'text' : 'password'" />
+      <input
+        ntInput
+        [type]="showPassword() ? 'text' : 'password'"
+        [formControl]="control"
+      />
       <nt-icon
         ntSuffix
-        class="cursor-pointer"
         role="button"
+        class="cursor-pointer"
         [name]="showPassword() ? 'hidePassword' : 'showPassword'"
         (click)="toggleShowPassword($event)"
       />
@@ -37,11 +62,31 @@ import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PasswordFieldComponent {
+export class PasswordFieldComponent implements ControlValueAccessor, OnInit {
   public label = input('Password');
   public showForgotLink = input(false);
   public hint = input('');
   protected showPassword = signal(false);
+
+  protected control = new FormControl<string | null>(null);
+  protected onChange = () => {};
+  protected onTouched = () => {};
+
+  private _ngControl = inject(NgControl, { self: true });
+
+  constructor() {
+    this._ngControl.valueAccessor = this;
+  }
+
+  ngOnInit() {
+    this.control = this._ngControl.control as FormControl;
+  }
+
+  writeValue() {}
+
+  registerOnChange() {}
+
+  registerOnTouched() {}
 
   protected toggleShowPassword(event: Event) {
     event.preventDefault();

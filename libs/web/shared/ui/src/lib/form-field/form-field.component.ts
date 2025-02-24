@@ -22,7 +22,7 @@ const inputContainerVariants = cva(
     variants: {
       disabled: {
         false: 'hover:bg-neutral-50 dark:hover:bg-neutral-900',
-        true: 'bg-neutral-50',
+        true: 'bg-neutral-50 dark:bg-neutral-700',
       },
       error: {
         false:

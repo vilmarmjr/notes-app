@@ -5,3 +5,7 @@
 * {
   scrollbar-width: thin;
 }
+
+.dark {
+  color-scheme: dark;
+}

@@ -23,7 +23,7 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
       <p class="text-preset-5 mb-10 text-center">
         Choose a new password to secure your account.
       </p>
-      <form class="flex w-full flex-col gap-4">
+      <form class="flex w-full flex-col gap-2">
         <nt-password-field label="New password" hint="At least 8 characters" />
         <nt-password-field label="Confirm new password" />
         <button ntButton type="submit">Reset password</button>

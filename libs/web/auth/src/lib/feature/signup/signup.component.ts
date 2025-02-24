@@ -28,7 +28,7 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
       <p class="text-preset-5 mb-10 text-center">
         Sign up to start organizing your notes and boost your productivity.
       </p>
-      <form class="mb-4 flex w-full flex-col gap-4">
+      <form class="mb-4 flex w-full flex-col gap-2">
         <nt-email-field />
         <nt-password-field hint="At least 8 characters" />
         <button ntButton type="submit">Sign up</button>

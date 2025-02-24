@@ -23,7 +23,7 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
       <p class="text-preset-5 mb-10 text-center">
         Enter your email below, and we'll send you a link to reset it.
       </p>
-      <form class="flex w-full flex-col gap-4">
+      <form class="flex w-full flex-col gap-2">
         <nt-email-field />
         <button ntButton type="submit">Send reset link</button>
       </form>

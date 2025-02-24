@@ -54,11 +54,13 @@ const inputContainerVariants = cva(
         }
       </div>
     </label>
-    @if (input().hasError() && error()) {
-      <ng-content select="[ntError]" />
-    } @else if (hint()) {
-      <ng-content select="[ntHint]" />
-    }
+    <div class="flex min-h-4">
+      @if (input().hasError() && error()) {
+        <ng-content select="[ntError]" />
+      } @else if (hint()) {
+        <ng-content select="[ntHint]" />
+      }
+    </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

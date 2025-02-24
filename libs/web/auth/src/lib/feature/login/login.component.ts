@@ -31,7 +31,7 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
       </h1>
       <p class="text-preset-5 mb-10 text-center">Please log in to continue</p>
       <form
-        class="mb-4 flex w-full flex-col gap-4"
+        class="mb-4 flex w-full flex-col gap-2"
         [formGroup]="form"
         (ngSubmit)="login()"
       >
@@ -67,7 +67,10 @@ export class LoginComponent {
 
   protected form = this._fb.group({
     email: this._fb.nonNullable.control('', [Validators.email, Validators.required]),
-    password: this._fb.nonNullable.control('', [Validators.required]),
+    password: this._fb.nonNullable.control('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
   });
 
   protected login() {

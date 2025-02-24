@@ -6,11 +6,17 @@ import {
   NgControl,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { FormFieldModule, InputDirective } from '@web/shared/ui';
+import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
 
 @Component({
   selector: 'nt-email-field',
-  imports: [CommonModule, FormFieldModule, InputDirective, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormFieldModule,
+    InputDirective,
+    ReactiveFormsModule,
+    IconComponent,
+  ],
   template: `
     <nt-form-field>
       <span ntLabel>Email address</span>
@@ -20,6 +26,16 @@ import { FormFieldModule, InputDirective } from '@web/shared/ui';
         placeholder="email@example.com"
         [formControl]="control"
       />
+      @if (control.errors) {
+        <div ntError class="flex items-center gap-2">
+          <nt-icon name="info" size="16" />
+          @if (control.hasError('required')) {
+            This field is required
+          } @else if (control.hasError('email')) {
+            Please enter a valid email address
+          }
+        </div>
+      }
     </nt-form-field>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

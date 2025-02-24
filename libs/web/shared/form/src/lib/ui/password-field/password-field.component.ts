@@ -52,6 +52,17 @@ import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
         [name]="showPassword() ? 'hidePassword' : 'showPassword'"
         (click)="toggleShowPassword($event)"
       />
+      @if (control.errors) {
+        <div ntError class="flex items-center gap-2">
+          <nt-icon name="info" size="16" />
+          @if (control.hasError('required')) {
+            This field is required
+          } @else if (control.hasError('minlength')) {
+            Password must be at least
+            {{ control.errors['minlength'].requiredLength }} characters
+          }
+        </div>
+      }
       @if (hint()) {
         <div ntHint class="flex items-center gap-2">
           <nt-icon name="info" size="16" />

@@ -14,6 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "strict": true,
     "paths": {
       "@common/models": ["libs/common/models/src/index.ts"],
       "@web/auth": ["libs/web/auth/src/index.ts"],

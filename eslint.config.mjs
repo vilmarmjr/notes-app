@@ -29,11 +29,12 @@ export default [
                 'web:settings',
                 'web:form',
                 'common:models',
+                'common:constants',
               ],
             },
             {
               sourceTag: 'server',
-              onlyDependOnLibsWithTags: ['common:models'],
+              onlyDependOnLibsWithTags: ['common:models', 'common:constants'],
             },
             {
               sourceTag: 'web:auth',
@@ -44,6 +45,7 @@ export default [
                 'web:core',
                 'web:form',
                 'common:models',
+                'common:constants',
               ],
             },
             {
@@ -55,6 +57,7 @@ export default [
                 'web:core',
                 'web:form',
                 'common:models',
+                'common:constants',
               ],
             },
             {
@@ -66,6 +69,7 @@ export default [
                 'web:core',
                 'web:form',
                 'common:models',
+                'common:constants',
               ],
             },
             {
@@ -75,6 +79,7 @@ export default [
                 'web:utils',
                 'web:form',
                 'common:models',
+                'common:constants',
               ],
             },
             {
@@ -87,7 +92,11 @@ export default [
             },
             {
               sourceTag: 'web:data-access',
-              onlyDependOnLibsWithTags: ['common:models'],
+              onlyDependOnLibsWithTags: ['common:models', 'common:constants'],
+            },
+            {
+              sourceTag: 'common:models',
+              onlyDependOnLibsWithTags: ['common:constants'],
             },
           ],
         },

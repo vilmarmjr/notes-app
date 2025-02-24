@@ -9,6 +9,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { PASSWORD_MIN_LENGTH } from '@common/constants';
 import { LogoComponent } from '@web/core/layout';
 import { AuthService } from '@web/shared/data-access';
 import { EmailFieldComponent, PasswordFieldComponent } from '@web/shared/form';
@@ -44,7 +45,7 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
         (ngSubmit)="signUp()"
       >
         <nt-email-field formControlName="email" />
-        <nt-password-field hint="At least 8 characters" formControlName="password" />
+        <nt-password-field [hint]="passwordHint" formControlName="password" />
         <button ntButton type="submit" [disabled]="form.invalid || isSubmitting()">
           Sign up
         </button>
@@ -80,9 +81,10 @@ export class SignupComponent {
     email: this._fb.nonNullable.control('', [Validators.email, Validators.required]),
     password: this._fb.nonNullable.control('', [
       Validators.required,
-      Validators.minLength(8),
+      Validators.minLength(PASSWORD_MIN_LENGTH),
     ]),
   });
+  protected readonly passwordHint = `At least ${PASSWORD_MIN_LENGTH} characters`;
 
   protected signUp() {
     const { email, password } = this.form.getRawValue();

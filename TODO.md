@@ -10,3 +10,5 @@
 - [ ] Add page titles based on current route
 - [ ] Add strict mode
 - [ ] Add database migrations (https://typeorm.io/migrations#creating-a-new-migration)
+- [ ] Add forgot password feature
+- [ ] Add login with google

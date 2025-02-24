@@ -6,7 +6,8 @@ import {
   NgControl,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
+import { FormFieldModule, InputDirective } from '@web/shared/ui';
+import { InfoErrorComponent } from '../info-error/info-error.component';
 
 @Component({
   selector: 'nt-email-field',
@@ -15,7 +16,7 @@ import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
     FormFieldModule,
     InputDirective,
     ReactiveFormsModule,
-    IconComponent,
+    InfoErrorComponent,
   ],
   template: `
     <nt-form-field bottomPosition="fixed">
@@ -27,14 +28,13 @@ import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
         [formControl]="control"
       />
       @if (control.errors) {
-        <div ntError class="flex items-center gap-2">
-          <nt-icon name="info" size="16" />
+        <nt-info-error ntError>
           @if (control.hasError('required')) {
             This field is required
           } @else if (control.hasError('email')) {
             Please enter a valid email address
           }
-        </div>
+        </nt-info-error>
       }
     </nt-form-field>
   `,

@@ -39,7 +39,7 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
       <form
         class="mb-4 flex w-full flex-col gap-2"
         [formGroup]="form"
-        (ngSubmit)="login()"
+        (ngSubmit)="logIn()"
       >
         <nt-email-field formControlName="email" />
         <nt-password-field formControlName="password" [showForgotLink]="true" />
@@ -76,13 +76,10 @@ export class LoginComponent {
   protected isSubmitting = signal(false);
   protected form = this._fb.group({
     email: this._fb.nonNullable.control('', [Validators.email, Validators.required]),
-    password: this._fb.nonNullable.control('', [
-      Validators.required,
-      Validators.minLength(8),
-    ]),
+    password: this._fb.nonNullable.control('', [Validators.required]),
   });
 
-  protected login() {
+  protected logIn() {
     const { email, password } = this.form.getRawValue();
     this.isSubmitting.set(true);
     this._authService

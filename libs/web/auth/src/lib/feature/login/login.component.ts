@@ -86,7 +86,7 @@ export class LoginComponent {
     const { email, password } = this.form.getRawValue();
     this.isSubmitting.set(true);
     this._authService
-      .login({ email, password })
+      .logIn({ email, password })
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe(() => this._router.navigate(['/']))
       .add(() => this.isSubmitting.set(false));

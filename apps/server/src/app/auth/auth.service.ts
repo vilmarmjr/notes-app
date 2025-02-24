@@ -1,9 +1,4 @@
-import {
-  LoginRequestDto,
-  LoginResponseDto,
-  SignupRequestDto,
-  SignupResponseDto,
-} from '@common/models';
+import { LogInRequestDto, SignUpRequestDto } from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -20,7 +15,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signup(dto: SignupRequestDto): Promise<SignupResponseDto> {
+  async signUp(dto: SignUpRequestDto) {
     const alreadyExists = await this.userRepository.exists({
       where: { email: dto.email },
     });
@@ -34,11 +29,11 @@ export class AuthService {
       email: dto.email,
       password,
     });
-    const token = await this.jwtService.signAsync({ email: dto.email });
+    const token = await this.signIn(user);
     return { id: user.id, email: user.email, token };
   }
 
-  async login(dto: LoginRequestDto): Promise<LoginResponseDto> {
+  async logIn(dto: LogInRequestDto) {
     const user = await this.userRepository.findOneBy({ email: dto.email });
 
     if (!user) {
@@ -51,7 +46,12 @@ export class AuthService {
       throw new ApplicationException(AuthError.INCORRECT_EMAIL_OR_PASSWORD);
     }
 
-    const token = await this.jwtService.signAsync({ email: user.email });
+    const token = await this.signIn(user);
     return { id: user.id, email: user.email, token };
+  }
+
+  private async signIn(user: User) {
+    const token = await this.jwtService.signAsync({ id: user.id });
+    return token;
   }
 }

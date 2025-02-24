@@ -1,14 +1,13 @@
 import { z } from 'zod';
 
-export const signupRequestSchema = z.object({
+export const signUpRequestSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
 
-export type SignupRequestDto = z.infer<typeof signupRequestSchema>;
+export type SignUpRequestDto = z.infer<typeof signUpRequestSchema>;
 
-export type SignupResponseDto = {
+export type SignUpResponseDto = {
   id: string;
   email: string;
-  token: string;
 };

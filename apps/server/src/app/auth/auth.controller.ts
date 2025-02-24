@@ -1,10 +1,21 @@
 import {
-  LoginRequestDto,
-  loginRequestSchema,
-  SignupRequestDto,
-  signupRequestSchema,
+  LogInRequestDto,
+  logInRequestSchema,
+  LogInResponseDto,
+  SignUpRequestDto,
+  signUpRequestSchema,
+  SignUpResponseDto,
 } from '@common/models';
-import { Body, Controller, HttpCode, HttpStatus, Post, UsePipes } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Res,
+  UsePipes,
+} from '@nestjs/common';
+import { Response } from 'express';
 import { validateSchema } from '../core/validation/validation.pipe';
 import { AuthService } from './auth.service';
 
@@ -13,15 +24,29 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)
-  @UsePipes(validateSchema(loginRequestSchema))
+  @UsePipes(validateSchema(logInRequestSchema))
   @Post('login')
-  login(@Body() dto: LoginRequestDto) {
-    return this.authService.login(dto);
+  async logIn(
+    @Body() dto: LogInRequestDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<LogInResponseDto> {
+    const { id, email, token } = await this.authService.logIn(dto);
+    this.setAccessToken(token, res);
+    return { id, email };
   }
 
   @Post('signup')
-  @UsePipes(validateSchema(signupRequestSchema))
-  register(@Body() dto: SignupRequestDto) {
-    return this.authService.signup(dto);
+  @UsePipes(validateSchema(signUpRequestSchema))
+  async signUp(
+    @Body() dto: SignUpRequestDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<SignUpResponseDto> {
+    const { id, email, token } = await this.authService.signUp(dto);
+    this.setAccessToken(token, res);
+    return { id, email };
+  }
+
+  private setAccessToken(token: string, response: Response) {
+    response.cookie('notes-at', token, { httpOnly: true });
   }
 }

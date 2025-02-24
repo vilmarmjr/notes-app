@@ -18,7 +18,7 @@ import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
     IconComponent,
   ],
   template: `
-    <nt-form-field>
+    <nt-form-field bottomPosition="fixed">
       <span ntLabel>Email address</span>
       <input
         ntInput

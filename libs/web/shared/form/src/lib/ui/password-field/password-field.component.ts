@@ -27,7 +27,7 @@ import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
     ReactiveFormsModule,
   ],
   template: `
-    <nt-form-field>
+    <nt-form-field bottomPosition="fixed">
       <div ntLabel class="flex justify-between">
         <span>{{ label() }}</span>
         @if (showForgotLink()) {

@@ -16,6 +16,8 @@ import { LabelDirective } from './label.directive';
 import { PrefixDirective } from './prefix.directive';
 import { SuffixDirective } from './suffix.directive';
 
+export type FormFieldBottomPosition = 'fixed' | 'dynamic';
+
 const inputContainerVariants = cva(
   'flex h-11 items-center gap-2 rounded-lg border px-4 py-3 outline-2 outline-offset-2 outline-neutral-500 focus-within:outline',
   {
@@ -54,13 +56,23 @@ const inputContainerVariants = cva(
         }
       </div>
     </label>
-    <div class="flex min-h-4">
+    @switch (bottomPosition()) {
+      @case ('fixed') {
+        <div class="flex min-h-4">
+          <ng-container [ngTemplateOutlet]="bottomContent" />
+        </div>
+      }
+      @case ('dynamic') {
+        <ng-container [ngTemplateOutlet]="bottomContent" />
+      }
+    }
+    <ng-template #bottomContent>
       @if (input().hasError() && error()) {
         <ng-content select="[ntError]" />
       } @else if (hint()) {
         <ng-content select="[ntHint]" />
       }
-    </div>
+    </ng-template>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -77,6 +89,7 @@ export class FormFieldComponent {
       error: this.input().hasError(),
     }),
   );
+  public bottomPosition = input<FormFieldBottomPosition>('dynamic');
   public userClass = input<string>('', { alias: 'class' });
   protected computedClass = computed(() =>
     ntMerge('flex flex-col gap-2', this.userClass()),

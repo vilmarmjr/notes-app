@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -37,7 +43,9 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
       >
         <nt-email-field formControlName="email" />
         <nt-password-field formControlName="password" [showForgotLink]="true" />
-        <button ntButton type="submit" [disabled]="form.invalid">Log in</button>
+        <button ntButton type="submit" [disabled]="form.invalid || isSubmitting()">
+          Log in
+        </button>
       </form>
       <nt-divider class="mb-6" />
       <p class="text-preset-5 mb-4">Or log in with:</p>
@@ -65,6 +73,7 @@ export class LoginComponent {
   private _destroyRef = inject(DestroyRef);
   private _router = inject(Router);
 
+  protected isSubmitting = signal(false);
   protected form = this._fb.group({
     email: this._fb.nonNullable.control('', [Validators.email, Validators.required]),
     password: this._fb.nonNullable.control('', [
@@ -75,9 +84,11 @@ export class LoginComponent {
 
   protected login() {
     const { email, password } = this.form.getRawValue();
+    this.isSubmitting.set(true);
     this._authService
       .login({ email, password })
       .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe(() => this._router.navigate(['/']));
+      .subscribe(() => this._router.navigate(['/']))
+      .add(() => this.isSubmitting.set(false));
   }
 }

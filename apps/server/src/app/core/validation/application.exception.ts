@@ -1,4 +1,5 @@
 import { ApplicationError } from '@common/constants';
+import { ErrorResponse } from '@common/models';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 export class ApplicationException extends HttpException {
@@ -7,6 +8,7 @@ export class ApplicationException extends HttpException {
     status = HttpStatus.UNPROCESSABLE_ENTITY,
     details?: object,
   ) {
-    super({ statusCode: status, message: error, details }, status);
+    const response: ErrorResponse = { statusCode: status, message: error, details };
+    super(response, status);
   }
 }

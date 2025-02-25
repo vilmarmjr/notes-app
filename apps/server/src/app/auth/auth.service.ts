@@ -21,7 +21,7 @@ export class AuthService {
     });
 
     if (alreadyExists) {
-      throw new ApplicationException(AuthError.EMAIL_ALREADY_TAKEN);
+      throw new ApplicationException(AuthError.EMAIL_IS_ALREADY_TAKEN);
     }
 
     const password = await hash(dto.password, 10);

@@ -3,6 +3,7 @@ import {
   ApplicationConfig,
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withViewTransitions } from '@angular/router';
 import { apiInterceptor, withCredentialsInterceptor } from '@web/core/interceptors';
 import { environment } from '../environments/environment';
@@ -15,5 +16,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([apiInterceptor(environment.apiUrl), withCredentialsInterceptor]),
     ),
+    provideAnimations(),
   ],
 };

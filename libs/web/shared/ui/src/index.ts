@@ -22,3 +22,6 @@ export * from './lib/radio/radio-group.component';
 export * from './lib/radio/radio.module';
 export * from './lib/theme/color-theme.service';
 export * from './lib/theme/font-theme.service';
+export * from './lib/toast/toast-config';
+export * from './lib/toast/toast-ref';
+export * from './lib/toast/toast.service';

@@ -16,8 +16,8 @@
     "baseUrl": ".",
     "strict": true,
     "paths": {
-      "@common/models": ["libs/common/models/src/index.ts"],
       "@common/constants": ["libs/common/constants/src/index.ts"],
+      "@common/models": ["libs/common/models/src/index.ts"],
       "@web/auth": ["libs/web/auth/src/index.ts"],
       "@web/core/interceptors": ["libs/web/core/interceptors/src/index.ts"],
       "@web/core/layout": ["libs/web/core/layout/src/index.ts"],

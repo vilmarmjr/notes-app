@@ -11,12 +11,14 @@ const errorMessages: Record<ApplicationError, string> = {
   [FieldsErrors.INVALID_FIELDS]: 'Invalid fields',
 };
 
+const defaultErrorMessage = 'An unexpected error occurred. Please try again';
+
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const _toastService = inject(ToastService);
   return next(req).pipe(
     catchError(err => {
       const error: ErrorResponse = err.error;
-      _toastService.error(errorMessages[error.message] || 'An unexpected error occurred');
+      _toastService.error(errorMessages[error.message] || defaultErrorMessage);
       return throwError(() => error);
     }),
   );

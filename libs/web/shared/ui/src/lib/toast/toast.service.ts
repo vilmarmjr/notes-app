@@ -8,7 +8,8 @@ import { ToastComponent } from './toast.component';
 
 const DEFAULT_CONFIG: ToastConfig = {
   minWidth: '390px',
-  hideDelay: 4000,
+  timeout: 4000,
+  extendedTimeout: 2000,
   type: 'success',
   content: 'Success!',
 };

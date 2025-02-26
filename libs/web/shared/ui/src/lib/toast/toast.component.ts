@@ -1,8 +1,14 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Type } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  Type,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { timer } from 'rxjs';
+import { fromEvent, merge, switchMap, takeUntil, timer } from 'rxjs';
 import { IconComponent } from '../icon/icon.component';
 import { ToastRef } from './toast-ref';
 import { TOAST_CONFIG } from './toast.service';
@@ -49,10 +55,25 @@ export class ToastComponent {
   protected toastRef = inject(ToastRef);
   protected isText = typeof this.config.content === 'string';
   protected content = this.config.content as Type<unknown>;
+  private _elementRef = inject(ElementRef);
 
   constructor() {
-    timer(this.config.hideDelay)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.toastRef.close());
+    const mouseEnter$ = fromEvent(this._elementRef.nativeElement, 'mouseenter').pipe(
+      takeUntilDestroyed(),
+    );
+    const mouseLeave$ = fromEvent(this._elementRef.nativeElement, 'mouseleave').pipe(
+      takeUntilDestroyed(),
+    );
+    const extendedTimeout$ = timer(this.config.extendedTimeout).pipe(
+      takeUntilDestroyed(),
+      takeUntil(mouseEnter$),
+    );
+    const timeout$ = merge(
+      mouseEnter$.pipe(
+        switchMap(() => mouseLeave$.pipe(switchMap(() => extendedTimeout$))),
+      ),
+      timer(this.config.timeout).pipe(takeUntilDestroyed(), takeUntil(mouseEnter$)),
+    );
+    timeout$.subscribe(() => this.toastRef.close());
   }
 }

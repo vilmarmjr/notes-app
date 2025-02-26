@@ -1,4 +1,4 @@
-import { AuthError } from '@common/constants';
+import { AuthErrors } from '@common/constants';
 import { LogInRequestDto, SignUpRequestDto } from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -21,7 +21,7 @@ export class AuthService {
     });
 
     if (alreadyExists) {
-      throw new ApplicationException(AuthError.EMAIL_IS_ALREADY_TAKEN);
+      throw new ApplicationException(AuthErrors.EMAIL_IS_ALREADY_TAKEN);
     }
 
     const password = await hash(dto.password, 10);
@@ -37,13 +37,13 @@ export class AuthService {
     const user = await this.userRepository.findOneBy({ email: dto.email });
 
     if (!user) {
-      throw new ApplicationException(AuthError.INCORRECT_EMAIL_OR_PASSWORD);
+      throw new ApplicationException(AuthErrors.INCORRECT_EMAIL_OR_PASSWORD);
     }
 
     const isPasswordValid = await compare(dto.password, user.password);
 
     if (!isPasswordValid) {
-      throw new ApplicationException(AuthError.INCORRECT_EMAIL_OR_PASSWORD);
+      throw new ApplicationException(AuthErrors.INCORRECT_EMAIL_OR_PASSWORD);
     }
 
     const token = await this.signIn(user);

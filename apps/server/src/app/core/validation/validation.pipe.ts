@@ -1,4 +1,4 @@
-import { FieldsError } from '@common/constants';
+import { FieldsErrors } from '@common/constants';
 import { HttpStatus, PipeTransform } from '@nestjs/common';
 import { ZodSchema } from 'zod';
 import { ApplicationException } from './application.exception';
@@ -13,7 +13,7 @@ class ValidationPipe<T> implements PipeTransform {
       return data;
     }
 
-    throw new ApplicationException(FieldsError.INVALID_FIELDS, HttpStatus.BAD_REQUEST, {
+    throw new ApplicationException(FieldsErrors.INVALID_FIELDS, HttpStatus.BAD_REQUEST, {
       issues: error.issues.map(issue => ({
         code: issue.code,
         message: issue.message,

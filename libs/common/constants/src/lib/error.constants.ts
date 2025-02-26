@@ -1,10 +1,14 @@
-export enum AuthError {
-  EMAIL_IS_ALREADY_TAKEN = 'EMAIL_IS_ALREADY_TAKEN',
-  INCORRECT_EMAIL_OR_PASSWORD = 'INCORRECT_EMAIL_OR_PASSWORD',
-}
+export const AuthErrors = {
+  EMAIL_IS_ALREADY_TAKEN: 'EMAIL_IS_ALREADY_TAKEN',
+  INCORRECT_EMAIL_OR_PASSWORD: 'INCORRECT_EMAIL_OR_PASSWORD',
+} as const;
 
-export enum FieldsError {
-  INVALID_FIELDS = 'INVALID_FIELDS',
-}
+export type AuthError = (typeof AuthErrors)[keyof typeof AuthErrors];
+
+export const FieldsErrors = {
+  INVALID_FIELDS: 'INVALID_FIELDS',
+};
+
+export type FieldsError = (typeof FieldsErrors)[keyof typeof FieldsErrors];
 
 export type ApplicationError = AuthError | FieldsError;

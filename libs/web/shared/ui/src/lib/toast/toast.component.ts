@@ -1,11 +1,13 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CdkPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  ComponentRef,
   ElementRef,
   inject,
-  Type,
+  viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent, merge, switchMap, takeUntil, timer } from 'rxjs';
@@ -15,7 +17,7 @@ import { TOAST_CONFIG } from './toast.service';
 
 @Component({
   selector: 'nt-toast',
-  imports: [CommonModule, IconComponent],
+  imports: [CommonModule, IconComponent, CdkPortalOutlet],
   host: {
     class:
       'bg-base-white flex items-center gap-2 rounded-lg border border-neutral-200 p-2 w-full dark:border-neutral-700 dark:bg-neutral-800',
@@ -37,9 +39,8 @@ import { TOAST_CONFIG } from './toast.service';
     <span class="text-preset-6 dark:text-base-white w-full text-neutral-950">
       @if (isText) {
         {{ config.content }}
-      } @else {
-        <ng-container *ngComponentOutlet="content" />
       }
+      <ng-container cdkPortalOutlet />
     </span>
     <button
       class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700"
@@ -54,8 +55,8 @@ export class ToastComponent {
   protected config = inject(TOAST_CONFIG);
   protected toastRef = inject(ToastRef);
   protected isText = typeof this.config.content === 'string';
-  protected content = this.config.content as Type<unknown>;
   private _elementRef = inject(ElementRef);
+  private _portalOutlet = viewChild.required(CdkPortalOutlet);
 
   constructor() {
     const mouseEnter$ = fromEvent(this._elementRef.nativeElement, 'mouseenter').pipe(
@@ -75,5 +76,9 @@ export class ToastComponent {
       timer(this.config.timeout).pipe(takeUntilDestroyed(), takeUntil(mouseEnter$)),
     );
     timeout$.subscribe(() => this.toastRef.close());
+  }
+
+  public attachComponentPortal<T>(componentPortal: ComponentPortal<T>): ComponentRef<T> {
+    return this._portalOutlet().attachComponentPortal(componentPortal);
   }
 }

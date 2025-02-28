@@ -23,6 +23,7 @@ export class ToastService {
   private _overlay = inject(Overlay);
   private _toastRef: ToastRef | null = null;
   private _breakpointService = inject(BreakpointService);
+  private _injector = inject(Injector);
 
   success(
     content: ToastConfig['content'],
@@ -49,18 +50,34 @@ export class ToastService {
     this.close();
 
     const overlayRef = this._overlay.create(this._getOverlayConfig(config));
+
     this._toastRef = new ToastRef(overlayRef);
-    const portal = new ComponentPortal(
-      ToastComponent,
-      null,
-      Injector.create({
-        providers: [
-          { provide: TOAST_CONFIG, useValue: config },
-          { provide: ToastRef, useValue: this._toastRef },
-        ],
-      }),
-    );
-    overlayRef.attach(portal);
+
+    const toast = overlayRef.attach(
+      new ComponentPortal(
+        ToastComponent,
+        null,
+        Injector.create({
+          providers: [
+            { provide: TOAST_CONFIG, useValue: config },
+            { provide: ToastRef, useValue: this._toastRef },
+          ],
+        }),
+      ),
+    ).instance;
+
+    if (typeof config.content !== 'string') {
+      toast.attachComponentPortal(
+        new ComponentPortal(
+          config.content,
+          null,
+          Injector.create({
+            parent: this._injector,
+            providers: [{ provide: ToastRef, useValue: this._toastRef }],
+          }),
+        ),
+      );
+    }
   }
 
   private _getOverlayConfig(config: ToastConfig): OverlayConfig {

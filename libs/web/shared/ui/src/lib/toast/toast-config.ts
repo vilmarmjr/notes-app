@@ -1,7 +1,7 @@
-import { Type } from '@angular/core';
+import { ComponentType } from '@angular/cdk/portal';
 
 export type ToastConfig = {
-  content: string | Type<unknown>;
+  content: string | ComponentType<unknown>;
   type: 'success' | 'error';
   timeout: number;
   extendedTimeout: number;

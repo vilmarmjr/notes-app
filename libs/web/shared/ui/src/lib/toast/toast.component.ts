@@ -59,23 +59,18 @@ export class ToastComponent {
   private _portalOutlet = viewChild.required(CdkPortalOutlet);
 
   constructor() {
-    const mouseEnter$ = fromEvent(this._elementRef.nativeElement, 'mouseenter').pipe(
-      takeUntilDestroyed(),
-    );
-    const mouseLeave$ = fromEvent(this._elementRef.nativeElement, 'mouseleave').pipe(
-      takeUntilDestroyed(),
-    );
+    const mouseEnter$ = fromEvent(this._elementRef.nativeElement, 'mouseenter');
+    const mouseLeave$ = fromEvent(this._elementRef.nativeElement, 'mouseleave');
     const extendedTimeout$ = timer(this.config.extendedTimeout).pipe(
-      takeUntilDestroyed(),
       takeUntil(mouseEnter$),
     );
     const timeout$ = merge(
       mouseEnter$.pipe(
         switchMap(() => mouseLeave$.pipe(switchMap(() => extendedTimeout$))),
       ),
-      timer(this.config.timeout).pipe(takeUntilDestroyed(), takeUntil(mouseEnter$)),
+      timer(this.config.timeout).pipe(takeUntil(mouseEnter$)),
     );
-    timeout$.subscribe(() => this.toastRef.close());
+    timeout$.pipe(takeUntilDestroyed()).subscribe(() => this.toastRef.close());
   }
 
   public attachComponentPortal<T>(componentPortal: ComponentPortal<T>): ComponentRef<T> {

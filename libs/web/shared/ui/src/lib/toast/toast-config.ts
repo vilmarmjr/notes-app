@@ -5,5 +5,5 @@ export type ToastConfig = {
   type: 'success' | 'error';
   timeout: number;
   extendedTimeout: number;
-  minWidth: string;
+  width: string;
 };

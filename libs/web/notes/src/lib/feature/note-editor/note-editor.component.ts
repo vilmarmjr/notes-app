@@ -4,6 +4,7 @@ import { BreakpointService, DividerComponent } from '@web/shared/ui';
 import { NoteAsideActionsComponent } from '../../ui/note-aside-actions/note-aside-actions.component';
 import { NoteBottomActionsComponent } from '../../ui/note-bottom-actions/note-bottom-actions.component';
 import { NoteDetailsTableComponent } from '../../ui/note-details-table/note-details-table.component';
+import { NoteEditorSkeletonComponent } from '../../ui/note-editor-skeleton/note-editor-skeleton.component';
 import { NoteTopActionsComponent } from '../../ui/note-top-actions/note-top-actions.component';
 
 const noteContent = `Key performance optimization techniques:
@@ -27,6 +28,7 @@ const noteContent = `Key performance optimization techniques:
     NoteTopActionsComponent,
     NoteBottomActionsComponent,
     NoteDetailsTableComponent,
+    NoteEditorSkeletonComponent,
   ],
   template: `
     <div class="flex h-full min-h-0 w-full">
@@ -35,21 +37,25 @@ const noteContent = `Key performance optimization techniques:
           <nt-note-top-actions />
           <nt-divider />
         }
-        <h1 class="text-preset-1 dark:text-base-white text-neutral-950">
-          React Performance Optimization
-        </h1>
-        <nt-note-details-table />
-        <nt-divider />
-        <textarea
-          [value]="noteContent()"
-          class="bg-base-white h-full w-full resize-none text-neutral-800 outline-0 dark:bg-neutral-950 dark:text-neutral-100"
-        ></textarea>
-        @if (lg()) {
+        @if (loading()) {
+          <nt-note-editor-skeleton />
+        } @else {
+          <h1 class="text-preset-1 dark:text-base-white text-neutral-950">
+            React Performance Optimization
+          </h1>
+          <nt-note-details-table />
+          <nt-divider />
+          <textarea
+            [value]="noteContent()"
+            class="bg-base-white h-full w-full resize-none text-neutral-800 outline-0 dark:bg-neutral-950 dark:text-neutral-100"
+          ></textarea>
+        }
+        @if (lg() && !loading()) {
           <nt-divider />
           <nt-note-bottom-actions />
         }
       </div>
-      @if (lg()) {
+      @if (lg() && !loading()) {
         <nt-divider direction="vertical" />
         <nt-note-aside-actions />
       }
@@ -61,4 +67,9 @@ export class NoteEditorComponent {
   private breakpointService = inject(BreakpointService);
   protected lg = this.breakpointService.lg;
   protected noteContent = signal(noteContent);
+  protected loading = signal(true);
+
+  constructor() {
+    setTimeout(() => this.loading.set(false), 1000);
+  }
 }

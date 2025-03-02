@@ -23,10 +23,10 @@ export class BreakpointService {
   public readonly lg$ = this._matches('lg');
   public readonly xl$ = this._matches('xl');
 
-  public readonly sm = toSignal(this.sm$);
-  public readonly md = toSignal(this.md$);
-  public readonly lg = toSignal(this.lg$);
-  public readonly xl = toSignal(this.xl$);
+  public readonly sm = toSignal(this.sm$, { requireSync: true });
+  public readonly md = toSignal(this.md$, { requireSync: true });
+  public readonly lg = toSignal(this.lg$, { requireSync: true });
+  public readonly xl = toSignal(this.xl$, { requireSync: true });
 
   private _matches(breakpoint: Breakpoint) {
     return this._breakpointObserver

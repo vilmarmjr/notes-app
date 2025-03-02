@@ -12,3 +12,4 @@
 - [ ] Add database migrations (https://typeorm.io/migrations#creating-a-new-migration)
 - [ ] Add forgot password feature
 - [ ] Add login with google
+- [ ] Add button spinner

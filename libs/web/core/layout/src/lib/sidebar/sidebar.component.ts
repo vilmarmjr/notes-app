@@ -23,13 +23,13 @@ import { LogoComponent } from '../logo/logo.component';
         </nt-nav>
       } @else {
         <nt-skeleton class="mt-2 flex flex-col gap-5">
-          <nt-skeleton-item class="h-5 w-1/2" />
-          <nt-skeleton-item class="h-5 w-3/4" />
-          <nt-skeleton-item class="h-5 w-full" />
-          <nt-skeleton-item class="h-5 w-1/2" />
-          <nt-skeleton-item class="h-5 w-5/6" />
-          <nt-skeleton-item class="h-5 w-1/2" />
-          <nt-skeleton-item class="h-5 w-4/6" />
+          <nt-skeleton-item class="h-4 w-1/2" />
+          <nt-skeleton-item class="h-4 w-3/4" />
+          <nt-skeleton-item class="h-4 w-full" />
+          <nt-skeleton-item class="h-4 w-1/2" />
+          <nt-skeleton-item class="h-4 w-5/6" />
+          <nt-skeleton-item class="h-4 w-1/2" />
+          <nt-skeleton-item class="h-4 w-4/6" />
         </nt-skeleton>
       }
     </aside>

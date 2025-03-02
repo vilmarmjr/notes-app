@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { AuthService } from '@web/shared/data-access';
-import { finalize, pipe, switchMap, tap } from 'rxjs';
+import { catchError, finalize, of, pipe, switchMap, tap } from 'rxjs';
 
 export const SettingsStore = signalStore(
   withState({ isLoggingOut: false }),
@@ -12,11 +12,12 @@ export const SettingsStore = signalStore(
       pipe(
         tap(() => patchState(_store, { isLoggingOut: true })),
         switchMap(() =>
-          _authService
-            .logOut()
-            .pipe(finalize(() => patchState(_store, { isLoggingOut: false }))),
+          _authService.logOut().pipe(
+            tap(() => _router.navigate(['/login'])),
+            catchError(() => of(undefined)),
+            finalize(() => patchState(_store, { isLoggingOut: false })),
+          ),
         ),
-        tap(() => _router.navigate(['/login'])),
       ),
     ),
   })),

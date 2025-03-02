@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Data, RouterLink } from '@angular/router';
 import { IconComponent } from '@web/shared/ui';
@@ -7,6 +7,7 @@ import { map } from 'rxjs';
 import { NotesPageType } from '../../types/notes-page-type';
 import { CreateNoteButtonComponent } from '../../ui/create-note-button/create-note-button.component';
 import { NotesListHintComponent } from '../../ui/notes-list-hint/notes-list-hint.component';
+import { NotesListSkeletonComponent } from '../../ui/notes-list-skeleton/notes-list-skeleton.component';
 import { NotesListComponent } from '../../ui/notes-list/notes-list.component';
 import { NotesTitleComponent } from '../../ui/notes-title/notes-title.component';
 import { SearchFieldComponent } from '../../ui/search-field/search-field.component';
@@ -18,8 +19,9 @@ import { SearchFieldComponent } from '../../ui/search-field/search-field.compone
     IconComponent,
     NotesTitleComponent,
     SearchFieldComponent,
-    NotesListHintComponent,
     NotesListComponent,
+    NotesListHintComponent,
+    NotesListSkeletonComponent,
     CreateNoteButtonComponent,
     RouterLink,
   ],
@@ -49,7 +51,11 @@ import { SearchFieldComponent } from '../../ui/search-field/search-field.compone
         [query]="query()"
       />
     }
-    <nt-notes-list />
+    @if (loading()) {
+      <nt-notes-list-skeleton class="mt-6 block" />
+    } @else {
+      <nt-notes-list />
+    }
     <nt-create-note-button class="fixed bottom-20 right-5 sm:bottom-28 sm:right-8" />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -68,4 +74,9 @@ export class NotesMobileComponent {
     this._activatedRoute.queryParamMap.pipe(map(params => params.get('query'))),
     { requireSync: true },
   );
+  protected loading = signal(true);
+
+  constructor() {
+    setTimeout(() => this.loading.set(false), 1000);
+  }
 }

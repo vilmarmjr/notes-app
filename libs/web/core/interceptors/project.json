@@ -1,5 +1,5 @@
 {
-  "name": "interceptors",
+  "name": "web-interceptors",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web/core/interceptors/src",
   "prefix": "nt",

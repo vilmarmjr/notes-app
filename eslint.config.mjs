@@ -33,10 +33,6 @@ export default [
               ],
             },
             {
-              sourceTag: 'server',
-              onlyDependOnLibsWithTags: ['common:models', 'common:constants'],
-            },
-            {
               sourceTag: 'web:auth',
               onlyDependOnLibsWithTags: [
                 'web:ui',
@@ -93,6 +89,27 @@ export default [
             {
               sourceTag: 'web:data-access',
               onlyDependOnLibsWithTags: ['common:models', 'common:constants'],
+            },
+            {
+              sourceTag: 'server',
+              onlyDependOnLibsWithTags: [
+                'common:models',
+                'common:constants',
+                'server:core',
+                'server:auth',
+              ],
+            },
+            {
+              sourceTag: 'server:core',
+              onlyDependOnLibsWithTags: ['common:models', 'common:constants'],
+            },
+            {
+              sourceTag: 'server:auth',
+              onlyDependOnLibsWithTags: [
+                'common:models',
+                'common:constants',
+                'server:core',
+              ],
             },
             {
               sourceTag: 'common:models',

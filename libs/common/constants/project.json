@@ -1,5 +1,5 @@
 {
-  "name": "constants",
+  "name": "common-constants",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/common/constants/src",
   "projectType": "library",

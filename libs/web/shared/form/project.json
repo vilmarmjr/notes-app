@@ -1,5 +1,5 @@
 {
-  "name": "form",
+  "name": "web-form",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web/shared/form/src",
   "prefix": "nt",

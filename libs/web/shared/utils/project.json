@@ -1,5 +1,5 @@
 {
-  "name": "utils",
+  "name": "web-utils",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web/shared/utils/src",
   "prefix": "nt",

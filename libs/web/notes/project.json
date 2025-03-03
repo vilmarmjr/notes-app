@@ -1,5 +1,5 @@
 {
-  "name": "notes",
+  "name": "web-notes",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web/notes/src",
   "prefix": "nt",

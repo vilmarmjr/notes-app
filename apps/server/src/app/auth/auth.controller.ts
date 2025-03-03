@@ -16,10 +16,9 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { clearTokenCookie, setTokenCookie } from '../core/validation/utils/response';
 import { validateSchema } from '../core/validation/validation.pipe';
 import { AuthService } from './auth.service';
-
-const ACCESS_TOKEN_KEY = 'notes-at';
 
 @Controller()
 export class AuthController {
@@ -33,7 +32,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ): Promise<LogInResponseDto> {
     const { id, email, token } = await this.authService.logIn(dto);
-    this.setAccessToken(token, res);
+    setTokenCookie(token, res);
     return { id, email };
   }
 
@@ -44,16 +43,12 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ): Promise<SignUpResponseDto> {
     const { id, email, token } = await this.authService.signUp(dto);
-    this.setAccessToken(token, res);
+    setTokenCookie(token, res);
     return { id, email };
   }
 
   @Post('logout')
   async logOut(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie(ACCESS_TOKEN_KEY);
-  }
-
-  private setAccessToken(token: string, response: Response) {
-    response.cookie(ACCESS_TOKEN_KEY, token, { httpOnly: true });
+    clearTokenCookie(res);
   }
 }

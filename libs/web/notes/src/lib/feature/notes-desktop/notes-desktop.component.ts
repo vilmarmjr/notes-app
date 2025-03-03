@@ -36,7 +36,8 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
           </button>
           @if (type() !== 'search' && type() !== 'all') {
             <nt-notes-list-hint [type]="type()" [tag]="tag()" [query]="query()" />
-          } @else if (loading()) {
+          }
+          @if (loading()) {
             <nt-notes-list-skeleton class="mt-2 block" />
           } @else {
             <nt-notes-list />

@@ -1,57 +1,47 @@
 import { AuthErrors } from '@common/constants';
-import { LogInRequestDto, SignUpRequestDto } from '@common/models';
+import { SignUpRequestDto } from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { InjectRepository } from '@nestjs/typeorm';
 import { compare, hash } from 'bcrypt';
-import { Repository } from 'typeorm';
 import { ApplicationException } from '../core/validation/application.exception';
-import { User } from './user.entity';
+import { UserService } from '../user/user.service';
+import { JwtPayload } from './jwt.payload';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private userService: UserService,
     private jwtService: JwtService,
   ) {}
 
   async signUp(dto: SignUpRequestDto) {
-    const alreadyExists = await this.userRepository.exists({
-      where: { email: dto.email },
-    });
+    const alreadyExists = await this.userService.existsByEmail(dto.email);
 
     if (alreadyExists) {
       throw new ApplicationException(AuthErrors.EMAIL_IS_ALREADY_TAKEN);
     }
 
     const password = await hash(dto.password, 10);
-    const user = await this.userRepository.save({
-      email: dto.email,
-      password,
-    });
-    const token = await this.signIn(user);
+    const user = await this.userService.save(dto.email, password);
+    const token = await this.signIn(user.id, user.password);
     return { id: user.id, email: user.email, token };
   }
 
-  async logIn(dto: LogInRequestDto) {
-    const user = await this.userRepository.findOneBy({ email: dto.email });
+  async signIn(id: string, email: string) {
+    const payload: JwtPayload = { sub: id, email: email };
+    const token = await this.jwtService.signAsync(payload);
+    return token;
+  }
+
+  async validateUser(email: string, password: string) {
+    const user = await this.userService.findByEmail(email);
 
     if (!user) {
-      throw new ApplicationException(AuthErrors.INCORRECT_EMAIL_OR_PASSWORD);
+      return null;
     }
 
-    const isPasswordValid = await compare(dto.password, user.password);
+    const isPasswordValid = await compare(password, user.password);
 
-    if (!isPasswordValid) {
-      throw new ApplicationException(AuthErrors.INCORRECT_EMAIL_OR_PASSWORD);
-    }
-
-    const token = await this.signIn(user);
-    return { id: user.id, email: user.email, token };
-  }
-
-  private async signIn(user: User) {
-    const token = await this.jwtService.signAsync({ id: user.id });
-    return token;
+    return isPasswordValid ? user : null;
   }
 }

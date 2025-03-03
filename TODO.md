@@ -13,3 +13,4 @@
 - [ ] Add forgot password feature
 - [ ] Add login with google
 - [ ] Add button spinner
+- [ ] Invalidate token on logout?

@@ -1,5 +1,4 @@
 import {
-  LogInRequestDto,
   logInRequestSchema,
   LogInResponseDto,
   SignUpRequestDto,
@@ -12,13 +11,18 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Req,
   Res,
+  UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { Response } from 'express';
-import { clearTokenCookie, setTokenCookie } from '../core/validation/utils/response';
+import { Request, Response } from 'express';
+import { ApplicationRequest } from '../core/types/application-request.type';
+import { clearTokenCookie, setTokenCookie } from '../core/utils/response';
 import { validateSchema } from '../core/validation/validation.pipe';
 import { AuthService } from './auth.service';
+import { LocalAuthGuard } from './local-auth.guard';
+import { Public } from './public.strategy';
 
 @Controller()
 export class AuthController {
@@ -26,18 +30,21 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @UsePipes(validateSchema(logInRequestSchema))
+  @UseGuards(LocalAuthGuard)
+  @Public()
   @Post('login')
   async logIn(
-    @Body() dto: LogInRequestDto,
+    @Req() req: ApplicationRequest,
     @Res({ passthrough: true }) res: Response,
   ): Promise<LogInResponseDto> {
-    const { id, email, token } = await this.authService.logIn(dto);
+    const token = await this.authService.signIn(req.user.id, req.user.email);
     setTokenCookie(token, res);
-    return { id, email };
+    return { id: req.user.id, email: req.user.email };
   }
 
-  @Post('signup')
   @UsePipes(validateSchema(signUpRequestSchema))
+  @Public()
+  @Post('signup')
   async signUp(
     @Body() dto: SignUpRequestDto,
     @Res({ passthrough: true }) res: Response,
@@ -48,7 +55,7 @@ export class AuthController {
   }
 
   @Post('logout')
-  async logOut(@Res({ passthrough: true }) res: Response) {
-    clearTokenCookie(res);
+  async logOut(@Res({ passthrough: true }) res: Response, @Req() req: Request) {
+    req.logout(() => clearTokenCookie(res));
   }
 }

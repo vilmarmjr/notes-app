@@ -1,6 +1,5 @@
 import { Response } from 'express';
-
-const ACCESS_TOKEN_KEY = 'notes-at';
+import { ACCESS_TOKEN_KEY } from '../constants/token';
 
 export function setTokenCookie(token: string, response: Response) {
   response.cookie(ACCESS_TOKEN_KEY, token, { httpOnly: true, sameSite: 'strict' });

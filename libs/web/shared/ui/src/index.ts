@@ -14,6 +14,7 @@ export * from './lib/nav/nav-button.component';
 export * from './lib/nav/nav-link.component';
 export * from './lib/nav/nav.component';
 export * from './lib/nav/nav.module';
+export * from './lib/progress/progress.component';
 export * from './lib/radio/radio-button-description.directive';
 export * from './lib/radio/radio-button-icon.directive';
 export * from './lib/radio/radio-button-label.directive';

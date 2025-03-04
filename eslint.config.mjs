@@ -22,30 +22,42 @@ export default [
             },
             {
               sourceTag: 'web:auth',
-              onlyDependOnLibsWithTags: ['/^web:shared.*/', '/^common.*/'],
+              onlyDependOnLibsWithTags: [
+                '/^web:shared.*/',
+                '/^web:core.*/',
+                '/^common.*/',
+              ],
             },
             {
               sourceTag: 'web:notes',
-              onlyDependOnLibsWithTags: ['/^web:shared.*/', '/^common.*/'],
+              onlyDependOnLibsWithTags: [
+                '/^web:shared.*/',
+                '/^web:core.*/',
+                '/^common.*/',
+              ],
             },
             {
               sourceTag: 'web:settings',
-              onlyDependOnLibsWithTags: ['/^web:shared.*/', '/^common.*/'],
+              onlyDependOnLibsWithTags: [
+                '/^web:shared.*/',
+                '/^web:core.*/',
+                '/^common.*/',
+              ],
             },
             {
               sourceTag: 'web:core',
               onlyDependOnLibsWithTags: ['/^web:shared.*/', '/^common.*/'],
             },
             {
-              sourceTag: 'web:ui',
-              onlyDependOnLibsWithTags: ['web:utils'],
+              sourceTag: 'web:shared-ui',
+              onlyDependOnLibsWithTags: ['web:shared-utils'],
             },
             {
-              sourceTag: 'web:form',
-              onlyDependOnLibsWithTags: ['web:ui', 'web:utils'],
+              sourceTag: 'web:shared-form',
+              onlyDependOnLibsWithTags: ['web:shared-ui', 'web:shared-utils'],
             },
             {
-              sourceTag: 'web:data-access',
+              sourceTag: 'web:shared-data-access',
               onlyDependOnLibsWithTags: ['common:models', 'common:constants'],
             },
             {
@@ -62,6 +74,10 @@ export default [
             },
             {
               sourceTag: 'server:users',
+              onlyDependOnLibsWithTags: ['/^server:shared.*/', '/^common.*/'],
+            },
+            {
+              sourceTag: 'server:notes',
               onlyDependOnLibsWithTags: ['/^server:shared.*/', '/^common.*/'],
             },
             {

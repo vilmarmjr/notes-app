@@ -1,0 +1,16 @@
+{
+  "name": "server-settings",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/server/settings/src",
+  "projectType": "library",
+  "tags": ["server:settings"],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/server/settings/jest.config.ts"
+      }
+    }
+  }
+}

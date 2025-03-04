@@ -81,6 +81,10 @@ export default [
               onlyDependOnLibsWithTags: ['/^server:shared.*/', '/^common.*/'],
             },
             {
+              sourceTag: 'server:settings',
+              onlyDependOnLibsWithTags: ['/^server:shared.*/', '/^common.*/'],
+            },
+            {
               sourceTag: 'server:shared-http',
               onlyDependOnLibsWithTags: ['server:shared-entities', '/^common.*/'],
             },

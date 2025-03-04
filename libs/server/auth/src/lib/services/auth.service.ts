@@ -2,7 +2,8 @@ import { AuthErrors } from '@common/constants';
 import { SignUpRequestDto } from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { ApplicationException, UsersService } from '@server/core';
+import { ApplicationException } from '@server/shared/http';
+import { UsersService } from '@server/users';
 import { compare, hash } from 'bcrypt';
 import { JwtPayload } from '../types/jwt-payload.type';
 

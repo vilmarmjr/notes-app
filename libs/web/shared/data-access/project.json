@@ -1,10 +1,10 @@
 {
-  "name": "web-data-access",
+  "name": "web-shared-data-access",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web/shared/data-access/src",
   "prefix": "nt",
   "projectType": "library",
-  "tags": ["web:data-access"],
+  "tags": ["web:shared-data-access"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

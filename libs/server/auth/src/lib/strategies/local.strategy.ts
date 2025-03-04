@@ -1,7 +1,7 @@
 import { AuthErrors } from '@common/constants';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { ApplicationException } from '@server/core';
+import { ApplicationException } from '@server/shared/http';
 import { Strategy } from 'passport-local';
 import { AuthService } from '../services/auth.service';
 

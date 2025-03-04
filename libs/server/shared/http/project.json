@@ -1,20 +1,16 @@
 {
-  "name": "web-shared-form",
+  "name": "server-shared-http",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/web/shared/form/src",
-  "prefix": "nt",
+  "sourceRoot": "libs/server/shared/http/src",
   "projectType": "library",
-  "tags": ["web:shared-form"],
+  "tags": ["server:shared-http"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/web/shared/form/jest.config.ts"
+        "jestConfig": "libs/server/shared/http/jest.config.ts"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

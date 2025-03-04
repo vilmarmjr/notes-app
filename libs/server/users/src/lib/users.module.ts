@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
+import { User } from '@server/shared/entities';
 import { UsersService } from './services/users.service';
 
 @Module({
@@ -8,4 +8,4 @@ import { UsersService } from './services/users.service';
   providers: [UsersService],
   exports: [UsersService],
 })
-export class CoreModule {}
+export class UsersModule {}

@@ -18,65 +18,23 @@ export default [
           depConstraints: [
             {
               sourceTag: 'web',
-              onlyDependOnLibsWithTags: [
-                'web:ui',
-                'web:utils',
-                'web:data-access',
-                'web:core',
-                'web:assets',
-                'web:auth',
-                'web:notes',
-                'web:settings',
-                'web:form',
-                'common:models',
-                'common:constants',
-              ],
+              onlyDependOnLibsWithTags: ['/^web.*/', '/^common.*/'],
             },
             {
               sourceTag: 'web:auth',
-              onlyDependOnLibsWithTags: [
-                'web:ui',
-                'web:utils',
-                'web:data-access',
-                'web:core',
-                'web:form',
-                'common:models',
-                'common:constants',
-              ],
+              onlyDependOnLibsWithTags: ['/^web:shared.*/', '/^common.*/'],
             },
             {
               sourceTag: 'web:notes',
-              onlyDependOnLibsWithTags: [
-                'web:ui',
-                'web:utils',
-                'web:data-access',
-                'web:core',
-                'web:form',
-                'common:models',
-                'common:constants',
-              ],
+              onlyDependOnLibsWithTags: ['/^web:shared.*/', '/^common.*/'],
             },
             {
               sourceTag: 'web:settings',
-              onlyDependOnLibsWithTags: [
-                'web:ui',
-                'web:utils',
-                'web:data-access',
-                'web:core',
-                'web:form',
-                'common:models',
-                'common:constants',
-              ],
+              onlyDependOnLibsWithTags: ['/^web:shared.*/', '/^common.*/'],
             },
             {
               sourceTag: 'web:core',
-              onlyDependOnLibsWithTags: [
-                'web:ui',
-                'web:utils',
-                'web:form',
-                'common:models',
-                'common:constants',
-              ],
+              onlyDependOnLibsWithTags: ['/^web:shared.*/', '/^common.*/'],
             },
             {
               sourceTag: 'web:ui',
@@ -92,24 +50,31 @@ export default [
             },
             {
               sourceTag: 'server',
-              onlyDependOnLibsWithTags: [
-                'common:models',
-                'common:constants',
-                'server:core',
-                'server:auth',
-              ],
-            },
-            {
-              sourceTag: 'server:core',
-              onlyDependOnLibsWithTags: ['common:models', 'common:constants'],
+              onlyDependOnLibsWithTags: ['/^server.*/', '/^common.*/'],
             },
             {
               sourceTag: 'server:auth',
               onlyDependOnLibsWithTags: [
-                'common:models',
-                'common:constants',
-                'server:core',
+                '/^server:shared.*/',
+                '/^common.*/',
+                'server:users',
               ],
+            },
+            {
+              sourceTag: 'server:users',
+              onlyDependOnLibsWithTags: ['/^server:shared.*/', '/^common.*/'],
+            },
+            {
+              sourceTag: 'server:shared-http',
+              onlyDependOnLibsWithTags: ['server:shared-entities', '/^common.*/'],
+            },
+            {
+              sourceTag: 'server:shared-validation',
+              onlyDependOnLibsWithTags: ['/^common.*/', 'server:shared-http'],
+            },
+            {
+              sourceTag: 'server:shared-entities',
+              onlyDependOnLibsWithTags: ['/^common.*/'],
             },
             {
               sourceTag: 'common:models',

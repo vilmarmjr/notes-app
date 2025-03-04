@@ -1,10 +1,10 @@
 export default {
-  displayName: 'server-core',
-  preset: '../../../jest.preset.js',
+  displayName: 'server-shared-entities',
+  preset: '../../../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/server/core',
+  coverageDirectory: '../../../../coverage/libs/server/shared/entities',
 };

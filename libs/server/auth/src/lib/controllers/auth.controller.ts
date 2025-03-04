@@ -16,7 +16,8 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { ApplicationRequest, Public, validateSchema } from '@server/core';
+import { ApplicationRequest, Public } from '@server/shared/http';
+import { validateSchema } from '@server/shared/validation';
 import { Request, Response } from 'express';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { AuthService } from '../services/auth.service';

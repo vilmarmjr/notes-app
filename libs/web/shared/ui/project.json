@@ -1,10 +1,10 @@
 {
-  "name": "web-ui",
+  "name": "web-shared-ui",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web/shared/ui/src",
   "prefix": "nt",
   "projectType": "library",
-  "tags": ["web:ui"],
+  "tags": ["web:shared-ui"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

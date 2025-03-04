@@ -1,10 +1,10 @@
 {
-  "name": "web-utils",
+  "name": "web-shared-utils",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/web/shared/utils/src",
   "prefix": "nt",
   "projectType": "library",
-  "tags": ["web:utils"],
+  "tags": ["web:shared-utils"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

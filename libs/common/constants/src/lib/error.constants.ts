@@ -8,7 +8,7 @@ export type AuthError = (typeof AuthErrors)[keyof typeof AuthErrors];
 
 export const FieldsErrors = {
   INVALID_FIELDS: 'INVALID_FIELDS',
-};
+} as const;
 
 export type FieldsError = (typeof FieldsErrors)[keyof typeof FieldsErrors];
 

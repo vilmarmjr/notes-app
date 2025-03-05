@@ -2,6 +2,6 @@ import { ColorTheme } from './color-theme.model';
 import { FontTheme } from './font-theme.model';
 
 export type SettingsResponseDto = {
-  colorTheme: ColorTheme;
-  fontTheme: FontTheme;
+  colorTheme?: ColorTheme | null;
+  fontTheme?: FontTheme | null;
 };

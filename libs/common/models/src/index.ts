@@ -3,8 +3,6 @@ export * from './lib/auth/login.model';
 export * from './lib/auth/signup.model';
 export * from './lib/error/error-response.model';
 export * from './lib/error/error.constants';
-export * from './lib/settings/color-theme.constants';
 export * from './lib/settings/color-theme.model';
-export * from './lib/settings/font-theme.constants';
 export * from './lib/settings/font-theme.model';
 export * from './lib/settings/settings.model';

@@ -1,10 +1,4 @@
-import {
-  ColorTheme,
-  DEFAULT_COLOR_THEME,
-  DEFAULT_FONT_THEME,
-  FontTheme,
-  SettingsResponseDto,
-} from '@common/models';
+import { ColorTheme, FontTheme, SettingsResponseDto } from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -17,8 +11,8 @@ export class SettingsService {
   async getSettings(userId: string): Promise<SettingsResponseDto> {
     const settings = await this._repository.findOne({ where: { user: { id: userId } } });
     return {
-      colorTheme: settings?.colorTheme || DEFAULT_COLOR_THEME,
-      fontTheme: settings?.fontTheme || DEFAULT_FONT_THEME,
+      colorTheme: settings?.colorTheme,
+      fontTheme: settings?.fontTheme,
     };
   }
 

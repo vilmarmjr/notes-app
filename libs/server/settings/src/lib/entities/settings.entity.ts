@@ -1,11 +1,4 @@
-import {
-  ColorTheme,
-  ColorThemes,
-  DEFAULT_COLOR_THEME,
-  DEFAULT_FONT_THEME,
-  FontTheme,
-  FontThemes,
-} from '@common/models';
+import { ColorTheme, ColorThemes, FontTheme, FontThemes } from '@common/models';
 import { User } from '@server/shared/entities';
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -17,16 +10,16 @@ export class Settings {
   @Column({
     type: 'enum',
     enum: FontThemes,
-    default: DEFAULT_FONT_THEME,
     name: 'font_theme',
+    nullable: true,
   })
   fontTheme!: FontTheme;
 
   @Column({
     type: 'enum',
     enum: ColorThemes,
-    default: DEFAULT_COLOR_THEME,
     name: 'color_theme',
+    nullable: true,
   })
   colorTheme!: ColorTheme;
 

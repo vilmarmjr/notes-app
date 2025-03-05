@@ -58,7 +58,7 @@ export default [
             },
             {
               sourceTag: 'web:shared-data-access',
-              onlyDependOnLibsWithTags: ['common:models', 'common:constants'],
+              onlyDependOnLibsWithTags: ['common:models'],
             },
             {
               sourceTag: 'server',
@@ -95,10 +95,6 @@ export default [
             {
               sourceTag: 'server:shared-entities',
               onlyDependOnLibsWithTags: ['/^common.*/'],
-            },
-            {
-              sourceTag: 'common:models',
-              onlyDependOnLibsWithTags: ['common:constants'],
             },
           ],
         },

@@ -5,9 +5,9 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column({ unique: true, length: 255, nullable: false })
+  @Column({ unique: true, length: 255 })
   email!: string;
 
-  @Column({ nullable: false, length: 255 })
+  @Column({ length: 255 })
   password!: string;
 }

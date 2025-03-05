@@ -1,4 +1,4 @@
-import { ApplicationError } from '@common/constants';
+import { ApplicationError } from './error.constants';
 
 export type ErrorResponse = {
   statusCode: number;

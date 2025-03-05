@@ -1,5 +1,4 @@
-import { ApplicationError } from '@common/constants';
-import { ErrorResponse } from '@common/models';
+import { ApplicationError, ErrorResponse } from '@common/models';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 export class ApplicationException extends HttpException {

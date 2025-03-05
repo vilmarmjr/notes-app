@@ -16,7 +16,6 @@
     "baseUrl": ".",
     "strict": true,
     "paths": {
-      "@common/constants": ["libs/common/constants/src/index.ts"],
       "@common/models": ["libs/common/models/src/index.ts"],
       "@server/auth": ["libs/server/auth/src/index.ts"],
       "@server/notes": ["libs/server/notes/src/index.ts"],

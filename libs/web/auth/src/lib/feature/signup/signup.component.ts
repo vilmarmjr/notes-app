@@ -9,7 +9,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { PASSWORD_MIN_LENGTH } from '@common/constants';
+import { PASSWORD_MIN_LENGTH } from '@common/models';
 import { LogoComponent } from '@web/core/layout';
 import { AuthService } from '@web/shared/data-access';
 import { EmailFieldComponent, PasswordFieldComponent } from '@web/shared/form';

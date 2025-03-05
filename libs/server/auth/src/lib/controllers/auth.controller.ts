@@ -1,5 +1,4 @@
 import {
-  logInRequestSchema,
   LogInResponseDto,
   SignUpRequestDto,
   signUpRequestSchema,
@@ -14,7 +13,6 @@ import {
   Req,
   Res,
   UseGuards,
-  UsePipes,
 } from '@nestjs/common';
 import { ApplicationRequest, Public } from '@server/shared/http';
 import { validateSchema } from '@server/shared/validation';
@@ -28,7 +26,6 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)
-  @UsePipes(validateSchema(logInRequestSchema))
   @UseGuards(LocalAuthGuard)
   @Public()
   @Post('login')
@@ -41,11 +38,10 @@ export class AuthController {
     return { id: req.user.id, email: req.user.email };
   }
 
-  @UsePipes(validateSchema(signUpRequestSchema))
   @Public()
   @Post('signup')
   async signUp(
-    @Body() dto: SignUpRequestDto,
+    @Body(validateSchema(signUpRequestSchema)) dto: SignUpRequestDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<SignUpResponseDto> {
     const { id, email, token } = await this.authService.signUp(dto);

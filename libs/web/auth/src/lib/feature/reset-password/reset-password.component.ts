@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { PASSWORD_MIN_LENGTH } from '@common/constants';
+import { PASSWORD_MIN_LENGTH } from '@common/models';
 import { LogoComponent } from '@web/core/layout';
 import { PasswordFieldComponent } from '@web/shared/form';
 import { ButtonDirective } from '@web/shared/ui';

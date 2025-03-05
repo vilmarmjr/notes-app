@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '@server/auth';
 import { NotesModule } from '@server/notes';
+import { SettingsModule } from '@server/settings';
 import { UsersModule } from '@server/users';
 
 @Module({
@@ -9,6 +10,7 @@ import { UsersModule } from '@server/users';
     AuthModule,
     UsersModule,
     NotesModule,
+    SettingsModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',

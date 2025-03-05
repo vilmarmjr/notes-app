@@ -1,8 +1,12 @@
 import { HttpInterceptorFn, HttpStatusCode } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApplicationError, AuthErrors, FieldsErrors } from '@common/constants';
-import { ErrorResponse } from '@common/models';
+import {
+  ApplicationError,
+  AuthErrors,
+  ErrorResponse,
+  FieldsErrors,
+} from '@common/models';
 import { ToastService } from '@web/shared/ui';
 import { catchError, throwError } from 'rxjs';
 

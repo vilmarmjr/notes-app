@@ -1,13 +1,13 @@
-import { FieldsErrors } from '@common/constants';
+import { FieldsErrors } from '@common/models';
 import { HttpStatus, PipeTransform } from '@nestjs/common';
 import { ApplicationException } from '@server/shared/http';
 import { ZodSchema } from 'zod';
 
 class ValidationPipe<T> implements PipeTransform {
-  constructor(private schema: ZodSchema<T>) {}
+  constructor(private _schema: ZodSchema<T>) {}
 
   transform(value: T): T {
-    const { success, data, error } = this.schema.safeParse(value);
+    const { success, data, error } = this._schema.safeParse(value);
 
     if (success) {
       return data;

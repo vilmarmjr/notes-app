@@ -1,4 +1,4 @@
-import { AuthErrors } from '@common/constants';
+import { AuthErrors } from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApplicationException } from '@server/shared/http';

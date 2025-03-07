@@ -47,10 +47,10 @@ export const ThemeStore = signalStore(
       saveColorTheme: rxMethod<ColorTheme>(
         pipe(
           tap(() => patchState(_store, { isSavingColorTheme: true })),
-          tap(() => _toastService.success('Settings updated successfully!')),
           switchMap(colorTheme =>
             _settingsService.saveColorTheme({ colorTheme }).pipe(
               tap(() => patchState(_store, { originalColorTheme: colorTheme })),
+              tap(() => _toastService.success('Settings updated successfully!')),
               finalize(() => patchState(_store, { isSavingColorTheme: false })),
             ),
           ),
@@ -59,10 +59,10 @@ export const ThemeStore = signalStore(
       saveFontTheme: rxMethod<FontTheme>(
         pipe(
           tap(() => patchState(_store, { isSavingFontTheme: true })),
-          tap(() => _toastService.success('Settings updated successfully!')),
           switchMap(fontTheme =>
             _settingsService.saveFontTheme({ fontTheme }).pipe(
               tap(() => patchState(_store, { originalFontTheme: fontTheme })),
+              tap(() => _toastService.success('Settings updated successfully!')),
               finalize(() => patchState(_store, { isSavingFontTheme: false })),
             ),
           ),

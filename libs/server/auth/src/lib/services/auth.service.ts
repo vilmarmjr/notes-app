@@ -1,10 +1,13 @@
-import { AuthErrors, SignUpRequestDto } from '@common/models';
+import { AuthErrors, ChangePasswordRequestDto, SignUpRequestDto } from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { User } from '@server/shared/entities';
 import { ApplicationException } from '@server/shared/http';
 import { UsersService } from '@server/users';
 import { compare, hash } from 'bcrypt';
 import { JwtPayload } from '../types/jwt-payload.type';
+
+const HASH_SALT = 10;
 
 @Injectable()
 export class AuthService {
@@ -20,8 +23,8 @@ export class AuthService {
       throw new ApplicationException(AuthErrors.EMAIL_IS_ALREADY_TAKEN);
     }
 
-    const password = await hash(dto.password, 10);
-    const user = await this._usersService.save(dto.email, password);
+    const password = await hash(dto.password, HASH_SALT);
+    const user = await this._usersService.save({ email: dto.email, password });
     const token = await this.signIn(user.id, user.password);
     return { id: user.id, email: user.email, token };
   }
@@ -42,5 +45,23 @@ export class AuthService {
     const isPasswordValid = await compare(password, user.password);
 
     return isPasswordValid ? user : null;
+  }
+
+  async changePassword(user: User, dto: ChangePasswordRequestDto) {
+    const { oldPassword, newPassword } = dto;
+
+    if (oldPassword === newPassword) {
+      throw new ApplicationException(AuthErrors.OLD_AND_NEW_PASSWORD_MUST_BE_DIFFERENT);
+    }
+
+    const isOldPasswordValid = await compare(oldPassword, user.password);
+
+    if (!isOldPasswordValid) {
+      throw new ApplicationException(AuthErrors.INVALID_OLD_PASSWORD);
+    }
+
+    const password = await hash(newPassword, HASH_SALT);
+    const { id, email } = await this._usersService.save({ id: user.id, password });
+    return this.signIn(id, email);
   }
 }

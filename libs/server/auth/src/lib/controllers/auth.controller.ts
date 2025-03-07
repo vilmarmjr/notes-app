@@ -1,4 +1,6 @@
 import {
+  ChangePasswordRequestDto,
+  changePasswordSchema,
   LogInResponseDto,
   SignUpRequestDto,
   signUpRequestSchema,
@@ -10,6 +12,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Put,
   Req,
   Res,
   UseGuards,
@@ -47,6 +50,17 @@ export class AuthController {
     const { id, email, token } = await this.authService.signUp(dto);
     setTokenCookie(token, res);
     return { id, email };
+  }
+
+  @Put('change-password')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async changePassword(
+    @Body(validateSchema(changePasswordSchema)) dto: ChangePasswordRequestDto,
+    @Req() req: ApplicationRequest,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const token = await this.authService.changePassword(req.user, dto);
+    setTokenCookie(token, res);
   }
 
   @Post('logout')

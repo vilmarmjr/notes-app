@@ -14,6 +14,9 @@ const errorMessages: Record<ApplicationError, string> = {
   [AuthErrors.EMAIL_IS_ALREADY_TAKEN]: 'Email is already taken',
   [AuthErrors.INCORRECT_EMAIL_OR_PASSWORD]: 'Incorrect email or password',
   [AuthErrors.UNAUTHORIZED]: 'You are not authorized to perform this action',
+  [AuthErrors.INVALID_OLD_PASSWORD]: 'Invalid old password',
+  [AuthErrors.OLD_AND_NEW_PASSWORD_MUST_BE_DIFFERENT]:
+    'Old and new password must be different',
   [FieldsErrors.INVALID_FIELDS]: 'Invalid fields',
 };
 

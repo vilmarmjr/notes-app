@@ -19,7 +19,7 @@ export class UsersService {
     return this._repository.exists({ where: { email } });
   }
 
-  save(email: string, password: string) {
-    return this._repository.save({ email, password });
+  save(user: Partial<User>) {
+    return this._repository.save(user);
   }
 }

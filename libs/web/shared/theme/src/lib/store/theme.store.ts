@@ -11,10 +11,10 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { SettingsService } from '@web/shared/data-access';
 import { ColorThemeService, FontThemeService, ToastService } from '@web/shared/ui';
 import { finalize, pipe, switchMap, tap } from 'rxjs';
-import { toColorTheme } from './to-color-theme';
-import { toFontTheme } from './to-font-theme';
-import { toUiColorTheme } from './to-ui-color-theme';
-import { toUiFontTheme } from './to-ui-font-theme';
+import { toColorTheme } from '../utils/to-color-theme';
+import { toFontTheme } from '../utils/to-font-theme';
+import { toUiColorTheme } from '../utils/to-ui-color-theme';
+import { toUiFontTheme } from '../utils/to-ui-font-theme';
 
 export const ThemeStore = signalStore(
   withState(() => {

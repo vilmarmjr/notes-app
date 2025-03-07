@@ -5,8 +5,8 @@ import {
   computed,
   effect,
   inject,
-  model,
   OnDestroy,
+  signal,
   untracked,
 } from '@angular/core';
 import { ColorTheme, ColorThemes } from '@common/models';
@@ -67,7 +67,7 @@ export class ColorThemeComponent implements OnDestroy {
   private _themeStore = inject(ThemeStore);
   private _colorThemeService = inject(ColorThemeService);
 
-  protected value = model(this._themeStore.originalColorTheme());
+  protected value = signal(this._themeStore.originalColorTheme());
 
   protected canSave = computed(() => {
     const isSaving = this._themeStore.isSavingColorTheme();

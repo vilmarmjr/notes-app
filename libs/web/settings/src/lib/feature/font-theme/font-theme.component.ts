@@ -5,8 +5,8 @@ import {
   computed,
   effect,
   inject,
-  model,
   OnDestroy,
+  signal,
   untracked,
 } from '@angular/core';
 import { FontTheme, FontThemes } from '@common/models';
@@ -67,7 +67,7 @@ export class FontThemeComponent implements OnDestroy {
   private _themeStore = inject(ThemeStore);
   private _fontThemeService = inject(FontThemeService);
 
-  protected value = model(this._themeStore.originalFontTheme());
+  protected value = signal(this._themeStore.originalFontTheme());
 
   protected canSave = computed(() => {
     const isSaving = this._themeStore.isSavingFontTheme();

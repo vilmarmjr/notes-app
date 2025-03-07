@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { ShellComponent } from '@web/core/layout';
 
 export const appRoutes: Route[] = [
   { path: 'login', loadComponent: () => import('@web/auth').then(c => c.LoginComponent) },
@@ -15,17 +16,23 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('@web/auth').then(c => c.ResetPasswordComponent),
   },
   {
-    path: 'settings',
-    loadChildren: () => import('@web/settings').then(m => m.settingsRoutes),
-  },
-  {
-    path: 'notes',
-    loadChildren: () => import('@web/notes').then(m => m.notesRoutes),
-  },
-  {
     path: '',
-    redirectTo: 'notes',
-    pathMatch: 'full',
+    component: ShellComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'notes',
+        pathMatch: 'full',
+      },
+      {
+        path: 'settings',
+        loadChildren: () => import('@web/settings').then(m => m.settingsRoutes),
+      },
+      {
+        path: 'notes',
+        loadChildren: () => import('@web/notes').then(m => m.notesRoutes),
+      },
+    ],
   },
   {
     path: '**',

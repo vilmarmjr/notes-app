@@ -6,7 +6,7 @@ import { AuthService } from '@web/shared/data-access';
 import { catchError, finalize, of, pipe, switchMap, tap } from 'rxjs';
 
 export const SettingsStore = signalStore(
-  withState({ isLoggingOut: false }),
+  withState({ isLoggingOut: false, isSavingColorTheme: false }),
   withMethods((_store, _authService = inject(AuthService), _router = inject(Router)) => ({
     logOut: rxMethod<void>(
       pipe(

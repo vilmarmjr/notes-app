@@ -36,7 +36,7 @@ export type RadioGroupChangeEvent<T = unknown> = {
 export class RadioGroupComponent<T = unknown> implements ControlValueAccessor {
   public readonly id = generateRadioGroupId();
   public readonly value = model<T>();
-  public readonly valueChange = output<RadioGroupChangeEvent<T>>();
+  public readonly radioValueChange = output<RadioGroupChangeEvent<T>>();
 
   protected onChange: ChangeFn<T> = () => {};
   protected onTouched: TouchFn<T> = () => {};
@@ -58,6 +58,6 @@ export class RadioGroupComponent<T = unknown> implements ControlValueAccessor {
 
     this.value.set(value);
     this.onChange(value);
-    this.valueChange.emit({ value });
+    this.radioValueChange.emit({ value });
   }
 }

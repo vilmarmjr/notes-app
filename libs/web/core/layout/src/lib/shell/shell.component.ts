@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ThemeStore } from '@web/shared/theme';
 import { BreakpointService, DividerComponent } from '@web/shared/ui';
 import { BottomNavComponent } from '../bottom-nav/bottom-nav.component';
 import { ContentComponent } from '../content/content.component';
@@ -40,8 +41,14 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ThemeStore],
 })
-export class ShellComponent {
+export class ShellComponent implements OnInit {
   private _breakpointService = inject(BreakpointService);
+  private _themeStore = inject(ThemeStore);
   protected lg = this._breakpointService.lg;
+
+  ngOnInit(): void {
+    this._themeStore.loadTheme();
+  }
 }

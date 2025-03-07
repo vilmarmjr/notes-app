@@ -61,6 +61,14 @@ export default [
               onlyDependOnLibsWithTags: ['common:models'],
             },
             {
+              sourceTag: 'web:shared-theme',
+              onlyDependOnLibsWithTags: [
+                'web:shared-data-access',
+                'web:shared-ui',
+                'common:models',
+              ],
+            },
+            {
               sourceTag: 'server',
               onlyDependOnLibsWithTags: ['/^server.*/', '/^common.*/'],
             },

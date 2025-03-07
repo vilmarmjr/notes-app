@@ -33,7 +33,8 @@
       "@web/shared/data-access": ["libs/web/shared/data-access/src/index.ts"],
       "@web/shared/form": ["libs/web/shared/form/src/index.ts"],
       "@web/shared/ui": ["libs/web/shared/ui/src/index.ts"],
-      "@web/shared/utils": ["libs/web/shared/utils/src/index.ts"]
+      "@web/shared/utils": ["libs/web/shared/utils/src/index.ts"],
+      "@web/shared/theme": ["libs/web/shared/theme/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

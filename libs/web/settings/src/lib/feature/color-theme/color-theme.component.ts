@@ -1,13 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  model,
+  OnDestroy,
+  untracked,
+} from '@angular/core';
+import { ColorTheme, ColorThemes } from '@common/models';
+import { ThemeStore, toUiColorTheme } from '@web/shared/theme';
 import {
   ButtonDirective,
-  ColorTheme,
   ColorThemeService,
   IconComponent,
   IconName,
-  RadioGroupChangeEvent,
   RadioModule,
 } from '@web/shared/ui';
 import { SettingsHeaderComponent } from '../../ui/settings-header/settings-header.component';
@@ -28,14 +36,13 @@ type Option = {
     SettingsHeaderComponent,
     RadioModule,
     IconComponent,
-    ReactiveFormsModule,
     ButtonDirective,
   ],
   template: `
     <nt-settings-shell>
       <nt-settings-header title="Color theme" description="Choose your color theme:" />
-      <form class="flex max-w-[520px] flex-col gap-6" [formGroup]="form">
-        <nt-radio-group formControlName="theme" (valueChange)="onThemeChange($event)">
+      <form class="flex max-w-[520px] flex-col gap-6">
+        <nt-radio-group [(value)]="value">
           @for (option of options; track option.value) {
             <nt-radio-button [value]="option.value">
               <nt-icon ntRadioButtonIcon [name]="option.icon" />
@@ -47,19 +54,25 @@ type Option = {
           }
         </nt-radio-group>
         <div class="flex justify-end">
-          <button ntButton>Apply changes</button>
+          <button ntButton type="button" [disabled]="!canSave()" (click)="submit()">
+            Apply changes
+          </button>
         </div>
       </form>
     </nt-settings-shell>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColorThemeComponent {
+export class ColorThemeComponent implements OnDestroy {
+  private _themeStore = inject(ThemeStore);
   private _colorThemeService = inject(ColorThemeService);
-  private _fb = inject(FormBuilder);
 
-  protected form = this._fb.group({
-    theme: this._fb.nonNullable.control(this._colorThemeService.theme()),
+  protected value = model(this._themeStore.originalColorTheme());
+
+  protected canSave = computed(() => {
+    const isSaving = this._themeStore.isSavingColorTheme();
+    const hasChangedValue = this._themeStore.originalColorTheme() !== this.value();
+    return !isSaving && hasChangedValue;
   });
 
   protected options: Option[] = [
@@ -67,23 +80,40 @@ export class ColorThemeComponent {
       label: 'Light mode',
       description: 'Pick a clean and classic light theme',
       icon: 'sun',
-      value: 'light',
+      value: ColorThemes.LIGHT,
     },
     {
       label: 'Dark mode',
       description: 'Select a sleek and modern dark theme',
       icon: 'moon',
-      value: 'dark',
+      value: ColorThemes.DARK,
     },
     {
       label: 'System',
       description: "Adapts to your device's theme",
       icon: 'systemTheme',
-      value: 'system',
+      value: ColorThemes.SYSTEM,
     },
   ];
 
-  protected onThemeChange(event: RadioGroupChangeEvent<ColorTheme>) {
-    this._colorThemeService.setTheme(event.value);
+  constructor() {
+    effect(() => {
+      const theme = this._themeStore.originalColorTheme();
+      untracked(() => this.value.set(theme));
+    });
+
+    effect(() => this._colorThemeService.setTheme(toUiColorTheme(this.value())));
+  }
+
+  ngOnDestroy(): void {
+    const originalTheme = toUiColorTheme(this._themeStore.originalColorTheme());
+
+    if (originalTheme !== this._colorThemeService.theme()) {
+      this._colorThemeService.setTheme(originalTheme);
+    }
+  }
+
+  protected submit() {
+    this._themeStore.saveColorTheme(this.value());
   }
 }

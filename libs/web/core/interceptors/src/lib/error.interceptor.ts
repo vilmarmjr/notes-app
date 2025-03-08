@@ -6,6 +6,7 @@ import {
   AuthErrors,
   ErrorResponse,
   FieldsErrors,
+  NotesErrors,
 } from '@common/models';
 import { ToastService } from '@web/shared/ui';
 import { catchError, throwError } from 'rxjs';
@@ -18,6 +19,7 @@ const errorMessages: Record<ApplicationError, string> = {
   [AuthErrors.OLD_AND_NEW_PASSWORD_MUST_BE_DIFFERENT]:
     'Old and new password must be different',
   [FieldsErrors.INVALID_FIELDS]: 'Invalid fields',
+  [NotesErrors.NOTE_NOT_FOUND]: 'Note not found',
 };
 
 const defaultErrorMessage = 'An unexpected error occurred. Please try again';

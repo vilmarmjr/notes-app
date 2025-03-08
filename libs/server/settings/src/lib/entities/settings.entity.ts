@@ -23,7 +23,7 @@ export class Settings {
   })
   colorTheme!: ColorTheme;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, { nullable: false })
   @JoinColumn({ name: 'user_id' })
   user!: User;
 }

@@ -8,10 +8,16 @@ export const AuthErrors = {
 
 export type AuthError = (typeof AuthErrors)[keyof typeof AuthErrors];
 
+export const NotesErrors = {
+  NOTE_NOT_FOUND: 'NOTE_NOT_FOUND',
+} as const;
+
+export type NotesError = (typeof NotesErrors)[keyof typeof NotesErrors];
+
 export const FieldsErrors = {
   INVALID_FIELDS: 'INVALID_FIELDS',
 } as const;
 
 export type FieldsError = (typeof FieldsErrors)[keyof typeof FieldsErrors];
 
-export type ApplicationError = AuthError | FieldsError;
+export type ApplicationError = AuthError | NotesError | FieldsError;

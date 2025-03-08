@@ -34,6 +34,7 @@ export class GetNoteByIdUseCase {
       id: note.id,
       title: note.title,
       content: note.content,
+      archived: note.archived,
       tags: tags.map(tag => tag.name),
     };
   }

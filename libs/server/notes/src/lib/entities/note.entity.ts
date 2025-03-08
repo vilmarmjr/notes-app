@@ -20,6 +20,9 @@ export class Note {
   @Column({ type: 'text' })
   content!: string;
 
+  @Column({ default: false })
+  archived!: boolean;
+
   @ManyToOne(() => User, { nullable: false })
   @JoinColumn({ name: 'user_id' })
   user!: User;

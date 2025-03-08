@@ -38,6 +38,7 @@ export class UpdateNoteUseCase {
       id: result.id,
       title: result.title,
       content: result.content,
+      archived: result.archived,
       tags: result.tags.map(tag => tag.name),
     };
   }

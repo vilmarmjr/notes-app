@@ -10,5 +10,6 @@ export type GetNoteResponseDto = {
   id: string;
   title: string;
   content: string;
+  archived: boolean;
   tags: string[];
 };

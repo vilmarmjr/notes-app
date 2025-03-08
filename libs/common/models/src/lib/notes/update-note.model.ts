@@ -13,5 +13,6 @@ export type UpdateNoteResponseDto = {
   id: string;
   title: string;
   content: string;
+  archived: boolean;
   tags: string[];
 };

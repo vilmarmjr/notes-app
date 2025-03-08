@@ -23,6 +23,7 @@ export class CreateNoteUseCase {
       id: note.id,
       title: note.title,
       content: note.content,
+      archived: note.archived,
       tags: note.tags.map(tag => tag.name),
     };
   }

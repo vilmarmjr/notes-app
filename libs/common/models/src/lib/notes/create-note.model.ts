@@ -12,5 +12,6 @@ export type CreateNoteResponseDto = {
   id: string;
   title: string;
   content: string;
+  archived: boolean;
   tags: string[];
 };

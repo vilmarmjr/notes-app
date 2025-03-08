@@ -14,3 +14,4 @@
 - [ ] Add login with google
 - [ ] Add button spinner
 - [ ] Invalidate token on logout?
+- [ ] Update Tailwind to v4

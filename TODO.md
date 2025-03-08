@@ -16,3 +16,4 @@
 - [ ] Invalidate token on logout?
 - [ ] Add refresh token?
 - [ ] Update Tailwind to v4
+- [ ] Use views to select filtering the current logged user?

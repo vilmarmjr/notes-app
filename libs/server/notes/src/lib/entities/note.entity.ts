@@ -1,19 +1,9 @@
-import { User } from '@server/shared/entities';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BaseEntity, User } from '@server/shared/entities';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Tag } from './tag.entity';
 
 @Entity('notes')
-export class Note {
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
-
+export class Note extends BaseEntity {
   @Column({ length: 255 })
   title!: string;
 

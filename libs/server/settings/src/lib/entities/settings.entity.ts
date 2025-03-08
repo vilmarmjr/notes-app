@@ -1,12 +1,9 @@
 import { ColorTheme, ColorThemes, FontTheme, FontThemes } from '@common/models';
-import { User } from '@server/shared/entities';
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, User } from '@server/shared/entities';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
 @Entity('settings')
-export class Settings {
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
-
+export class Settings extends BaseEntity {
   @Column({
     type: 'enum',
     enum: FontThemes,

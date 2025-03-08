@@ -2,11 +2,13 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SettingsController } from './controllers/settings.controller';
 import { Settings } from './entities/settings.entity';
-import { SettingsService } from './services/settings.service';
+import { GetSettingsUseCase } from './usecases/get-settings.usecase';
+import { UpdateColorThemeUseCase } from './usecases/update-color-theme.usecase';
+import { UpdateFontThemeUseCase } from './usecases/update-font-theme.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Settings])],
   controllers: [SettingsController],
-  providers: [SettingsService],
+  providers: [GetSettingsUseCase, UpdateColorThemeUseCase, UpdateFontThemeUseCase],
 })
 export class SettingsModule {}

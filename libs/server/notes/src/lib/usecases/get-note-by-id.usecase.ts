@@ -1,9 +1,4 @@
-import {
-  CreateNoteRequestDto,
-  CreateNoteResponseDto,
-  GetNoteResponseDto,
-  NotesErrors,
-} from '@common/models';
+import { GetNoteResponseDto, NotesErrors } from '@common/models';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ApplicationException } from '@server/shared/http';
@@ -17,32 +12,13 @@ export type GetNoteByIdFilters = {
 };
 
 @Injectable()
-export class NotesService {
+export class GetNoteByIdUseCase {
   constructor(
     @InjectRepository(Note) private _notesRepository: Repository<Note>,
     @InjectRepository(Tag) private _tagsRepository: Repository<Tag>,
   ) {}
 
-  async createNote(
-    userId: string,
-    dto: CreateNoteRequestDto,
-  ): Promise<CreateNoteResponseDto> {
-    const tags = Array.from(new Set(dto.tags));
-    const note = await this._notesRepository.save({
-      title: dto.title,
-      content: dto.content,
-      tags: tags.map(tag => ({ name: tag })),
-      user: { id: userId },
-    });
-    return {
-      id: note.id,
-      title: note.title,
-      content: note.content,
-      tags: note.tags.map(tag => tag.name),
-    };
-  }
-
-  async getNoteById({ noteId, userId }: GetNoteByIdFilters): Promise<GetNoteResponseDto> {
+  async execute({ noteId, userId }: GetNoteByIdFilters): Promise<GetNoteResponseDto> {
     const note = await this._notesRepository.findOneBy({
       id: noteId,
       user: { id: userId },

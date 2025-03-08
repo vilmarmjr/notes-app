@@ -7,15 +7,21 @@ import {
 import { Body, Controller, Get, HttpCode, HttpStatus, Put, Req } from '@nestjs/common';
 import { ApplicationRequest } from '@server/shared/http';
 import { validateSchema } from '@server/shared/validation';
-import { SettingsService } from '../services/settings.service';
+import { GetSettingsUseCase } from '../usecases/get-settings.usecase';
+import { UpdateColorThemeUseCase } from '../usecases/update-color-theme.usecase';
+import { UpdateFontThemeUseCase } from '../usecases/update-font-theme.usecase';
 
 @Controller('settings')
 export class SettingsController {
-  constructor(private _settingsService: SettingsService) {}
+  constructor(
+    private _getSettingsUseCase: GetSettingsUseCase,
+    private _updateColorThemeUseCase: UpdateColorThemeUseCase,
+    private _updateFontThemeUseCase: UpdateFontThemeUseCase,
+  ) {}
 
   @Get()
   getSettings(@Req() req: ApplicationRequest) {
-    return this._settingsService.getSettings(req.user.id);
+    return this._getSettingsUseCase.execute(req.user.id);
   }
 
   @Put('color')
@@ -24,7 +30,7 @@ export class SettingsController {
     @Body(validateSchema(saveColorThemeSchema)) dto: SaveColorThemeRequestDto,
     @Req() req: ApplicationRequest,
   ) {
-    this._settingsService.updateColorTheme(req.user.id, dto.colorTheme);
+    this._updateColorThemeUseCase.execute(req.user.id, dto.colorTheme);
   }
 
   @Put('font')
@@ -33,6 +39,6 @@ export class SettingsController {
     @Body(validateSchema(saveFontThemeSchema)) dto: SaveFontThemeRequestDto,
     @Req() req: ApplicationRequest,
   ) {
-    this._settingsService.updateFontTheme(req.user.id, dto.fontTheme);
+    this._updateFontThemeUseCase.execute(req.user.id, dto.fontTheme);
   }
 }

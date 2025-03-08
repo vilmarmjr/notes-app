@@ -15,6 +15,7 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
+import { MATCH_OTHER_VALIDATOR_KEY } from '../../validators/match-other.validator';
 import { InfoErrorComponent } from '../info-error/info-error.component';
 
 @Component({
@@ -61,6 +62,8 @@ import { InfoErrorComponent } from '../info-error/info-error.component';
           } @else if (control.hasError('minlength')) {
             Password must be at least
             {{ control.errors['minlength'].requiredLength }} characters
+          } @else if (control.hasError(matchOtherKey)) {
+            {{ matchOtherError() }}
           }
         </nt-info-error>
       }
@@ -78,7 +81,10 @@ export class PasswordFieldComponent implements ControlValueAccessor, OnInit {
   public label = input('Password');
   public showForgotLink = input(false);
   public hint = input('');
+  public matchOtherError = input('Passwords do not match');
   protected showPassword = signal(false);
+
+  protected matchOtherKey = MATCH_OTHER_VALIDATOR_KEY;
 
   protected control = new FormControl<string | null>(null);
   protected onChange = () => {};

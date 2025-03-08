@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {
+  ChangePasswordRequestDto,
   LogInRequestDto,
   LogInResponseDto,
   SignUpRequestDto,
@@ -21,5 +22,9 @@ export class AuthService {
 
   signUp(dto: SignUpRequestDto) {
     return this._http.post<SignUpResponseDto>('signup', dto);
+  }
+
+  changePassword(dto: ChangePasswordRequestDto) {
+    return this._http.put<void>('change-password', dto);
   }
 }

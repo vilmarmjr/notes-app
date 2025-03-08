@@ -10,3 +10,4 @@ export * from './lib/notes/update-note.model';
 export * from './lib/settings/color-theme.model';
 export * from './lib/settings/font-theme.model';
 export * from './lib/settings/settings.model';
+export * from './lib/tags/get-tags.model';

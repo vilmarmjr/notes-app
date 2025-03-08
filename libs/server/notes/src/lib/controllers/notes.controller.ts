@@ -4,17 +4,22 @@ import {
   createNoteSchema,
   getNoteParamsSchema,
   GetNoteRequestParams,
+  UpdateNoteRequestDto,
+  UpdateNoteResponseDto,
+  updateNoteSchema,
 } from '@common/models';
-import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Req } from '@nestjs/common';
 import { ApplicationRequest } from '@server/shared/http';
 import { validateSchema } from '@server/shared/validation';
 import { CreateNoteUseCase } from '../usecases/create-note.usecase';
 import { GetNoteByIdUseCase } from '../usecases/get-note-by-id.usecase';
+import { UpdateNoteUseCase } from '../usecases/update-note.usecase';
 
 @Controller('notes')
 export class NotesController {
   constructor(
     private _createNoteUseCase: CreateNoteUseCase,
+    private _updateNoteUseCase: UpdateNoteUseCase,
     private _getNoteByIdUseCase: GetNoteByIdUseCase,
   ) {}
 
@@ -24,6 +29,14 @@ export class NotesController {
     @Req() req: ApplicationRequest,
   ): Promise<CreateNoteResponseDto> {
     return this._createNoteUseCase.execute(req.user.id, dto);
+  }
+
+  @Put()
+  updateNote(
+    @Body(validateSchema(updateNoteSchema)) dto: UpdateNoteRequestDto,
+    @Req() req: ApplicationRequest,
+  ): Promise<UpdateNoteResponseDto> {
+    return this._updateNoteUseCase.execute(req.user.id, dto);
   }
 
   @Get(':id')

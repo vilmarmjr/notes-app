@@ -6,6 +6,7 @@ export * from './lib/error/error-response.model';
 export * from './lib/error/error.constants';
 export * from './lib/notes/create-note.model';
 export * from './lib/notes/get-note.model';
+export * from './lib/notes/update-note.model';
 export * from './lib/settings/color-theme.model';
 export * from './lib/settings/font-theme.model';
 export * from './lib/settings/settings.model';

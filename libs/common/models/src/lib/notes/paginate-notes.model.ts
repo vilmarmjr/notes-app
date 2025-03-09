@@ -6,11 +6,7 @@ export const paginateNotesParamsSchema = z.object({
   tag: z.string().optional(),
   take: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
-  archivedOnly: z
-    .string()
-    .refine(value => value === 'true' || value === 'false')
-    .transform(value => value === 'true')
-    .optional(),
+  status: z.enum(['active', 'archived']).optional(),
 });
 
 export type PaginateNotesRequestDto = z.infer<typeof paginateNotesParamsSchema>;
@@ -20,6 +16,7 @@ export type PaginateNotesResponseItemDto = {
   title: string;
   tags: string[];
   createdAt: string;
+  archived: boolean;
 };
 
 export type PaginateNotesResponseDto = Paginated<PaginateNotesResponseItemDto>;

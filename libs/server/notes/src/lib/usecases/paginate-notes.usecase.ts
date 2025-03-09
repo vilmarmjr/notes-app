@@ -32,8 +32,12 @@ export class PaginateNotesUseCase {
       );
     }
 
-    if (dto.archivedOnly) {
+    if (dto.status === 'archived') {
       queryBuilder.andWhere('note.archived = true');
+    }
+
+    if (dto.status === 'active') {
+      queryBuilder.andWhere('note.archived = false');
     }
 
     const [content, count] = await queryBuilder
@@ -46,6 +50,7 @@ export class PaginateNotesUseCase {
       createdAt: note.createdAt.toISOString(),
       title: note.title,
       tags: note.tags.map(tag => tag.name),
+      archived: note.archived,
     }));
     return paginateResponse(notes, count, page, take);
   }

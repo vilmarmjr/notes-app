@@ -4,6 +4,7 @@ import { NotesController } from './controllers/notes.controller';
 import { TagsController } from './controllers/tags.controller';
 import { Note } from './entities/note.entity';
 import { Tag } from './entities/tag.entity';
+import { ArchiveNoteUseCase } from './usecases/archive-note.usecase';
 import { CreateNoteUseCase } from './usecases/create-note.usecase';
 import { GetNoteByIdUseCase } from './usecases/get-note-by-id.usecase';
 import { GetTagsUseCase } from './usecases/get-tags.usecase';
@@ -19,6 +20,7 @@ import { UpdateNoteUseCase } from './usecases/update-note.usecase';
     UpdateNoteUseCase,
     GetTagsUseCase,
     PaginateNotesUseCase,
+    ArchiveNoteUseCase,
   ],
   exports: [],
 })

@@ -4,6 +4,7 @@ export * from './lib/auth/login.model';
 export * from './lib/auth/signup.model';
 export * from './lib/error/error-response.model';
 export * from './lib/error/error.constants';
+export * from './lib/notes/archive-note.model';
 export * from './lib/notes/create-note.model';
 export * from './lib/notes/get-note.model';
 export * from './lib/notes/paginate-notes.model';

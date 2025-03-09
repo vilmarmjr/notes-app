@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { Paginated } from '../page/page.model';
 
-export const paginateNotesSchema = z.object({
+export const paginateNotesParamsSchema = z.object({
   query: z.string().optional(),
   tag: z.string().optional(),
   take: z.coerce.number().optional(),
@@ -13,7 +13,7 @@ export const paginateNotesSchema = z.object({
     .optional(),
 });
 
-export type PaginateNotesRequestDto = z.infer<typeof paginateNotesSchema>;
+export type PaginateNotesRequestDto = z.infer<typeof paginateNotesParamsSchema>;
 
 export type PaginateNotesResponseItemDto = {
   id: string;

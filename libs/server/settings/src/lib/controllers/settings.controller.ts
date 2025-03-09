@@ -30,7 +30,7 @@ export class SettingsController {
     @Body(validateSchema(saveColorThemeSchema)) dto: SaveColorThemeRequestDto,
     @Req() req: ApplicationRequest,
   ) {
-    this._updateColorThemeUseCase.execute(req.user.id, dto.colorTheme);
+    return this._updateColorThemeUseCase.execute(req.user.id, dto.colorTheme);
   }
 
   @Put('font')
@@ -39,6 +39,6 @@ export class SettingsController {
     @Body(validateSchema(saveFontThemeSchema)) dto: SaveFontThemeRequestDto,
     @Req() req: ApplicationRequest,
   ) {
-    this._updateFontThemeUseCase.execute(req.user.id, dto.fontTheme);
+    return this._updateFontThemeUseCase.execute(req.user.id, dto.fontTheme);
   }
 }

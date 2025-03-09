@@ -7,7 +7,7 @@ export class Tag extends BaseEntity {
   @Column({ length: 255 })
   name!: string;
 
-  @ManyToOne(() => Note, note => note.tags)
+  @ManyToOne(() => Note, note => note.tags, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'note_id' })
   note!: Note;
 }

@@ -6,6 +6,7 @@ import { Note } from './entities/note.entity';
 import { Tag } from './entities/tag.entity';
 import { ArchiveNoteUseCase } from './usecases/archive-note.usecase';
 import { CreateNoteUseCase } from './usecases/create-note.usecase';
+import { DeleteNoteUseCase } from './usecases/delete-note.usecase';
 import { GetNoteByIdUseCase } from './usecases/get-note-by-id.usecase';
 import { GetTagsUseCase } from './usecases/get-tags.usecase';
 import { PaginateNotesUseCase } from './usecases/paginate-notes.usecase';
@@ -23,6 +24,7 @@ import { UpdateNoteUseCase } from './usecases/update-note.usecase';
     PaginateNotesUseCase,
     ArchiveNoteUseCase,
     RestoreNoteUseCase,
+    DeleteNoteUseCase,
   ],
   exports: [],
 })

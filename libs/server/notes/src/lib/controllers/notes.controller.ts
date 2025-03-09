@@ -4,6 +4,8 @@ import {
   CreateNoteRequestDto,
   CreateNoteResponseDto,
   createNoteSchema,
+  deleteNoteParamsSchema,
+  DeleteNoteRequestParams,
   getNoteParamsSchema,
   GetNoteRequestParams,
   paginateNotesParamsSchema,
@@ -17,6 +19,7 @@ import {
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -30,6 +33,7 @@ import { ApplicationRequest } from '@server/shared/http';
 import { validateSchema } from '@server/shared/validation';
 import { ArchiveNoteUseCase } from '../usecases/archive-note.usecase';
 import { CreateNoteUseCase } from '../usecases/create-note.usecase';
+import { DeleteNoteUseCase } from '../usecases/delete-note.usecase';
 import { GetNoteByIdUseCase } from '../usecases/get-note-by-id.usecase';
 import { PaginateNotesUseCase } from '../usecases/paginate-notes.usecase';
 import { RestoreNoteUseCase } from '../usecases/restore-note.usecase';
@@ -43,6 +47,7 @@ export class NotesController {
     private _getNoteByIdUseCase: GetNoteByIdUseCase,
     private _archiveNoteUseCase: ArchiveNoteUseCase,
     private _restoreNoteUseCase: RestoreNoteUseCase,
+    private _deleteNoteUseCase: DeleteNoteUseCase,
     private _paginateNotesUseCase: PaginateNotesUseCase,
   ) {}
 
@@ -78,13 +83,22 @@ export class NotesController {
     return this._getNoteByIdUseCase.execute({ noteId: params.id, userId: req.user.id });
   }
 
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  deleteNote(
+    @Param(validateSchema(deleteNoteParamsSchema)) params: DeleteNoteRequestParams,
+    @Req() req: ApplicationRequest,
+  ) {
+    return this._deleteNoteUseCase.execute(req.user.id, params);
+  }
+
   @Put(':id/archive')
   @HttpCode(HttpStatus.NO_CONTENT)
   archiveNote(
     @Param(validateSchema(archiveNoteParamsSchema)) params: ArchiveNoteRequestParams,
     @Req() req: ApplicationRequest,
   ) {
-    this._archiveNoteUseCase.execute(req.user.id, params);
+    return this._archiveNoteUseCase.execute(req.user.id, params);
   }
 
   @Put(':id/restore')
@@ -93,6 +107,6 @@ export class NotesController {
     @Param(validateSchema(restoreNoteParamsSchema)) params: RestoreNoteRequestParams,
     @Req() req: ApplicationRequest,
   ) {
-    this._restoreNoteUseCase.execute(req.user.id, params);
+    return this._restoreNoteUseCase.execute(req.user.id, params);
   }
 }

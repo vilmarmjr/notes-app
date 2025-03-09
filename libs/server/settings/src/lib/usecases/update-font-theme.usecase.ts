@@ -10,6 +10,6 @@ export class UpdateFontThemeUseCase {
 
   async execute(userId: string, fontTheme: FontTheme) {
     const settings = await this._repository.findOne({ where: { user: { id: userId } } });
-    return this._repository.save({ ...settings, user: { id: userId }, fontTheme });
+    this._repository.save({ ...settings, user: { id: userId }, fontTheme });
   }
 }

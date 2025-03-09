@@ -9,7 +9,7 @@ import {
   getNoteParamsSchema,
   GetNoteRequestParams,
   paginateNotesParamsSchema,
-  PaginateNotesRequestDto,
+  PaginateNotesRequestParams,
   restoreNoteParamsSchema,
   RestoreNoteRequestParams,
   UpdateNoteRequestDto,
@@ -69,10 +69,10 @@ export class NotesController {
 
   @Get()
   paginateNotes(
-    @Query(validateSchema(paginateNotesParamsSchema)) dto: PaginateNotesRequestDto,
+    @Query(validateSchema(paginateNotesParamsSchema)) params: PaginateNotesRequestParams,
     @Req() req: ApplicationRequest,
   ) {
-    return this._paginateNotesUseCase.execute(req.user.id, dto);
+    return this._paginateNotesUseCase.execute(req.user.id, params);
   }
 
   @Get(':id')

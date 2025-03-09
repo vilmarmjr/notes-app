@@ -9,7 +9,7 @@ export const paginateNotesParamsSchema = z.object({
   status: z.enum(['active', 'archived']).optional(),
 });
 
-export type PaginateNotesRequestDto = z.infer<typeof paginateNotesParamsSchema>;
+export type PaginateNotesRequestParams = z.infer<typeof paginateNotesParamsSchema>;
 
 export type PaginateNotesResponseItemDto = {
   id: string;

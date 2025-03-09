@@ -1,4 +1,4 @@
-import { PaginateNotesRequestDto, PaginateNotesResponseDto } from '@common/models';
+import { PaginateNotesRequestParams, PaginateNotesResponseDto } from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { paginateResponse } from '@server/shared/http';
@@ -11,12 +11,12 @@ export class PaginateNotesUseCase {
 
   async execute(
     userId: string,
-    dto: PaginateNotesRequestDto,
+    params: PaginateNotesRequestParams,
   ): Promise<PaginateNotesResponseDto> {
-    const take = dto.take || 10;
-    const page = dto.page || 1;
+    const take = params.take || 10;
+    const page = params.page || 1;
     const skip = (page - 1) * take;
-    const query = `%${dto.query || ''}%`;
+    const query = `%${params.query || ''}%`;
     const queryBuilder = this._notesRepository
       .createQueryBuilder('note')
       .leftJoinAndSelect('note.tags', 'tag')
@@ -32,16 +32,16 @@ export class PaginateNotesUseCase {
       );
     }
 
-    if (dto.status === 'archived') {
+    if (params.status === 'archived') {
       queryBuilder.andWhere('note.archived = true');
     }
 
-    if (dto.status === 'active') {
+    if (params.status === 'active') {
       queryBuilder.andWhere('note.archived = false');
     }
 
-    if (dto.tag) {
-      queryBuilder.andWhere('tag.name = :tag', { tag: dto.tag });
+    if (params.tag) {
+      queryBuilder.andWhere('tag.name = :tag', { tag: params.tag });
     }
 
     const [content, count] = await queryBuilder

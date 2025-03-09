@@ -9,6 +9,7 @@ import {
   UpdateNoteRequestDto,
   UpdateNoteResponseDto,
 } from '@common/models';
+import { buildHttpParams } from '@web/shared/utils';
 
 @Injectable({ providedIn: 'root' })
 export class NotesService {
@@ -23,7 +24,9 @@ export class NotesService {
   }
 
   paginateNotes(params: PaginateNotesRequestParams = {}) {
-    return this._http.get<PaginateNotesResponseDto>('notes', { params });
+    return this._http.get<PaginateNotesResponseDto>('notes', {
+      params: buildHttpParams(params),
+    });
   }
 
   getNoteById(id: string) {

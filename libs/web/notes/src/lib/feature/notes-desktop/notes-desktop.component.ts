@@ -1,10 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ButtonDirective, DividerComponent, IconComponent } from '@web/shared/ui';
-import { map } from 'rxjs';
-import { NotesPageType } from '../../types/notes-page-type';
+import { NotesStore } from '../../store/notes.store';
 import { NotesHeaderComponent } from '../../ui/notes-header/notes-header.component';
 import { NotesListHintComponent } from '../../ui/notes-list-hint/notes-list-hint.component';
 import { NotesListSkeletonComponent } from '../../ui/notes-list-skeleton/notes-list-skeleton.component';
@@ -26,7 +23,11 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
   ],
   template: `
     <div class="flex h-full flex-col">
-      <nt-notes-header [type]="type()" [tag]="tag()" [query]="query()" />
+      <nt-notes-header
+        [type]="store.pageType()"
+        [tag]="store.tag()"
+        [query]="store.query()"
+      />
       <nt-divider />
       <div class="flex min-h-0 flex-1">
         <div class="flex w-72 flex-col gap-4 overflow-y-auto px-4 py-5">
@@ -34,13 +35,17 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
             <nt-icon name="plus" />
             Create new note
           </button>
-          @if (type() !== 'search' && type() !== 'all') {
-            <nt-notes-list-hint [type]="type()" [tag]="tag()" [query]="query()" />
+          @if (store.pageType() !== 'search' && store.pageType() !== 'all') {
+            <nt-notes-list-hint
+              [type]="store.pageType()"
+              [tag]="store.tag()"
+              [query]="store.query()"
+            />
           }
-          @if (loading()) {
+          @if (store.isLoading()) {
             <nt-notes-list-skeleton class="mt-2 block" />
           } @else {
-            <nt-notes-list />
+            <nt-notes-list [notes]="store.notes()" [pageType]="store.pageType()" />
           }
         </div>
         <nt-divider direction="vertical" />
@@ -51,22 +56,5 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesDesktopComponent {
-  private _activatedRoute = inject(ActivatedRoute);
-  protected type = toSignal(
-    this._activatedRoute.data.pipe(map<Data, NotesPageType>(data => data['type'])),
-    { requireSync: true },
-  );
-  protected tag = toSignal(
-    this._activatedRoute.paramMap.pipe(map(params => params.get('tag'))),
-    { requireSync: true },
-  );
-  protected query = toSignal(
-    this._activatedRoute.queryParamMap.pipe(map(params => params.get('query'))),
-    { requireSync: true },
-  );
-  protected loading = signal(true);
-
-  constructor() {
-    setTimeout(() => this.loading.set(false), 1000);
-  }
+  protected store = inject(NotesStore);
 }

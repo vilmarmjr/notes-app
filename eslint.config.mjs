@@ -57,6 +57,10 @@ export default [
               onlyDependOnLibsWithTags: ['web:shared-ui', 'web:shared-utils'],
             },
             {
+              sourceTag: 'web:shared-tags',
+              onlyDependOnLibsWithTags: ['web:shared-ui', 'common:models'],
+            },
+            {
               sourceTag: 'web:shared-data-access',
               onlyDependOnLibsWithTags: ['common:models'],
             },

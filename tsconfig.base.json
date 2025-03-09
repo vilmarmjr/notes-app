@@ -34,7 +34,8 @@
       "@web/shared/form": ["libs/web/shared/form/src/index.ts"],
       "@web/shared/theme": ["libs/web/shared/theme/src/index.ts"],
       "@web/shared/ui": ["libs/web/shared/ui/src/index.ts"],
-      "@web/shared/utils": ["libs/web/shared/utils/src/index.ts"]
+      "@web/shared/utils": ["libs/web/shared/utils/src/index.ts"],
+      "@web/shared/tags": ["libs/web/shared/tags/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

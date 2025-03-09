@@ -3,10 +3,10 @@ import { HttpStatus, PipeTransform } from '@nestjs/common';
 import { ApplicationException } from '@server/shared/http';
 import { ZodSchema } from 'zod';
 
-class ValidationPipe<T> implements PipeTransform {
-  constructor(private _schema: ZodSchema<T>) {}
+class ValidationPipe implements PipeTransform {
+  constructor(private _schema: ZodSchema) {}
 
-  transform(value: T): T {
+  transform<T>(value: T): T {
     const { success, data, error } = this._schema.safeParse(value);
 
     if (success) {
@@ -23,6 +23,6 @@ class ValidationPipe<T> implements PipeTransform {
   }
 }
 
-export function validateSchema<T>(schema: ZodSchema<T>) {
+export function validateSchema(schema: ZodSchema) {
   return new ValidationPipe(schema);
 }

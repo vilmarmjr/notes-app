@@ -9,6 +9,7 @@ import { CreateNoteUseCase } from './usecases/create-note.usecase';
 import { GetNoteByIdUseCase } from './usecases/get-note-by-id.usecase';
 import { GetTagsUseCase } from './usecases/get-tags.usecase';
 import { PaginateNotesUseCase } from './usecases/paginate-notes.usecase';
+import { RestoreNoteUseCase } from './usecases/restore-note.usecase';
 import { UpdateNoteUseCase } from './usecases/update-note.usecase';
 
 @Module({
@@ -21,6 +22,7 @@ import { UpdateNoteUseCase } from './usecases/update-note.usecase';
     GetTagsUseCase,
     PaginateNotesUseCase,
     ArchiveNoteUseCase,
+    RestoreNoteUseCase,
   ],
   exports: [],
 })

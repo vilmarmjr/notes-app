@@ -8,6 +8,7 @@ export * from './lib/notes/archive-note.model';
 export * from './lib/notes/create-note.model';
 export * from './lib/notes/get-note.model';
 export * from './lib/notes/paginate-notes.model';
+export * from './lib/notes/restore-note.model';
 export * from './lib/notes/update-note.model';
 export * from './lib/page/page.model';
 export * from './lib/settings/color-theme.model';

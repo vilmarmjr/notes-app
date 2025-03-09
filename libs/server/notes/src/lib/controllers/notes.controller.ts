@@ -8,6 +8,8 @@ import {
   GetNoteRequestParams,
   paginateNotesParamsSchema,
   PaginateNotesRequestDto,
+  restoreNoteParamsSchema,
+  RestoreNoteRequestParams,
   UpdateNoteRequestDto,
   UpdateNoteResponseDto,
   updateNoteSchema,
@@ -30,6 +32,7 @@ import { ArchiveNoteUseCase } from '../usecases/archive-note.usecase';
 import { CreateNoteUseCase } from '../usecases/create-note.usecase';
 import { GetNoteByIdUseCase } from '../usecases/get-note-by-id.usecase';
 import { PaginateNotesUseCase } from '../usecases/paginate-notes.usecase';
+import { RestoreNoteUseCase } from '../usecases/restore-note.usecase';
 import { UpdateNoteUseCase } from '../usecases/update-note.usecase';
 
 @Controller('notes')
@@ -39,6 +42,7 @@ export class NotesController {
     private _updateNoteUseCase: UpdateNoteUseCase,
     private _getNoteByIdUseCase: GetNoteByIdUseCase,
     private _archiveNoteUseCase: ArchiveNoteUseCase,
+    private _restoreNoteUseCase: RestoreNoteUseCase,
     private _paginateNotesUseCase: PaginateNotesUseCase,
   ) {}
 
@@ -81,5 +85,14 @@ export class NotesController {
     @Req() req: ApplicationRequest,
   ) {
     this._archiveNoteUseCase.execute(req.user.id, params);
+  }
+
+  @Put(':id/restore')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  restoreNote(
+    @Param(validateSchema(restoreNoteParamsSchema)) params: RestoreNoteRequestParams,
+    @Req() req: ApplicationRequest,
+  ) {
+    this._restoreNoteUseCase.execute(req.user.id, params);
   }
 }

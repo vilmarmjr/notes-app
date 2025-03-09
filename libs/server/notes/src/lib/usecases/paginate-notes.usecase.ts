@@ -40,6 +40,10 @@ export class PaginateNotesUseCase {
       queryBuilder.andWhere('note.archived = false');
     }
 
+    if (dto.tag) {
+      queryBuilder.andWhere('tag.name = :tag', { tag: dto.tag });
+    }
+
     const [content, count] = await queryBuilder
       .orderBy('note.createdAt', 'ASC')
       .take(take)

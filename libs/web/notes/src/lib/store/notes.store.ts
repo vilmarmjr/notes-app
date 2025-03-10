@@ -1,23 +1,22 @@
-import { effect, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Data, NavigationEnd, Router } from '@angular/router';
+import { computed, effect, inject } from '@angular/core';
 import { PaginateNotesRequestParams, PaginateNotesResponseItemDto } from '@common/models';
 import { tapResponse } from '@ngrx/operators';
 import {
   patchState,
   signalStore,
+  withComputed,
   withHooks,
   withMethods,
-  withProps,
   withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { getRootRoute } from '@web/shared/utils';
-import { filter, map, pipe, shareReplay, startWith, switchMap, tap } from 'rxjs';
+import { withCurrentRoute } from '@web/shared/store';
+import { pipe, switchMap, tap } from 'rxjs';
 import { NotesService } from '../data-access/notes.service';
 import { NotesPageType } from '../types/notes-page-type';
 
 export const NotesStore = signalStore(
+  withCurrentRoute(),
   withState(() => {
     return {
       isLoading: false,
@@ -26,33 +25,11 @@ export const NotesStore = signalStore(
       page: 1,
     };
   }),
-  withProps(
-    (_store, _router = inject(Router), _activatedRoute = inject(ActivatedRoute)) => {
-      const rootRoute$ = _router.events.pipe(
-        filter(event => event instanceof NavigationEnd),
-        startWith(null),
-        map(() => getRootRoute(_activatedRoute)),
-        shareReplay({ refCount: true, bufferSize: 1 }),
-      );
-      const pageType$ = rootRoute$.pipe(
-        switchMap(route => route.data),
-        map<Data, NotesPageType>(data => data['type']),
-      );
-      const tag$ = rootRoute$.pipe(
-        switchMap(route => route.paramMap),
-        map(params => params.get('tag') || ''),
-      );
-      const query$ = rootRoute$.pipe(
-        switchMap(route => route.queryParamMap),
-        map(params => params.get('query') || ''),
-      );
-      return {
-        pageType: toSignal(pageType$, { requireSync: true }),
-        tag: toSignal(tag$, { requireSync: true }),
-        query: toSignal(query$, { requireSync: true }),
-      };
-    },
-  ),
+  withComputed(_store => ({
+    pageType: computed<NotesPageType>(() => _store.routeData()['type']),
+    tag: computed(() => _store.routeParamMap().get('tag') || ''),
+    query: computed(() => _store.routeQueryParamMap().get('query') || ''),
+  })),
   withMethods((_store, _notesService = inject(NotesService)) => ({
     _loadNotes: rxMethod<PaginateNotesRequestParams>(
       pipe(

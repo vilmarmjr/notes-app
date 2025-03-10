@@ -1,3 +1,4 @@
+import { DATE_PIPE_DEFAULT_OPTIONS, DatePipeConfig } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   ApplicationConfig,
@@ -25,5 +26,11 @@ export const appConfig: ApplicationConfig = {
       ]),
     ),
     provideAnimations(),
+    {
+      provide: DATE_PIPE_DEFAULT_OPTIONS,
+      useValue: {
+        dateFormat: 'd MMM y',
+      } satisfies DatePipeConfig,
+    },
   ],
 };

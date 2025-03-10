@@ -25,6 +25,8 @@ export class CreateNoteUseCase {
       content: note.content,
       archived: note.archived,
       tags: note.tags.map(tag => tag.name),
+      createdAt: note.createdAt.toISOString(),
+      updatedAt: note.updatedAt.toISOString(),
     };
   }
 }

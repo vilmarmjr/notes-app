@@ -36,6 +36,8 @@ export class GetNoteByIdUseCase {
       content: note.content,
       archived: note.archived,
       tags: tags.map(tag => tag.name),
+      createdAt: note.createdAt.toISOString(),
+      updatedAt: note.updatedAt.toISOString(),
     };
   }
 }

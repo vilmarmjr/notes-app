@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Params, QueryParamsHandling } from '@angular/router';
 import { DividerComponent, NavModule, SkeletonModule } from '@web/shared/ui';
 
 @Component({
@@ -19,7 +20,13 @@ import { DividerComponent, NavModule, SkeletonModule } from '@web/shared/ui';
     } @else {
       <nt-nav>
         @for (tag of tags(); track tag; let last = $last) {
-          <nt-nav-link icon="tag" [link]="'/notes/tags/' + tag" [label]="tag" />
+          <nt-nav-link
+            icon="tag"
+            [queryParams]="queryParams()"
+            [queryParamsHandling]="queryParamsHandling()"
+            [link]="'/notes/tags/' + tag"
+            [label]="tag"
+          />
           @if (withDivider() && !last) {
             <nt-divider />
           }
@@ -33,4 +40,6 @@ export class TagsListComponent {
   public tags = input<string[]>([]);
   public isLoading = input(false);
   public withDivider = input(false);
+  public queryParams = input<Params | null>(null);
+  public queryParamsHandling = input<QueryParamsHandling>('replace');
 }

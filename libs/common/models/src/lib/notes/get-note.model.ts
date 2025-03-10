@@ -11,5 +11,7 @@ export type GetNoteResponseDto = {
   title: string;
   content: string;
   archived: boolean;
+  createdAt: string;
+  updatedAt: string;
   tags: string[];
 };

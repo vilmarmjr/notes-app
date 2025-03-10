@@ -1,7 +1,13 @@
 import { inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { signalStoreFeature, withProps } from '@ngrx/signals';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Params,
+  QueryParamsHandling,
+  Router,
+} from '@angular/router';
+import { signalStoreFeature, withMethods, withProps } from '@ngrx/signals';
 import { getRootRoute } from '@web/shared/utils';
 import { filter, map, shareReplay, startWith, switchMap } from 'rxjs';
 
@@ -37,6 +43,20 @@ export function withCurrentRoute() {
           ),
         };
       },
+    ),
+    withMethods(
+      (_store, _router = inject(Router), _activatedRoute = inject(ActivatedRoute)) => ({
+        addQueryParamsToCurrentRoute(
+          queryParams: Params,
+          queryParamsHandling: QueryParamsHandling = 'merge',
+        ) {
+          _router.navigate([], {
+            relativeTo: _activatedRoute,
+            queryParams,
+            queryParamsHandling,
+          });
+        },
+      }),
     ),
   );
 }

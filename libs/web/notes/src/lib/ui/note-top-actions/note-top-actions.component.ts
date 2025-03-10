@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { IconComponent } from '@web/shared/ui';
 
 @Component({
@@ -15,9 +15,16 @@ import { IconComponent } from '@web/shared/ui';
         <button class="text-preset-5 flex items-center justify-center">
           <nt-icon name="delete" />
         </button>
-        <button class="text-preset-5 flex items-center justify-center">
-          <nt-icon name="archive" />
-        </button>
+        @if (showArchive()) {
+          <button class="text-preset-5 flex items-center justify-center">
+            <nt-icon name="archive" />
+          </button>
+        }
+        @if (showRestore()) {
+          <button class="text-preset-5 flex items-center justify-center">
+            <nt-icon name="restore" />
+          </button>
+        }
         <button class="text-preset-5 flex items-center gap-1 hover:underline">
           Cancel
         </button>
@@ -32,5 +39,7 @@ import { IconComponent } from '@web/shared/ui';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoteTopActionsComponent {
+  public showArchive = input(false);
+  public showRestore = input(false);
   protected location = inject(Location);
 }

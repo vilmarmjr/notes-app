@@ -40,6 +40,8 @@ export class UpdateNoteUseCase {
       content: result.content,
       archived: result.archived,
       tags: result.tags.map(tag => tag.name),
+      createdAt: note.createdAt.toISOString(),
+      updatedAt: note.updatedAt.toISOString(),
     };
   }
 

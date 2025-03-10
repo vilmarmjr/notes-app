@@ -29,12 +29,12 @@ import { SearchFieldComponent } from '../search-field/search-field.component';
         @if (showSearch()) {
           <nt-search-field [query]="query()" class="w-72" />
         }
-        <button
+        <a
           routerLink="/settings"
           class="flex h-11 w-11 items-center justify-center rounded-full text-neutral-500 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
         >
           <nt-icon name="settings" size="24" />
-        </button>
+        </a>
       </div>
     </nt-desktop-header>
   `,

@@ -1,48 +1,39 @@
 import { Route } from '@angular/router';
-import { NotesStore } from './store/notes.store';
+import { NotesShellComponent } from './feature/notes-shell/notes-shell.component';
 import { NotesPageType } from './types/notes-page-type';
 
 export const notesRoutes: Route[] = [
   {
+    path: 'tags',
+    loadComponent: () =>
+      import('./feature/tags/tags.component').then(c => c.TagsComponent),
+  },
+  {
     path: '',
-    providers: [NotesStore],
+    component: NotesShellComponent,
     children: [
       {
         path: 'all',
         loadComponent: () =>
-          import('./feature/notes-shell/notes-shell.component').then(
-            c => c.NotesShellComponent,
-          ),
+          import('./feature/notes/notes.component').then(c => c.NotesComponent),
         data: { type: 'all' satisfies NotesPageType },
       },
       {
         path: 'archived',
         loadComponent: () =>
-          import('./feature/notes-shell/notes-shell.component').then(
-            c => c.NotesShellComponent,
-          ),
+          import('./feature/notes/notes.component').then(c => c.NotesComponent),
         data: { type: 'archived' satisfies NotesPageType },
       },
       {
         path: 'search',
         loadComponent: () =>
-          import('./feature/notes-shell/notes-shell.component').then(
-            c => c.NotesShellComponent,
-          ),
+          import('./feature/notes/notes.component').then(c => c.NotesComponent),
         data: { type: 'search' satisfies NotesPageType },
-      },
-      {
-        path: 'tags',
-        loadComponent: () =>
-          import('./feature/tags/tags.component').then(c => c.TagsComponent),
-        data: { type: 'tags' satisfies NotesPageType },
       },
       {
         path: 'tags/:tag',
         loadComponent: () =>
-          import('./feature/notes-shell/notes-shell.component').then(
-            c => c.NotesShellComponent,
-          ),
+          import('./feature/notes/notes.component').then(c => c.NotesComponent),
         data: { type: 'tags' },
       },
       {

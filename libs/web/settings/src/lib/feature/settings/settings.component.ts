@@ -4,18 +4,18 @@ import { BreakpointService } from '@web/shared/ui';
 import { SettingsStore } from '../../store/settings.store';
 import { SettingsHeaderComponent } from '../../ui/settings-header/settings-header.component';
 import { SettingsNavComponent } from '../../ui/settings-nav/settings-nav.component';
-import { SettingsShellComponent } from '../settings-shell/settings-shell.component';
+import { SettingsContainerComponent } from '../settings-container/settings-container.component';
 
 @Component({
   selector: 'nt-settings',
   imports: [
     CommonModule,
-    SettingsShellComponent,
+    SettingsContainerComponent,
     SettingsHeaderComponent,
     SettingsNavComponent,
   ],
   template: `
-    <nt-settings-shell [withNav]="false">
+    <nt-settings-container [withNav]="false">
       @if (!lg()) {
         <nt-settings-header title="Settings" [showBackButton]="false" />
       }
@@ -24,7 +24,7 @@ import { SettingsShellComponent } from '../settings-shell/settings-shell.compone
         [isLoggingOut]="store.isLoggingOut()"
         (logOut)="store.logOut()"
       />
-    </nt-settings-shell>
+    </nt-settings-container>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

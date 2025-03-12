@@ -1,16 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TagsStore } from '@web/shared/tags';
-import { ThemeStore } from '@web/shared/theme';
 import { BreakpointService, DividerComponent } from '@web/shared/ui';
+import { ScrollEndDirective } from '@web/shared/utils';
 import { BottomNavComponent } from '../bottom-nav/bottom-nav.component';
 import { ContentComponent } from '../content/content.component';
 import { MobileHeaderComponent } from '../mobile-header/mobile-header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
-  selector: 'nt-shell',
+  selector: 'nt-layout-shell',
   imports: [
     CommonModule,
     MobileHeaderComponent,
@@ -19,6 +18,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
     SidebarComponent,
     DividerComponent,
     RouterModule,
+    ScrollEndDirective,
   ],
   template: `
     @if (lg()) {
@@ -31,7 +31,10 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
       </div>
     } @else {
       <div class="flex h-full flex-col">
-        <div class="flex flex-1 flex-col overflow-y-auto">
+        <div
+          class="flex flex-1 flex-col overflow-y-auto"
+          (ntScrollEnd)="scrollEnd.emit()"
+        >
           <nt-mobile-header />
           <nt-content class="flex-1">
             <router-outlet />
@@ -42,14 +45,9 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ThemeStore, TagsStore],
 })
-export class ShellComponent implements OnInit {
+export class LayoutShellComponent {
   private _breakpointService = inject(BreakpointService);
-  private _themeStore = inject(ThemeStore);
   protected lg = this._breakpointService.lg;
-
-  ngOnInit(): void {
-    this._themeStore.loadTheme();
-  }
+  public scrollEnd = output<void>();
 }

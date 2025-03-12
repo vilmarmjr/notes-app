@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ButtonDirective, DividerComponent, IconComponent } from '@web/shared/ui';
+import { ScrollEndDirective } from '@web/shared/utils';
 import { NotesStore } from '../../store/notes.store';
 import { NotesHeaderComponent } from '../../ui/notes-header/notes-header.component';
 import { NotesListHintComponent } from '../../ui/notes-list-hint/notes-list-hint.component';
@@ -20,6 +21,7 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
     NotesListSkeletonComponent,
     NoteEditorComponent,
     ButtonDirective,
+    ScrollEndDirective,
   ],
   template: `
     <div class="flex h-full flex-col">
@@ -30,7 +32,10 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
       />
       <nt-divider />
       <div class="flex min-h-0 flex-1">
-        <div class="flex w-72 flex-col gap-4 overflow-y-auto px-4 py-5">
+        <div
+          class="flex w-72 flex-col gap-4 overflow-y-auto px-4 py-5"
+          (ntScrollEnd)="store.loadNextPage()"
+        >
           <button ntButton>
             <nt-icon name="plus" />
             Create new note

@@ -1,14 +1,16 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { LayoutShellComponent } from '@web/core/layout';
 import { NotesStore } from '../../store/notes.store';
 
 @Component({
   selector: 'nt-notes-shell',
-  imports: [RouterOutlet],
+  imports: [LayoutShellComponent],
   template: `
-    <router-outlet />
+    <nt-layout-shell (scrollEnd)="store.loadNextPage()" />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [NotesStore],
 })
-export class NotesShellComponent {}
+export class NotesShellComponent {
+  protected store = inject(NotesStore);
+}

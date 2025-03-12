@@ -6,20 +6,20 @@ import { matchOtherValidator, PasswordFieldComponent } from '@web/shared/form';
 import { ButtonDirective } from '@web/shared/ui';
 import { SettingsStore } from '../../store/settings.store';
 import { SettingsHeaderComponent } from '../../ui/settings-header/settings-header.component';
-import { SettingsShellComponent } from '../settings-shell/settings-shell.component';
+import { SettingsContainerComponent } from '../settings-container/settings-container.component';
 
 @Component({
   selector: 'nt-change-password',
   imports: [
     CommonModule,
-    SettingsShellComponent,
+    SettingsContainerComponent,
     SettingsHeaderComponent,
     PasswordFieldComponent,
     ButtonDirective,
     ReactiveFormsModule,
   ],
   template: `
-    <nt-settings-shell>
+    <nt-settings-container>
       <nt-settings-header title="Change password" />
       <form
         class="flex max-w-[520px] flex-col gap-6"
@@ -43,7 +43,7 @@ import { SettingsShellComponent } from '../settings-shell/settings-shell.compone
           </button>
         </div>
       </form>
-    </nt-settings-shell>
+    </nt-settings-container>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

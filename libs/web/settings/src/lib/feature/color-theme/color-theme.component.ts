@@ -19,7 +19,7 @@ import {
   RadioModule,
 } from '@web/shared/ui';
 import { SettingsHeaderComponent } from '../../ui/settings-header/settings-header.component';
-import { SettingsShellComponent } from '../settings-shell/settings-shell.component';
+import { SettingsContainerComponent } from '../settings-container/settings-container.component';
 
 type Option = {
   label: string;
@@ -32,14 +32,14 @@ type Option = {
   selector: 'nt-color-theme',
   imports: [
     CommonModule,
-    SettingsShellComponent,
+    SettingsContainerComponent,
     SettingsHeaderComponent,
     RadioModule,
     IconComponent,
     ButtonDirective,
   ],
   template: `
-    <nt-settings-shell>
+    <nt-settings-container>
       <nt-settings-header title="Color theme" description="Choose your color theme:" />
       <form class="flex max-w-[520px] flex-col gap-6">
         <nt-radio-group [(value)]="value">
@@ -59,7 +59,7 @@ type Option = {
           </button>
         </div>
       </form>
-    </nt-settings-shell>
+    </nt-settings-container>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

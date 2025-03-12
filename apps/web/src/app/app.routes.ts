@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { ShellComponent } from '@web/core/layout';
+import { PrivateShellComponent } from '@web/core/layout';
 
 export const appRoutes: Route[] = [
   { path: 'login', loadComponent: () => import('@web/auth').then(c => c.LoginComponent) },
@@ -17,7 +17,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: '',
-    component: ShellComponent,
+    component: PrivateShellComponent,
     children: [
       {
         path: '',

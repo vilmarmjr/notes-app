@@ -28,18 +28,11 @@ export function withCurrentRoute() {
           routeParams: toSignal(rootRoute$.pipe(switchMap(route => route.params)), {
             requireSync: true,
           }),
-          routeParamMap: toSignal(rootRoute$.pipe(switchMap(route => route.paramMap)), {
-            requireSync: true,
-          }),
           routeQueryParams: toSignal(
             rootRoute$.pipe(switchMap(route => route.queryParams)),
             {
               requireSync: true,
             },
-          ),
-          routeQueryParamMap: toSignal(
-            rootRoute$.pipe(switchMap(route => route.queryParamMap)),
-            { requireSync: true },
           ),
         };
       },

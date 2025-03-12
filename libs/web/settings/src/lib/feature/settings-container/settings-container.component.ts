@@ -6,7 +6,7 @@ import { SettingsStore } from '../../store/settings.store';
 import { SettingsNavComponent } from '../../ui/settings-nav/settings-nav.component';
 
 @Component({
-  selector: 'nt-settings-shell',
+  selector: 'nt-settings-container',
   imports: [CommonModule, DesktopHeaderComponent, DividerComponent, SettingsNavComponent],
   template: `
     @if (lg()) {
@@ -38,7 +38,7 @@ import { SettingsNavComponent } from '../../ui/settings-nav/settings-nav.compone
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsShellComponent {
+export class SettingsContainerComponent {
   public withNav = input(true);
   protected store = inject(SettingsStore);
   protected lg = inject(BreakpointService).lg;

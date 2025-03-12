@@ -20,35 +20,63 @@ import { pipe, switchMap, tap } from 'rxjs';
 import { NotesService } from '../data-access/notes.service';
 import { NotesPageType } from '../types/notes-page-type';
 
+type NotesState = {
+  isLoading: boolean;
+  isLoadingNextPage: boolean;
+  isLoadingSelectedNote: boolean;
+  notes: PaginateNotesResponseItemDto[];
+  selectedNote: GetNoteResponseDto | null;
+  page: number;
+  isLastPage: boolean;
+};
+
 export const NotesStore = signalStore(
   withCurrentRoute(),
-  withState({
+  withState<NotesState>({
     isLoading: false,
     isLoadingNextPage: false,
     isLoadingSelectedNote: false,
-    notes: [] as PaginateNotesResponseItemDto[],
-    selectedNote: null as GetNoteResponseDto | null,
+    notes: [],
+    selectedNote: null,
     page: 1,
+    isLastPage: false,
   }),
   withComputed(_store => ({
     pageType: computed<NotesPageType>(() => _store.routeData()['type']),
-    tag: computed(() => _store.routeParamMap().get('tag') || ''),
-    query: computed(() => _store.routeQueryParamMap().get('query') || ''),
+    tag: computed(() => _store.routeParams()['tag'] || ''),
+    query: computed(() => _store.routeQueryParams()['query'] || ''),
+  })),
+  withComputed(_store => ({
+    params: computed<PaginateNotesRequestParams>(() => ({
+      query: _store.query(),
+      status: _store.pageType() === 'archived' ? 'archived' : 'active',
+      tag: _store.tag(),
+    })),
   })),
   withMethods((_store, _notesService = inject(NotesService)) => ({
     _loadNotes: rxMethod<PaginateNotesRequestParams>(
       pipe(
-        tap(() => patchState(_store, { isLoading: true })),
+        tap(({ page }) =>
+          patchState(_store, {
+            isLoading: page === 1,
+            isLoadingNextPage: !!page && page > 1,
+          }),
+        ),
         switchMap(params => _notesService.paginateNotes(params)),
         tapResponse({
           next: response => {
             patchState(_store, {
               isLoading: false,
-              notes: response.content,
-              page: _store.page() + 1,
+              isLoadingNextPage: false,
+              notes:
+                response.page === 1
+                  ? response.content
+                  : [..._store.notes(), ...response.content],
+              page: response.page,
+              isLastPage: response.last,
             });
           },
-          error: () => patchState(_store, { isLoading: false }),
+          error: () => patchState(_store, { isLoading: false, isLoadingNextPage: false }),
         }),
       ),
     ),
@@ -67,32 +95,31 @@ export const NotesStore = signalStore(
       ),
     ),
   })),
+  withMethods(_store => ({
+    loadNextPage() {
+      if (_store.isLastPage() || _store.isLoading() || _store.isLoadingNextPage()) return;
+
+      _store._loadNotes({ ..._store.params(), page: _store.page() + 1 });
+    },
+  })),
   withHooks((_store, _breakpointService = inject(BreakpointService)) => ({
     onInit() {
-      effect(() => {
-        const params: PaginateNotesRequestParams = {
-          query: _store.query(),
-          status: _store.pageType() === 'archived' ? 'archived' : 'active',
-          tag: _store.tag(),
-          take: 15,
-          page: 1,
-        };
-        _store._loadNotes(params);
-      });
+      effect(() => _store._loadNotes({ ..._store.params(), page: 1 }));
 
       effect(() => {
         if (!_breakpointService.lg()) return;
 
         const notes = _store.notes();
         const selectedNote = _store.selectedNote();
+        const isLoadingSelectedNote = _store.isLoadingSelectedNote();
 
-        if (notes.length && !selectedNote) {
+        if (notes.length && !selectedNote && !isLoadingSelectedNote) {
           _store.addQueryParamsToCurrentRoute({ note: notes[0].id });
         }
       });
 
       effect(() => {
-        const noteId = _store.routeQueryParamMap().get('note');
+        const noteId = _store.routeQueryParams()['note'];
         const selectedNote = _store.selectedNote();
 
         if (noteId && selectedNote?.id !== noteId) {

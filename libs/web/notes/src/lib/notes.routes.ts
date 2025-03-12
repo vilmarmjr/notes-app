@@ -1,12 +1,19 @@
 import { Route } from '@angular/router';
+import { LayoutShellComponent } from '@web/core/layout';
 import { NotesShellComponent } from './feature/notes-shell/notes-shell.component';
 import { NotesPageType } from './types/notes-page-type';
 
 export const notesRoutes: Route[] = [
   {
     path: 'tags',
-    loadComponent: () =>
-      import('./feature/tags/tags.component').then(c => c.TagsComponent),
+    component: LayoutShellComponent,
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./feature/tags/tags.component').then(c => c.TagsComponent),
+      },
+    ],
   },
   {
     path: '',

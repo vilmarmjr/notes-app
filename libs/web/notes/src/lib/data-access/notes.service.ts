@@ -13,35 +13,35 @@ import { buildHttpParams } from '@web/shared/utils';
 
 @Injectable({ providedIn: 'root' })
 export class NotesService {
-  private _http = inject(HttpClient);
+  private http = inject(HttpClient);
 
   createNote(dto: CreateNoteRequestDto) {
-    return this._http.post<CreateNoteResponseDto>('notes', dto);
+    return this.http.post<CreateNoteResponseDto>('notes', dto);
   }
 
   updateNote(dto: UpdateNoteRequestDto) {
-    return this._http.put<UpdateNoteResponseDto>('notes', dto);
+    return this.http.put<UpdateNoteResponseDto>('notes', dto);
   }
 
   paginateNotes(params: PaginateNotesRequestParams = {}) {
-    return this._http.get<PaginateNotesResponseDto>('notes', {
+    return this.http.get<PaginateNotesResponseDto>('notes', {
       params: buildHttpParams(params),
     });
   }
 
   getNoteById(id: string) {
-    return this._http.get<GetNoteResponseDto>(`notes/${id}`);
+    return this.http.get<GetNoteResponseDto>(`notes/${id}`);
   }
 
   deleteNote(id: string) {
-    return this._http.delete<void>(`notes/${id}`);
+    return this.http.delete<void>(`notes/${id}`);
   }
 
   archiveNote(id: string) {
-    return this._http.put(`notes/${id}/archive`, null);
+    return this.http.put(`notes/${id}/archive`, null);
   }
 
   restoreNote(id: string) {
-    return this._http.put(`notes/${id}/restore`, null);
+    return this.http.put(`notes/${id}/restore`, null);
   }
 }

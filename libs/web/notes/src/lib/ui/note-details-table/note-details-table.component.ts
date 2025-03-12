@@ -34,7 +34,7 @@ type Detail = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoteDetailsTableComponent {
-  private _datePipe = inject(DatePipe);
+  private datePipe = inject(DatePipe);
   public tags = input<string[]>([]);
   public lastEdited = input<string>();
   protected details = computed<Array<{ icon: IconName; label: string; value: string }>>(
@@ -44,7 +44,7 @@ export class NoteDetailsTableComponent {
         {
           icon: 'clock',
           label: 'Last edited',
-          value: this._datePipe.transform(this.lastEdited()) || '',
+          value: this.datePipe.transform(this.lastEdited()) || '',
         },
       ] satisfies Detail[];
     },

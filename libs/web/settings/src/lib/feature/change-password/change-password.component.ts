@@ -48,14 +48,14 @@ import { SettingsContainerComponent } from '../settings-container/settings-conta
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordComponent {
-  private _fb = inject(FormBuilder);
-  protected form = this._fb.group({
-    oldPassword: this._fb.nonNullable.control('', [Validators.required]),
-    newPassword: this._fb.nonNullable.control('', [
+  private fb = inject(FormBuilder);
+  protected form = this.fb.group({
+    oldPassword: this.fb.nonNullable.control('', [Validators.required]),
+    newPassword: this.fb.nonNullable.control('', [
       Validators.required,
       Validators.minLength(PASSWORD_MIN_LENGTH),
     ]),
-    newPasswordConfirm: this._fb.nonNullable.control('', [
+    newPasswordConfirm: this.fb.nonNullable.control('', [
       Validators.required,
       matchOtherValidator('newPassword'),
     ]),

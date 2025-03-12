@@ -39,23 +39,23 @@ export class InputDirective implements OnInit {
   );
 
   private _hasError = signal(false);
-  private _ngControl = inject(NgControl, { optional: true, self: true });
-  private _destroyRef = inject(DestroyRef);
-  private _formControlDisabled = signal(false);
+  private ngControl = inject(NgControl, { optional: true, self: true });
+  private destroyRef = inject(DestroyRef);
+  private formControlDisabled = signal(false);
 
   public userDisabled = input(false, { alias: 'disabled' });
   public userClass = input<string>('', { alias: 'class' });
   public id = generateInputId();
   public hasError = this._hasError.asReadonly();
-  public disabled = computed(() => this.userDisabled() || this._formControlDisabled());
+  public disabled = computed(() => this.userDisabled() || this.formControlDisabled());
 
   ngOnInit(): void {
-    const control = this._ngControl?.control;
+    const control = this.ngControl?.control;
 
     if (control) {
       const status$ = control.statusChanges.pipe(
         startWith(control.status),
-        tap(status => this._formControlDisabled.set(status === 'DISABLED')),
+        tap(status => this.formControlDisabled.set(status === 'DISABLED')),
       );
       const touched$ = control.events.pipe(
         filter(
@@ -65,7 +65,7 @@ export class InputDirective implements OnInit {
         startWith(false),
       );
       combineLatest([status$, touched$])
-        .pipe(takeUntilDestroyed(this._destroyRef))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(([status, touched]) => {
           this._hasError.set(status === 'INVALID' && touched);
         });

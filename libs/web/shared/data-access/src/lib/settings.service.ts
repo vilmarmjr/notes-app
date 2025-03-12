@@ -8,17 +8,17 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class SettingsService {
-  private _http = inject(HttpClient);
+  private http = inject(HttpClient);
 
   getSettings() {
-    return this._http.get<SettingsResponseDto>('settings');
+    return this.http.get<SettingsResponseDto>('settings');
   }
 
   saveColorTheme(dto: SaveColorThemeRequestDto) {
-    return this._http.put<void>('settings/color', dto);
+    return this.http.put<void>('settings/color', dto);
   }
 
   saveFontTheme(dto: SaveFontThemeRequestDto) {
-    return this._http.put<void>('settings/font', dto);
+    return this.http.put<void>('settings/font', dto);
   }
 }

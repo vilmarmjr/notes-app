@@ -6,10 +6,10 @@ import { Tag } from '../entities/tag.entity';
 
 @Injectable()
 export class GetTagsUseCase {
-  constructor(@InjectRepository(Tag) private _tagsRepository: Repository<Tag>) {}
+  constructor(@InjectRepository(Tag) private tagsRepository: Repository<Tag>) {}
 
   async execute(userId: string): Promise<GetTagsResponseDto> {
-    const tags = await this._tagsRepository
+    const tags = await this.tagsRepository
       .createQueryBuilder('tag')
       .innerJoin('tag.note', 'note')
       .innerJoin('note.user', 'user')

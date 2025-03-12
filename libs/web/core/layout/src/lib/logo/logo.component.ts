@@ -11,10 +11,10 @@ import { ColorThemeService } from '@web/shared/ui';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoComponent {
-  private _colorThemeService = inject(ColorThemeService);
+  private colorThemeService = inject(ColorThemeService);
 
-  private _isDarkTheme = this._colorThemeService.isDarkTheme;
+  private isDarkTheme = this.colorThemeService.isDarkTheme;
   protected src = computed(() =>
-    this._isDarkTheme() ? 'assets/img/logo-dark.svg' : 'assets/img/logo-light.svg',
+    this.isDarkTheme() ? 'assets/img/logo-dark.svg' : 'assets/img/logo-light.svg',
   );
 }

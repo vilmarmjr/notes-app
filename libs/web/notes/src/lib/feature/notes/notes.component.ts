@@ -28,9 +28,9 @@ import { NotesMobileComponent } from '../notes-mobile/notes-mobile.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesComponent {
-  private _noteId = inject(ActivatedRoute).queryParamMap.pipe(
+  private noteId$ = inject(ActivatedRoute).queryParamMap.pipe(
     map(params => params.get('note')),
   );
-  protected noteId = toSignal(this._noteId);
+  protected noteId = toSignal(this.noteId$);
   protected lg = inject(BreakpointService).lg;
 }

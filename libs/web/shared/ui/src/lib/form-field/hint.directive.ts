@@ -20,11 +20,11 @@ const hintVariants = cva('text-preset-6', {
 export class HintDirective {
   public userClass = input<string>('', { alias: 'class' });
   protected computedClass = computed(() =>
-    ntMerge(hintVariants({ disabled: this._disabled() }), this.userClass()),
+    ntMerge(hintVariants({ disabled: this.disabled() }), this.userClass()),
   );
-  private _disabled = signal(false);
+  private disabled = signal(false);
 
   setDisabledState(isDisabled: boolean) {
-    this._disabled.set(isDisabled);
+    this.disabled.set(isDisabled);
   }
 }

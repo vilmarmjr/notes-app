@@ -4,10 +4,10 @@ import { GetTagsUseCase } from '../usecases/get-tags.usecase';
 
 @Controller('tags')
 export class TagsController {
-  constructor(private _getTagsUseCase: GetTagsUseCase) {}
+  constructor(private getTagsUseCase: GetTagsUseCase) {}
 
   @Get()
   getTags(@Req() req: ApplicationRequest) {
-    return this._getTagsUseCase.execute(req.user.id);
+    return this.getTagsUseCase.execute(req.user.id);
   }
 }

@@ -16,22 +16,22 @@ import { filter, map, merge } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  private _colorThemeService = inject(ColorThemeService);
-  private _fontThemeService = inject(FontThemeService);
-  private _router = inject(Router);
-  private _loading$ = merge(
-    this._router.events
+  private colorThemeService = inject(ColorThemeService);
+  private fontThemeService = inject(FontThemeService);
+  private router = inject(Router);
+  private loading$ = merge(
+    this.router.events
       .pipe(filter(event => event instanceof ActivationStart))
       .pipe(map(() => true)),
-    this._router.events
+    this.router.events
       .pipe(filter(event => event instanceof ActivationEnd))
       .pipe(map(() => false)),
   );
 
-  protected isLoading = toSignal(this._loading$, { initialValue: false });
+  protected isLoading = toSignal(this.loading$, { initialValue: false });
 
   constructor() {
-    this._colorThemeService.setInitialTheme();
-    this._fontThemeService.setInitialTheme();
+    this.colorThemeService.setInitialTheme();
+    this.fontThemeService.setInitialTheme();
   }
 }

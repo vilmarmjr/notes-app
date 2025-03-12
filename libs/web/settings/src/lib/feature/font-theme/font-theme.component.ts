@@ -64,14 +64,14 @@ type Option = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FontThemeComponent implements OnDestroy {
-  private _themeStore = inject(ThemeStore);
-  private _fontThemeService = inject(FontThemeService);
+  private themeStore = inject(ThemeStore);
+  private fontThemeService = inject(FontThemeService);
 
-  protected value = signal(this._themeStore.originalFontTheme());
+  protected value = signal(this.themeStore.originalFontTheme());
 
   protected canSave = computed(() => {
-    const isSaving = this._themeStore.isSavingFontTheme();
-    const hasChangedValue = this._themeStore.originalFontTheme() !== this.value();
+    const isSaving = this.themeStore.isSavingFontTheme();
+    const hasChangedValue = this.themeStore.originalFontTheme() !== this.value();
     return !isSaving && hasChangedValue;
   });
 
@@ -98,22 +98,22 @@ export class FontThemeComponent implements OnDestroy {
 
   constructor() {
     effect(() => {
-      const theme = this._themeStore.originalFontTheme();
+      const theme = this.themeStore.originalFontTheme();
       untracked(() => this.value.set(theme));
     });
 
-    effect(() => this._fontThemeService.setTheme(toUiFontTheme(this.value())));
+    effect(() => this.fontThemeService.setTheme(toUiFontTheme(this.value())));
   }
 
   ngOnDestroy(): void {
-    const originalTheme = toUiFontTheme(this._themeStore.originalFontTheme());
+    const originalTheme = toUiFontTheme(this.themeStore.originalFontTheme());
 
-    if (originalTheme !== this._fontThemeService.theme()) {
-      this._fontThemeService.setTheme(originalTheme);
+    if (originalTheme !== this.fontThemeService.theme()) {
+      this.fontThemeService.setTheme(originalTheme);
     }
   }
 
   protected submit() {
-    this._themeStore.saveFontTheme(this.value());
+    this.themeStore.saveFontTheme(this.value());
   }
 }

@@ -42,13 +42,13 @@ import { UpdateNoteUseCase } from '../usecases/update-note.usecase';
 @Controller('notes')
 export class NotesController {
   constructor(
-    private _createNoteUseCase: CreateNoteUseCase,
-    private _updateNoteUseCase: UpdateNoteUseCase,
-    private _getNoteByIdUseCase: GetNoteByIdUseCase,
-    private _archiveNoteUseCase: ArchiveNoteUseCase,
-    private _restoreNoteUseCase: RestoreNoteUseCase,
-    private _deleteNoteUseCase: DeleteNoteUseCase,
-    private _paginateNotesUseCase: PaginateNotesUseCase,
+    private createNoteUseCase: CreateNoteUseCase,
+    private updateNoteUseCase: UpdateNoteUseCase,
+    private getNoteByIdUseCase: GetNoteByIdUseCase,
+    private archiveNoteUseCase: ArchiveNoteUseCase,
+    private restoreNoteUseCase: RestoreNoteUseCase,
+    private deleteNoteUseCase: DeleteNoteUseCase,
+    private paginateNotesUseCase: PaginateNotesUseCase,
   ) {}
 
   @Post()
@@ -56,7 +56,7 @@ export class NotesController {
     @Body(validateSchema(createNoteSchema)) dto: CreateNoteRequestDto,
     @Req() req: ApplicationRequest,
   ): Promise<CreateNoteResponseDto> {
-    return this._createNoteUseCase.execute(req.user.id, dto);
+    return this.createNoteUseCase.execute(req.user.id, dto);
   }
 
   @Put()
@@ -64,7 +64,7 @@ export class NotesController {
     @Body(validateSchema(updateNoteSchema)) dto: UpdateNoteRequestDto,
     @Req() req: ApplicationRequest,
   ): Promise<UpdateNoteResponseDto> {
-    return this._updateNoteUseCase.execute(req.user.id, dto);
+    return this.updateNoteUseCase.execute(req.user.id, dto);
   }
 
   @Get()
@@ -72,7 +72,7 @@ export class NotesController {
     @Query(validateSchema(paginateNotesParamsSchema)) params: PaginateNotesRequestParams,
     @Req() req: ApplicationRequest,
   ) {
-    return this._paginateNotesUseCase.execute(req.user.id, params);
+    return this.paginateNotesUseCase.execute(req.user.id, params);
   }
 
   @Get(':id')
@@ -80,7 +80,7 @@ export class NotesController {
     @Param(validateSchema(getNoteParamsSchema)) params: GetNoteRequestParams,
     @Req() req: ApplicationRequest,
   ) {
-    return this._getNoteByIdUseCase.execute({ noteId: params.id, userId: req.user.id });
+    return this.getNoteByIdUseCase.execute({ noteId: params.id, userId: req.user.id });
   }
 
   @Delete(':id')
@@ -89,7 +89,7 @@ export class NotesController {
     @Param(validateSchema(deleteNoteParamsSchema)) params: DeleteNoteRequestParams,
     @Req() req: ApplicationRequest,
   ) {
-    return this._deleteNoteUseCase.execute(req.user.id, params);
+    return this.deleteNoteUseCase.execute(req.user.id, params);
   }
 
   @Put(':id/archive')
@@ -98,7 +98,7 @@ export class NotesController {
     @Param(validateSchema(archiveNoteParamsSchema)) params: ArchiveNoteRequestParams,
     @Req() req: ApplicationRequest,
   ) {
-    return this._archiveNoteUseCase.execute(req.user.id, params);
+    return this.archiveNoteUseCase.execute(req.user.id, params);
   }
 
   @Put(':id/restore')
@@ -107,6 +107,6 @@ export class NotesController {
     @Param(validateSchema(restoreNoteParamsSchema)) params: RestoreNoteRequestParams,
     @Req() req: ApplicationRequest,
   ) {
-    return this._restoreNoteUseCase.execute(req.user.id, params);
+    return this.restoreNoteUseCase.execute(req.user.id, params);
   }
 }

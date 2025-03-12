@@ -28,7 +28,7 @@ const ONE_REM_IN_PIXELS = 16;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent {
-  private _domSanitizer = inject(DomSanitizer);
+  private domSanitizer = inject(DomSanitizer);
 
   public name = input.required<IconName>();
   public size = input<IconSize>(20);
@@ -36,7 +36,7 @@ export class IconComponent {
 
   protected sizeInRem = computed(() => `${Number(this.size()) / ONE_REM_IN_PIXELS}rem`);
   protected icon = computed(() =>
-    this._domSanitizer.bypassSecurityTrustHtml(icons[this.name()]),
+    this.domSanitizer.bypassSecurityTrustHtml(icons[this.name()]),
   );
   protected computedClass = computed(() => ntMerge('inline-block', this.userClass()));
 }

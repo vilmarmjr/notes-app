@@ -5,21 +5,21 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(User) private _repository: Repository<User>) {}
+  constructor(@InjectRepository(User) private repository: Repository<User>) {}
 
   findById(id: string) {
-    return this._repository.findOneBy({ id });
+    return this.repository.findOneBy({ id });
   }
 
   findByEmail(email: string) {
-    return this._repository.findOneBy({ email });
+    return this.repository.findOneBy({ email });
   }
 
   existsByEmail(email: string) {
-    return this._repository.exists({ where: { email } });
+    return this.repository.exists({ where: { email } });
   }
 
   save(user: Partial<User>) {
-    return this._repository.save(user);
+    return this.repository.save(user);
   }
 }

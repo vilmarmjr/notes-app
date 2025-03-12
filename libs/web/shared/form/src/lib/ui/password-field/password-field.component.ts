@@ -90,17 +90,17 @@ export class PasswordFieldComponent implements ControlValueAccessor, OnInit {
   protected onChange = () => {};
   protected onTouched = () => {};
 
-  private _ngControl = inject(NgControl, { self: true, optional: true });
+  private ngControl = inject(NgControl, { self: true, optional: true });
 
   constructor() {
-    if (this._ngControl) {
-      this._ngControl.valueAccessor = this;
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
     }
   }
 
   ngOnInit() {
-    if (this._ngControl) {
-      this.control = this._ngControl.control as FormControl;
+    if (this.ngControl) {
+      this.control = this.ngControl.control as FormControl;
     }
   }
 

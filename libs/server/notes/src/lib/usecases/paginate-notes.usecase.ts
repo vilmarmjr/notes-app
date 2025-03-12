@@ -7,7 +7,7 @@ import { Note } from '../entities/note.entity';
 
 @Injectable()
 export class PaginateNotesUseCase {
-  constructor(@InjectRepository(Note) private _notesRepository: Repository<Note>) {}
+  constructor(@InjectRepository(Note) private notesRepository: Repository<Note>) {}
 
   async execute(
     userId: string,
@@ -17,7 +17,7 @@ export class PaginateNotesUseCase {
     const page = params.page || 1;
     const skip = (page - 1) * take;
     const query = `%${params.query || ''}%`;
-    const queryBuilder = this._notesRepository
+    const queryBuilder = this.notesRepository
       .createQueryBuilder('note')
       .leftJoinAndSelect('note.tags', 'tag')
       .where('note.user_id = :userId', { userId });

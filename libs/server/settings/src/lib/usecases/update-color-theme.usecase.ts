@@ -6,10 +6,10 @@ import { Settings } from '../entities/settings.entity';
 
 @Injectable()
 export class UpdateColorThemeUseCase {
-  constructor(@InjectRepository(Settings) private _repository: Repository<Settings>) {}
+  constructor(@InjectRepository(Settings) private repository: Repository<Settings>) {}
 
   async execute(userId: string, colorTheme: ColorTheme) {
-    const settings = await this._repository.findOne({ where: { user: { id: userId } } });
-    this._repository.save({ ...settings, user: { id: userId }, colorTheme });
+    const settings = await this.repository.findOne({ where: { user: { id: userId } } });
+    this.repository.save({ ...settings, user: { id: userId }, colorTheme });
   }
 }

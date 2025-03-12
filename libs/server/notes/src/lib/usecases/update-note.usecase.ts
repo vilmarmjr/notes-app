@@ -9,15 +9,15 @@ import { Tag } from '../entities/tag.entity';
 @Injectable()
 export class UpdateNoteUseCase {
   constructor(
-    @InjectRepository(Note) private _notesRepository: Repository<Note>,
-    @InjectRepository(Tag) private _tagsRepository: Repository<Tag>,
+    @InjectRepository(Note) private notesRepository: Repository<Note>,
+    @InjectRepository(Tag) private tagsRepository: Repository<Tag>,
   ) {}
 
   async execute(
     userId: string,
     dto: UpdateNoteRequestDto,
   ): Promise<UpdateNoteResponseDto> {
-    const note = await this._notesRepository.findOneBy({
+    const note = await this.notesRepository.findOneBy({
       id: dto.id,
       user: { id: userId },
     });
@@ -27,7 +27,7 @@ export class UpdateNoteUseCase {
     }
 
     const tags = await this.getUpdatedTags(note.id, dto.tags);
-    const result = await this._notesRepository.save({
+    const result = await this.notesRepository.save({
       id: note.id,
       title: dto.title,
       content: dto.content,
@@ -51,7 +51,7 @@ export class UpdateNoteUseCase {
     }
 
     const uniqueTags = Array.from(new Set(tags));
-    const existingTags = await this._tagsRepository.find({
+    const existingTags = await this.tagsRepository.find({
       where: { name: In(uniqueTags), note: { id: noteId } },
     });
     return uniqueTags.map(tag => ({

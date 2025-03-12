@@ -39,10 +39,10 @@ import { LogoComponent } from '../logo/logo.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
-  private _activatedRoute = inject(ActivatedRoute);
+  private activatedRoute = inject(ActivatedRoute);
   protected tagsStore = inject(TagsStore);
   protected queryParams = toSignal(
-    this._activatedRoute.queryParams.pipe(map(params => ({ note: params['note'] }))),
+    this.activatedRoute.queryParams.pipe(map(params => ({ note: params['note'] }))),
     { requireSync: true },
   );
 }

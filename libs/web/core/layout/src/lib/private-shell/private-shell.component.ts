@@ -13,9 +13,9 @@ import { ThemeStore } from '@web/shared/theme';
   providers: [ThemeStore, TagsStore],
 })
 export class PrivateShellComponent implements OnInit {
-  private _themeStore = inject(ThemeStore);
+  private themeStore = inject(ThemeStore);
 
   ngOnInit(): void {
-    this._themeStore.loadTheme();
+    this.themeStore.loadTheme();
   }
 }

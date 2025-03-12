@@ -8,7 +8,7 @@ import { extractTokenFromCookies } from '../utils/request.util';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private _userService: UsersService) {
+  constructor(private userService: UsersService) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([extractTokenFromCookies]),
       ignoreExpiration: false,
@@ -17,7 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayload) {
-    const user = await this._userService.findById(payload.sub);
+    const user = await this.userService.findById(payload.sub);
     return user;
   }
 }

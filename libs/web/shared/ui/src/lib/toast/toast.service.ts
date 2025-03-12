@@ -20,38 +20,38 @@ export const TOAST_CONFIG = new InjectionToken<ToastConfig>('TOAST_CONFIG');
   providedIn: 'root',
 })
 export class ToastService {
-  private _overlay = inject(Overlay);
-  private _toastRef: ToastRef | null = null;
-  private _breakpointService = inject(BreakpointService);
-  private _injector = inject(Injector);
+  private overlay = inject(Overlay);
+  private toastRef: ToastRef | null = null;
+  private breakpointService = inject(BreakpointService);
+  private injector = inject(Injector);
 
   success(
     content: ToastConfig['content'],
     config: Partial<Omit<ToastConfig, 'text' | 'type'>> = {},
   ) {
-    this._show({ ...DEFAULT_CONFIG, ...config, content, type: 'success' });
+    this.show({ ...DEFAULT_CONFIG, ...config, content, type: 'success' });
   }
 
   error(
     content: ToastConfig['content'],
     config: Partial<Omit<ToastConfig, 'text' | 'type'>> = {},
   ) {
-    this._show({ ...DEFAULT_CONFIG, ...config, content, type: 'error' });
+    this.show({ ...DEFAULT_CONFIG, ...config, content, type: 'error' });
   }
 
   close() {
-    if (!this._toastRef) return;
+    if (!this.toastRef) return;
 
-    this._toastRef.close();
-    this._toastRef = null;
+    this.toastRef.close();
+    this.toastRef = null;
   }
 
-  private _show(config: ToastConfig) {
+  private show(config: ToastConfig) {
     this.close();
 
-    const overlayRef = this._overlay.create(this._getOverlayConfig(config));
+    const overlayRef = this.overlay.create(this.getOverlayConfig(config));
 
-    this._toastRef = new ToastRef(overlayRef);
+    this.toastRef = new ToastRef(overlayRef);
 
     const toast = overlayRef.attach(
       new ComponentPortal(
@@ -60,7 +60,7 @@ export class ToastService {
         Injector.create({
           providers: [
             { provide: TOAST_CONFIG, useValue: config },
-            { provide: ToastRef, useValue: this._toastRef },
+            { provide: ToastRef, useValue: this.toastRef },
           ],
         }),
       ),
@@ -72,18 +72,18 @@ export class ToastService {
           config.content,
           null,
           Injector.create({
-            parent: this._injector,
-            providers: [{ provide: ToastRef, useValue: this._toastRef }],
+            parent: this.injector,
+            providers: [{ provide: ToastRef, useValue: this.toastRef }],
           }),
         ),
       );
     }
   }
 
-  private _getOverlayConfig(config: ToastConfig): OverlayConfig {
-    const positionStrategy = this._breakpointService.lg()
-      ? this._overlay.position().global().right('60px').bottom('60px')
-      : this._overlay.position().global().bottom('20px').centerHorizontally();
+  private getOverlayConfig(config: ToastConfig): OverlayConfig {
+    const positionStrategy = this.breakpointService.lg()
+      ? this.overlay.position().global().right('60px').bottom('60px')
+      : this.overlay.position().global().bottom('20px').centerHorizontally();
     return { positionStrategy, width: config.width, maxWidth: '90%' };
   }
 }

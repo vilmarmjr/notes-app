@@ -14,21 +14,21 @@ import { debounceTime, filter, fromEvent } from 'rxjs';
 })
 export class ScrollEndDirective implements AfterViewInit {
   public scrollEnd = output<void>({ alias: 'ntScrollEnd' });
-  private _element = inject(ElementRef);
-  private _destroyRef = inject(DestroyRef);
+  private element = inject(ElementRef);
+  private destroyRef = inject(DestroyRef);
 
   ngAfterViewInit() {
-    const element = this._element.nativeElement;
+    const element = this.element.nativeElement;
     fromEvent(element, 'scroll')
       .pipe(
-        takeUntilDestroyed(this._destroyRef),
+        takeUntilDestroyed(this.destroyRef),
         debounceTime(500),
-        filter(() => this._isEnoughScrolled(element)),
+        filter(() => this.isEnoughScrolled(element)),
       )
       .subscribe(() => this.scrollEnd.emit());
   }
 
-  private _isEnoughScrolled(element: HTMLElement) {
+  private isEnoughScrolled(element: HTMLElement) {
     return (
       Math.ceil(element.scrollTop + element.offsetHeight) >= element.scrollHeight * 0.9
     );

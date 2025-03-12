@@ -47,7 +47,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutShellComponent {
-  private _breakpointService = inject(BreakpointService);
-  protected lg = this._breakpointService.lg;
+  private breakpointService = inject(BreakpointService);
+  protected lg = this.breakpointService.lg;
   public scrollEnd = output<void>();
 }

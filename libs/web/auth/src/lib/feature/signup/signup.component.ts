@@ -71,15 +71,15 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent {
-  private _fb = inject(FormBuilder);
-  private _authService = inject(AuthService);
-  private _destroyRef = inject(DestroyRef);
-  private _router = inject(Router);
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private destroyRef = inject(DestroyRef);
+  private router = inject(Router);
 
   protected isSubmitting = signal(false);
-  protected form = this._fb.group({
-    email: this._fb.nonNullable.control('', [Validators.email, Validators.required]),
-    password: this._fb.nonNullable.control('', [
+  protected form = this.fb.group({
+    email: this.fb.nonNullable.control('', [Validators.email, Validators.required]),
+    password: this.fb.nonNullable.control('', [
       Validators.required,
       Validators.minLength(PASSWORD_MIN_LENGTH),
     ]),
@@ -89,10 +89,10 @@ export class SignupComponent {
   protected signUp() {
     const { email, password } = this.form.getRawValue();
     this.isSubmitting.set(true);
-    this._authService
+    this.authService
       .signUp({ email, password })
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe(() => this._router.navigate(['/']))
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.router.navigate(['/']))
       .add(() => this.isSubmitting.set(false));
   }
 }

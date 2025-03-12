@@ -4,10 +4,10 @@ import { ApplicationException } from '@server/shared/http';
 import { ZodSchema } from 'zod';
 
 class ValidationPipe implements PipeTransform {
-  constructor(private _schema: ZodSchema) {}
+  constructor(private schema: ZodSchema) {}
 
   transform<T>(value: T): T {
-    const { success, data, error } = this._schema.safeParse(value);
+    const { success, data, error } = this.schema.safeParse(value);
 
     if (success) {
       return data;

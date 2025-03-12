@@ -14,12 +14,12 @@ export type GetNoteByIdFilters = {
 @Injectable()
 export class GetNoteByIdUseCase {
   constructor(
-    @InjectRepository(Note) private _notesRepository: Repository<Note>,
-    @InjectRepository(Tag) private _tagsRepository: Repository<Tag>,
+    @InjectRepository(Note) private notesRepository: Repository<Note>,
+    @InjectRepository(Tag) private tagsRepository: Repository<Tag>,
   ) {}
 
   async execute({ noteId, userId }: GetNoteByIdFilters): Promise<GetNoteResponseDto> {
-    const note = await this._notesRepository.findOneBy({
+    const note = await this.notesRepository.findOneBy({
       id: noteId,
       user: { id: userId },
     });
@@ -28,7 +28,7 @@ export class GetNoteByIdUseCase {
       throw new ApplicationException(NotesErrors.NOTE_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
 
-    const tags = await this._tagsRepository.findBy({ note: { id: noteId } });
+    const tags = await this.tagsRepository.findBy({ note: { id: noteId } });
 
     return {
       id: note.id,

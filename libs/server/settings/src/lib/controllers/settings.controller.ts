@@ -14,14 +14,14 @@ import { UpdateFontThemeUseCase } from '../usecases/update-font-theme.usecase';
 @Controller('settings')
 export class SettingsController {
   constructor(
-    private _getSettingsUseCase: GetSettingsUseCase,
-    private _updateColorThemeUseCase: UpdateColorThemeUseCase,
-    private _updateFontThemeUseCase: UpdateFontThemeUseCase,
+    private getSettingsUseCase: GetSettingsUseCase,
+    private updateColorThemeUseCase: UpdateColorThemeUseCase,
+    private updateFontThemeUseCase: UpdateFontThemeUseCase,
   ) {}
 
   @Get()
   getSettings(@Req() req: ApplicationRequest) {
-    return this._getSettingsUseCase.execute(req.user.id);
+    return this.getSettingsUseCase.execute(req.user.id);
   }
 
   @Put('color')
@@ -30,7 +30,7 @@ export class SettingsController {
     @Body(validateSchema(saveColorThemeSchema)) dto: SaveColorThemeRequestDto,
     @Req() req: ApplicationRequest,
   ) {
-    return this._updateColorThemeUseCase.execute(req.user.id, dto.colorTheme);
+    return this.updateColorThemeUseCase.execute(req.user.id, dto.colorTheme);
   }
 
   @Put('font')
@@ -39,6 +39,6 @@ export class SettingsController {
     @Body(validateSchema(saveFontThemeSchema)) dto: SaveFontThemeRequestDto,
     @Req() req: ApplicationRequest,
   ) {
-    return this._updateFontThemeUseCase.execute(req.user.id, dto.fontTheme);
+    return this.updateFontThemeUseCase.execute(req.user.id, dto.fontTheme);
   }
 }

@@ -55,12 +55,12 @@ export class ToastComponent {
   protected config = inject(TOAST_CONFIG);
   protected toastRef = inject(ToastRef);
   protected isText = typeof this.config.content === 'string';
-  private _elementRef = inject(ElementRef);
-  private _portalOutlet = viewChild.required(CdkPortalOutlet);
+  private elementRef = inject(ElementRef);
+  private portalOutlet = viewChild.required(CdkPortalOutlet);
 
   constructor() {
-    const mouseEnter$ = fromEvent(this._elementRef.nativeElement, 'mouseenter');
-    const mouseLeave$ = fromEvent(this._elementRef.nativeElement, 'mouseleave');
+    const mouseEnter$ = fromEvent(this.elementRef.nativeElement, 'mouseenter');
+    const mouseLeave$ = fromEvent(this.elementRef.nativeElement, 'mouseleave');
     const extendedTimeout$ = timer(this.config.extendedTimeout).pipe(
       takeUntil(mouseEnter$),
     );
@@ -74,6 +74,6 @@ export class ToastComponent {
   }
 
   public attachComponentPortal<T>(componentPortal: ComponentPortal<T>): ComponentRef<T> {
-    return this._portalOutlet().attachComponentPortal(componentPortal);
+    return this.portalOutlet().attachComponentPortal(componentPortal);
   }
 }

@@ -7,10 +7,10 @@ import { Note } from '../entities/note.entity';
 
 @Injectable()
 export class ArchiveNoteUseCase {
-  constructor(@InjectRepository(Note) private _notesRepository: Repository<Note>) {}
+  constructor(@InjectRepository(Note) private notesRepository: Repository<Note>) {}
 
   async execute(userId: string, params: ArchiveNoteRequestParams) {
-    const note = await this._notesRepository.findOneBy({
+    const note = await this.notesRepository.findOneBy({
       user: { id: userId },
       id: params.id,
     });
@@ -19,6 +19,6 @@ export class ArchiveNoteUseCase {
       throw new ApplicationException(NotesErrors.NOTE_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
 
-    this._notesRepository.update(note.id, { archived: true });
+    this.notesRepository.update(note.id, { archived: true });
   }
 }

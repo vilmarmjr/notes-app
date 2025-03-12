@@ -64,14 +64,14 @@ type Option = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColorThemeComponent implements OnDestroy {
-  private _themeStore = inject(ThemeStore);
-  private _colorThemeService = inject(ColorThemeService);
+  private themeStore = inject(ThemeStore);
+  private colorThemeService = inject(ColorThemeService);
 
-  protected value = signal(this._themeStore.originalColorTheme());
+  protected value = signal(this.themeStore.originalColorTheme());
 
   protected canSave = computed(() => {
-    const isSaving = this._themeStore.isSavingColorTheme();
-    const hasChangedValue = this._themeStore.originalColorTheme() !== this.value();
+    const isSaving = this.themeStore.isSavingColorTheme();
+    const hasChangedValue = this.themeStore.originalColorTheme() !== this.value();
     return !isSaving && hasChangedValue;
   });
 
@@ -98,22 +98,22 @@ export class ColorThemeComponent implements OnDestroy {
 
   constructor() {
     effect(() => {
-      const theme = this._themeStore.originalColorTheme();
+      const theme = this.themeStore.originalColorTheme();
       untracked(() => this.value.set(theme));
     });
 
-    effect(() => this._colorThemeService.setTheme(toUiColorTheme(this.value())));
+    effect(() => this.colorThemeService.setTheme(toUiColorTheme(this.value())));
   }
 
   ngOnDestroy(): void {
-    const originalTheme = toUiColorTheme(this._themeStore.originalColorTheme());
+    const originalTheme = toUiColorTheme(this.themeStore.originalColorTheme());
 
-    if (originalTheme !== this._colorThemeService.theme()) {
-      this._colorThemeService.setTheme(originalTheme);
+    if (originalTheme !== this.colorThemeService.theme()) {
+      this.colorThemeService.setTheme(originalTheme);
     }
   }
 
   protected submit() {
-    this._themeStore.saveColorTheme(this.value());
+    this.themeStore.saveColorTheme(this.value());
   }
 }

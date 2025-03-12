@@ -13,19 +13,19 @@ import { TagsService } from '../data-access/tags.service';
 
 export const TagsStore = signalStore(
   withState({ isLoadingTags: false, tags: [] as string[] }),
-  withMethods((_store, tagsService = inject(TagsService)) => ({
+  withMethods((store, tagsService = inject(TagsService)) => ({
     loadTags: rxMethod<void>(
       pipe(
-        tap(() => patchState(_store, { isLoadingTags: true })),
+        tap(() => patchState(store, { isLoadingTags: true })),
         switchMap(() => tagsService.getTags()),
         tapResponse({
-          next: tags => patchState(_store, { isLoadingTags: false, tags }),
-          error: () => patchState(_store, { isLoadingTags: false }),
+          next: tags => patchState(store, { isLoadingTags: false, tags }),
+          error: () => patchState(store, { isLoadingTags: false }),
         }),
       ),
     ),
   })),
-  withHooks(_store => ({
-    onInit: () => _store.loadTags(),
+  withHooks(store => ({
+    onInit: () => store.loadTags(),
   })),
 );

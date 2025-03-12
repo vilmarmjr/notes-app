@@ -18,52 +18,52 @@ import { toUiFontTheme } from '../utils/to-ui-font-theme';
 
 export const ThemeStore = signalStore(
   withState(() => {
-    const _colorThemeService = inject(ColorThemeService);
-    const _fontThemeService = inject(FontThemeService);
+    const colorThemeService = inject(ColorThemeService);
+    const fontThemeService = inject(FontThemeService);
     return {
-      originalColorTheme: toColorTheme(_colorThemeService.theme()),
-      originalFontTheme: toFontTheme(_fontThemeService.theme()),
+      originalColorTheme: toColorTheme(colorThemeService.theme()),
+      originalFontTheme: toFontTheme(fontThemeService.theme()),
       isSavingColorTheme: false,
       isSavingFontTheme: false,
     };
   }),
   withMethods(
     (
-      _store,
-      _settingsService = inject(SettingsService),
-      _toastService = inject(ToastService),
+      store,
+      settingsService = inject(SettingsService),
+      toastService = inject(ToastService),
     ) => ({
       loadTheme: rxMethod<void>(
         pipe(
-          switchMap(() => _settingsService.getSettings()),
+          switchMap(() => settingsService.getSettings()),
           tap(({ colorTheme, fontTheme }) => {
-            patchState(_store, {
-              originalColorTheme: colorTheme ?? _store.originalColorTheme(),
-              originalFontTheme: fontTheme ?? _store.originalFontTheme(),
+            patchState(store, {
+              originalColorTheme: colorTheme ?? store.originalColorTheme(),
+              originalFontTheme: fontTheme ?? store.originalFontTheme(),
             });
           }),
         ),
       ),
       saveColorTheme: rxMethod<ColorTheme>(
         pipe(
-          tap(() => patchState(_store, { isSavingColorTheme: true })),
+          tap(() => patchState(store, { isSavingColorTheme: true })),
           switchMap(colorTheme =>
-            _settingsService.saveColorTheme({ colorTheme }).pipe(
-              tap(() => patchState(_store, { originalColorTheme: colorTheme })),
-              tap(() => _toastService.success('Settings updated successfully!')),
-              finalize(() => patchState(_store, { isSavingColorTheme: false })),
+            settingsService.saveColorTheme({ colorTheme }).pipe(
+              tap(() => patchState(store, { originalColorTheme: colorTheme })),
+              tap(() => toastService.success('Settings updated successfully!')),
+              finalize(() => patchState(store, { isSavingColorTheme: false })),
             ),
           ),
         ),
       ),
       saveFontTheme: rxMethod<FontTheme>(
         pipe(
-          tap(() => patchState(_store, { isSavingFontTheme: true })),
+          tap(() => patchState(store, { isSavingFontTheme: true })),
           switchMap(fontTheme =>
-            _settingsService.saveFontTheme({ fontTheme }).pipe(
-              tap(() => patchState(_store, { originalFontTheme: fontTheme })),
-              tap(() => _toastService.success('Settings updated successfully!')),
-              finalize(() => patchState(_store, { isSavingFontTheme: false })),
+            settingsService.saveFontTheme({ fontTheme }).pipe(
+              tap(() => patchState(store, { originalFontTheme: fontTheme })),
+              tap(() => toastService.success('Settings updated successfully!')),
+              finalize(() => patchState(store, { isSavingFontTheme: false })),
             ),
           ),
         ),
@@ -72,17 +72,15 @@ export const ThemeStore = signalStore(
   ),
   withHooks(
     (
-      _store,
-      _colorThemeService = inject(ColorThemeService),
-      _fontThemeService = inject(FontThemeService),
+      store,
+      colorThemeService = inject(ColorThemeService),
+      fontThemeService = inject(FontThemeService),
     ) => ({
       onInit() {
         effect(() =>
-          _colorThemeService.setTheme(toUiColorTheme(_store.originalColorTheme())),
+          colorThemeService.setTheme(toUiColorTheme(store.originalColorTheme())),
         );
-        effect(() =>
-          _fontThemeService.setTheme(toUiFontTheme(_store.originalFontTheme())),
-        );
+        effect(() => fontThemeService.setTheme(toUiFontTheme(store.originalFontTheme())));
       },
     }),
   ),

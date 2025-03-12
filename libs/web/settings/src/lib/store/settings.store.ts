@@ -16,32 +16,32 @@ export const SettingsStore = signalStore(
   withState({ isLoggingOut: false, isChangingPassword: false }),
   withMethods(
     (
-      _store,
-      _authService = inject(AuthService),
-      _toastService = inject(ToastService),
-      _router = inject(Router),
+      store,
+      authService = inject(AuthService),
+      toastService = inject(ToastService),
+      router = inject(Router),
     ) => ({
       logOut: rxMethod<void>(
         pipe(
-          tap(() => patchState(_store, { isLoggingOut: true })),
+          tap(() => patchState(store, { isLoggingOut: true })),
           switchMap(() =>
-            _authService.logOut().pipe(
-              tap(() => _router.navigate(['/login'])),
+            authService.logOut().pipe(
+              tap(() => router.navigate(['/login'])),
               catchError(() => of(undefined)),
-              finalize(() => patchState(_store, { isLoggingOut: false })),
+              finalize(() => patchState(store, { isLoggingOut: false })),
             ),
           ),
         ),
       ),
       changePassword: rxMethod<ChangePasswordParams>(
         pipe(
-          tap(() => patchState(_store, { isChangingPassword: true })),
+          tap(() => patchState(store, { isChangingPassword: true })),
           switchMap(({ dto, onSuccess }) =>
-            _authService.changePassword(dto).pipe(
-              tap(() => _toastService.success('Password changed successfully!')),
+            authService.changePassword(dto).pipe(
+              tap(() => toastService.success('Password changed successfully!')),
               tap(() => onSuccess && onSuccess()),
               catchError(() => of(undefined)),
-              finalize(() => patchState(_store, { isChangingPassword: false })),
+              finalize(() => patchState(store, { isChangingPassword: false })),
             ),
           ),
         ),

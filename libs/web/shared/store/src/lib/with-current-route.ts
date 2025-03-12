@@ -14,21 +14,21 @@ import { filter, map, shareReplay, startWith, switchMap } from 'rxjs';
 export function withCurrentRoute() {
   return signalStoreFeature(
     withProps(
-      (_store, _router = inject(Router), _activatedRoute = inject(ActivatedRoute)) => {
-        const rootRoute$ = _router.events.pipe(
+      (_store, router = inject(Router), activatedRoute = inject(ActivatedRoute)) => {
+        const rootRoute$ = router.events.pipe(
           filter(event => event instanceof NavigationEnd),
           startWith(null),
-          map(() => getRootRoute(_activatedRoute)),
+          map(() => getRootRoute(activatedRoute)),
           shareReplay({ bufferSize: 1, refCount: true }),
         );
         return {
-          routeData: toSignal(rootRoute$.pipe(switchMap(route => route.data)), {
+          _routeData: toSignal(rootRoute$.pipe(switchMap(route => route.data)), {
             requireSync: true,
           }),
-          routeParams: toSignal(rootRoute$.pipe(switchMap(route => route.params)), {
+          _routeParams: toSignal(rootRoute$.pipe(switchMap(route => route.params)), {
             requireSync: true,
           }),
-          routeQueryParams: toSignal(
+          _routeQueryParams: toSignal(
             rootRoute$.pipe(switchMap(route => route.queryParams)),
             {
               requireSync: true,
@@ -38,13 +38,13 @@ export function withCurrentRoute() {
       },
     ),
     withMethods(
-      (_store, _router = inject(Router), _activatedRoute = inject(ActivatedRoute)) => ({
+      (_store, router = inject(Router), activatedRoute = inject(ActivatedRoute)) => ({
         addQueryParamsToCurrentRoute(
           queryParams: Params,
           queryParamsHandling: QueryParamsHandling = 'merge',
         ) {
-          _router.navigate([], {
-            relativeTo: _activatedRoute,
+          router.navigate([], {
+            relativeTo: activatedRoute,
             queryParams,
             queryParamsHandling,
           });

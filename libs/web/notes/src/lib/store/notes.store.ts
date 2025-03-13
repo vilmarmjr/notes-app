@@ -1,8 +1,11 @@
 import { computed, effect, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { PaginateNotesRequestParams } from '@common/models';
 import { signalStore, withComputed, withHooks, withMethods } from '@ngrx/signals';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { withCurrentRoute } from '@web/shared/store';
 import { BreakpointService } from '@web/shared/ui';
+import { debounceTime, distinctUntilChanged, pipe, tap } from 'rxjs';
 import { NotesPageType } from '../types/notes-page-type';
 import { withNotesPagination } from './with-notes-pagination';
 import { withSelectedNote } from './with-selected-note';
@@ -23,11 +26,33 @@ export const NotesStore = signalStore(
   })),
   withNotesPagination(),
   withSelectedNote(),
-  withMethods(store => ({
-    loadNextPage() {
-      store._loadNextPage(store._params());
-    },
-  })),
+  withMethods(
+    (store, router = inject(Router), breakpointService = inject(BreakpointService)) => ({
+      loadNextPage() {
+        store._loadNextPage(store._params());
+      },
+      changeQuery: rxMethod<string>(
+        pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          tap(query => {
+            if (query || !breakpointService.lg()) {
+              router.navigate(['/notes/search'], {
+                queryParams: {
+                  query: query || undefined,
+                  note: store.selectedNote()?.id,
+                },
+              });
+              return;
+            }
+            router.navigate(['/notes/all'], {
+              queryParams: { note: store.selectedNote()?.id },
+            });
+          }),
+        ),
+      ),
+    }),
+  ),
   withHooks((store, breakpointService = inject(BreakpointService)) => ({
     onInit() {
       effect(() => store._loadFirstPage(store._params()));

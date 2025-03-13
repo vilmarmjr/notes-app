@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DesktopHeaderComponent } from '@web/core/layout';
 import { IconComponent } from '@web/shared/ui';
@@ -27,7 +27,11 @@ import { SearchFieldComponent } from '../search-field/search-field.component';
       />
       <div desktopHeaderActions class="flex items-center gap-4">
         @if (showSearch()) {
-          <nt-search-field [query]="query()" class="w-72" />
+          <nt-search-field
+            [query]="query()"
+            (queryChange)="queryChange.emit($event)"
+            class="w-72"
+          />
         }
         <a
           routerLink="/settings"
@@ -43,6 +47,7 @@ import { SearchFieldComponent } from '../search-field/search-field.component';
 export class NotesHeaderComponent {
   public type = input.required<NotesPageType>();
   public tag = input<string | null>(null);
-  public query = input<string | null>(null);
+  public query = input('');
+  public queryChange = output<string>();
   public showSearch = input(true);
 }

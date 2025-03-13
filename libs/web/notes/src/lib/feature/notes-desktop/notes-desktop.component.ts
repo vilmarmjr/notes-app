@@ -29,6 +29,7 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
         [type]="store.pageType()"
         [tag]="store.tag()"
         [query]="store.query()"
+        (queryChange)="store.changeQuery($event)"
       />
       <nt-divider />
       <div class="flex min-h-0 flex-1">
@@ -40,7 +41,7 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
             <nt-icon name="plus" />
             Create new note
           </button>
-          @if (store.pageType() !== 'search' && store.pageType() !== 'all') {
+          @if (store.pageType() !== 'all') {
             <nt-notes-list-hint
               [type]="store.pageType()"
               [tag]="store.tag()"

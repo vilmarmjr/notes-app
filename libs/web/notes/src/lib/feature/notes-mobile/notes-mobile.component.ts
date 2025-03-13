@@ -39,7 +39,11 @@ import { SearchFieldComponent } from '../../ui/search-field/search-field.compone
       <nt-notes-title [type]="store.pageType()" [tag]="store.tag()" />
     </h1>
     @if (store.pageType() === 'search') {
-      <nt-search-field class="mb-4 block w-full" [query]="store.query()" />
+      <nt-search-field
+        class="mb-4 block w-full"
+        [query]="store.query()"
+        (queryChange)="store.changeQuery($event)"
+      />
     }
     @if (store.pageType() !== 'all') {
       <nt-notes-list-hint

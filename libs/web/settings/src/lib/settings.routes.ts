@@ -1,13 +1,11 @@
 import { inject } from '@angular/core';
 import { Route } from '@angular/router';
-import { LayoutShellComponent } from '@web/core/layout';
 import { BreakpointService } from '@web/shared/ui';
 import { SettingsStore } from './store/settings.store';
 
 export const settingsRoutes: Route[] = [
   {
     path: '',
-    component: LayoutShellComponent,
     providers: [SettingsStore],
     children: [
       {

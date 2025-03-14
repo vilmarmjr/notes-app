@@ -4,5 +4,6 @@ export * from './lib/desktop-header/desktop-header.component';
 export * from './lib/layout-shell/layout-shell.component';
 export * from './lib/logo/logo.component';
 export * from './lib/mobile-header/mobile-header.component';
-export * from './lib/private-shell/private-shell.component';
+export * from './lib/shell/shell.component';
+export * from './lib/shell/shell.service';
 export * from './lib/sidebar/sidebar.component';

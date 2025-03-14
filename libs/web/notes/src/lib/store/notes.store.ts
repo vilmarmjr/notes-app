@@ -31,7 +31,7 @@ export const NotesStore = signalStore(
           tap(query => {
             router.navigate(['/notes'], {
               queryParams: {
-                filter: query ? 'search' : 'all',
+                filter: query || !breakpointService.lg() ? 'search' : 'all',
                 query: query || undefined,
                 note: breakpointService.lg() ? store.selectedNote()?.id : undefined,
               },

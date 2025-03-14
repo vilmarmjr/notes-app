@@ -26,7 +26,7 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
   template: `
     <div class="flex h-full flex-col">
       <nt-notes-header
-        [type]="store.pageType()"
+        [filter]="store.filter()"
         [tag]="store.tag()"
         [query]="store.query()"
         (queryChange)="store.changeQuery($event)"
@@ -41,9 +41,9 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
             <nt-icon name="plus" />
             Create new note
           </button>
-          @if (store.pageType() !== 'all') {
+          @if (store.filter() !== 'all') {
             <nt-notes-list-hint
-              [type]="store.pageType()"
+              [filter]="store.filter()"
               [tag]="store.tag()"
               [query]="store.query()"
             />
@@ -51,7 +51,7 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
           @if (store.isLoading()) {
             <nt-notes-list-skeleton class="mt-2 block" />
           } @else {
-            <nt-notes-list [notes]="store.notes()" [pageType]="store.pageType()" />
+            <nt-notes-list [notes]="store.notes()" [filter]="store.filter()" />
           }
         </div>
         <nt-divider direction="vertical" />

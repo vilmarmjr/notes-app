@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { Params, QueryParamsHandling } from '@angular/router';
 import { DividerComponent, NavModule, SkeletonModule } from '@web/shared/ui';
 
@@ -19,13 +19,13 @@ import { DividerComponent, NavModule, SkeletonModule } from '@web/shared/ui';
       </nt-skeleton>
     } @else {
       <nt-nav>
-        @for (tag of tags(); track tag; let last = $last) {
+        @for (item of navItems(); track item.tag; let last = $last) {
           <nt-nav-link
             icon="tag"
-            [queryParams]="queryParams()"
+            [queryParams]="item.queryParams"
             [queryParamsHandling]="queryParamsHandling()"
-            [link]="'/notes/tags/' + tag"
-            [label]="tag"
+            [link]="item.link"
+            [label]="item.tag"
           />
           @if (withDivider() && !last) {
             <nt-divider />
@@ -42,4 +42,11 @@ export class TagsListComponent {
   public withDivider = input(false);
   public queryParams = input<Params | null>(null);
   public queryParamsHandling = input<QueryParamsHandling>('replace');
+  protected navItems = computed(() =>
+    this.tags().map(tag => ({
+      tag,
+      link: '/notes',
+      queryParams: { filter: 'tag', ...this.queryParams(), tag },
+    })),
+  );
 }

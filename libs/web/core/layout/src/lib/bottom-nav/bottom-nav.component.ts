@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Params, RouterLink, RouterLinkActive } from '@angular/router';
 import { DividerComponent, IconComponent, IconName } from '@web/shared/ui';
 
 @Component({
@@ -15,6 +15,7 @@ import { DividerComponent, IconComponent, IconName } from '@web/shared/ui';
           <li>
             <a
               [routerLink]="item.routerLink"
+              [queryParams]="item.queryParams"
               class="flex flex-col items-center gap-1 rounded-md px-4 py-1 text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-50 dark:hover:text-neutral-600"
               routerLinkActive="!bg-blue-50 !text-blue-500 hover:!bg-neutral-200"
             >
@@ -38,17 +39,20 @@ export class BottomNavComponent {
     {
       label: 'Home',
       icon: 'home',
-      routerLink: '/notes/all',
+      routerLink: '/notes',
+      queryParams: { filter: 'all' },
     },
     {
       label: 'Search',
       icon: 'search',
-      routerLink: '/notes/search',
+      routerLink: '/notes',
+      queryParams: { filter: 'search' },
     },
     {
       label: 'Archived',
       icon: 'archive',
-      routerLink: '/notes/archived',
+      routerLink: '/notes',
+      queryParams: { filter: 'archived' },
     },
     {
       label: 'Tags',
@@ -62,7 +66,8 @@ export class BottomNavComponent {
     },
   ] satisfies Array<{
     label: string;
-    routerLink: string;
     icon: IconName;
+    routerLink: string;
+    queryParams?: Params;
   }>;
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { TagsListComponent, TagsStore } from '@web/shared/tags';
@@ -15,16 +15,16 @@ import { LogoComponent } from '../logo/logo.component';
       <nt-logo class="mb-5" />
       <nt-nav class="mb-2">
         <nt-nav-link
-          link="/notes/all"
+          link="/notes"
           icon="home"
           label="All notes"
-          [queryParams]="queryParams()"
+          [queryParams]="allNotesQueryParams()"
         />
         <nt-nav-link
-          link="/notes/archived"
+          link="/notes"
           icon="archive"
           label="Archived notes"
-          [queryParams]="queryParams()"
+          [queryParams]="archivedNotesQueryParams()"
         />
       </nt-nav>
       <nt-divider />
@@ -32,7 +32,7 @@ import { LogoComponent } from '../logo/logo.component';
       <nt-tags-list
         [tags]="tagsStore.tags()"
         [isLoading]="tagsStore.isLoadingTags()"
-        [queryParams]="queryParams()"
+        [queryParams]="tagsQueryParams()"
       />
     </aside>
   `,
@@ -40,9 +40,21 @@ import { LogoComponent } from '../logo/logo.component';
 })
 export class SidebarComponent {
   private activatedRoute = inject(ActivatedRoute);
-  protected tagsStore = inject(TagsStore);
-  protected queryParams = toSignal(
+  private queryParams = toSignal(
     this.activatedRoute.queryParams.pipe(map(params => ({ note: params['note'] }))),
     { requireSync: true },
   );
+  protected allNotesQueryParams = computed(() => ({
+    filter: 'all',
+    ...this.queryParams(),
+  }));
+  protected archivedNotesQueryParams = computed(() => ({
+    filter: 'archived',
+    ...this.queryParams(),
+  }));
+  protected tagsQueryParams = computed(() => ({
+    filter: 'tag',
+    ...this.queryParams(),
+  }));
+  protected tagsStore = inject(TagsStore);
 }

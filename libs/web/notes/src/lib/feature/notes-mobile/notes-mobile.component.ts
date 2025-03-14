@@ -24,7 +24,7 @@ import { SearchFieldComponent } from '../../ui/search-field/search-field.compone
     RouterLink,
   ],
   template: `
-    @if (store.pageType() === 'tags') {
+    @if (store.filter() === 'tag') {
       <div class="mb-4 flex justify-start">
         <a
           class="text-preset-5 dark:text-base-white flex items-center gap-1 text-neutral-600"
@@ -36,19 +36,19 @@ import { SearchFieldComponent } from '../../ui/search-field/search-field.compone
       </div>
     }
     <h1 class="text-preset-1 dark:text-base-white mb-4 block text-neutral-950">
-      <nt-notes-title [type]="store.pageType()" [tag]="store.tag()" />
+      <nt-notes-title [filter]="store.filter()" [tag]="store.tag()" />
     </h1>
-    @if (store.pageType() === 'search') {
+    @if (store.filter() === 'search') {
       <nt-search-field
         class="mb-4 block w-full"
         [query]="store.query()"
         (queryChange)="store.changeQuery($event)"
       />
     }
-    @if (store.pageType() !== 'all') {
+    @if (store.filter() !== 'all') {
       <nt-notes-list-hint
         class="mb-4 block"
-        [type]="store.pageType()"
+        [filter]="store.filter()"
         [tag]="store.tag()"
         [query]="store.query()"
       />
@@ -56,7 +56,7 @@ import { SearchFieldComponent } from '../../ui/search-field/search-field.compone
     @if (store.isLoading()) {
       <nt-notes-list-skeleton class="mt-6 block" />
     } @else {
-      <nt-notes-list [notes]="store.notes()" [pageType]="store.pageType()" />
+      <nt-notes-list [notes]="store.notes()" [filter]="store.filter()" />
     }
     <nt-create-note-button class="fixed bottom-20 right-5 sm:bottom-28 sm:right-8" />
   `,

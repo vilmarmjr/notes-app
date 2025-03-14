@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { NotesPageType } from '../../types/notes-page-type';
+import { NotesFilter } from '../../types/notes-filter.type';
 
 @Component({
   selector: 'nt-notes-list-hint',
   imports: [CommonModule],
   template: `
     <p class="text-preset-5 text-neutral-700 dark:text-neutral-200">
-      @switch (type()) {
+      @switch (filter()) {
         @case ('archived') {
           All your archived notes are stored here. You can restore or delete them anytime.
         }
-        @case ('tags') {
+        @case ('tag') {
           @if (tag(); as tag) {
             All notes with the "{{ tag }}" tag are shown here.
           } @else {
@@ -31,7 +31,7 @@ import { NotesPageType } from '../../types/notes-page-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesListHintComponent {
-  public type = input.required<NotesPageType>();
+  public filter = input.required<NotesFilter>();
   public tag = input<string | null>(null);
   public query = input<string | null>(null);
 }

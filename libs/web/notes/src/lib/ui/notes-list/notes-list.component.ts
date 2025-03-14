@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { PaginateNotesResponseItemDto } from '@common/models';
 import { DividerComponent } from '@web/shared/ui';
-import { NotesPageType } from '../../types/notes-page-type';
+import { NotesFilter } from '../../types/notes-filter.type';
 import { NotesEmptyComponent } from '../notes-empty/notes-empty.component';
 
 @Component({
@@ -47,13 +47,13 @@ import { NotesEmptyComponent } from '../notes-empty/notes-empty.component';
           <nt-divider />
         }
       } @empty {
-        <nt-notes-empty [type]="pageType()" />
+        <nt-notes-empty [filter]="filter()" />
       }
     </ul>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesListComponent {
-  public pageType = input.required<NotesPageType>();
+  public filter = input.required<NotesFilter>();
   public notes = input.required<PaginateNotesResponseItemDto[]>();
 }

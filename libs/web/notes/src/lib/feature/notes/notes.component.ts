@@ -4,6 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { BreakpointService } from '@web/shared/ui';
 import { map } from 'rxjs';
+import { NotesStore } from '../../store/notes.store';
 import { NoteEditorComponent } from '../note-editor/note-editor.component';
 import { NotesDesktopComponent } from '../notes-desktop/notes-desktop.component';
 import { NotesMobileComponent } from '../notes-mobile/notes-mobile.component';
@@ -25,12 +26,12 @@ import { NotesMobileComponent } from '../notes-mobile/notes-mobile.component';
       <nt-notes-mobile />
     }
   `,
+  providers: [NotesStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesComponent {
-  private noteId$ = inject(ActivatedRoute).queryParamMap.pipe(
-    map(params => params.get('note')),
+  protected noteId = toSignal(
+    inject(ActivatedRoute).queryParamMap.pipe(map(params => params.get('note'))),
   );
-  protected noteId = toSignal(this.noteId$);
   protected lg = inject(BreakpointService).lg;
 }

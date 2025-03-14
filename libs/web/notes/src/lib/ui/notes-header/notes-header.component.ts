@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
 import { RouterLink } from '@angular/router';
 import { DesktopHeaderComponent } from '@web/core/layout';
 import { IconComponent } from '@web/shared/ui';
-import { NotesPageType } from '../../types/notes-page-type';
+import { NotesFilter } from '../../types/notes-filter.type';
 import { NotesTitleComponent } from '../notes-title/notes-title.component';
 import { SearchFieldComponent } from '../search-field/search-field.component';
 
@@ -21,7 +21,7 @@ import { SearchFieldComponent } from '../search-field/search-field.component';
     <nt-desktop-header>
       <nt-notes-title
         desktopHeaderTitle
-        [type]="type()"
+        [filter]="filter()"
         [tag]="tag()"
         [query]="query()"
       />
@@ -45,7 +45,7 @@ import { SearchFieldComponent } from '../search-field/search-field.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesHeaderComponent {
-  public type = input.required<NotesPageType>();
+  public filter = input.required<NotesFilter>();
   public tag = input<string | null>(null);
   public query = input('');
   public queryChange = output<string>();

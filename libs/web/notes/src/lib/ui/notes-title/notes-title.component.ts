@@ -1,19 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { NotesPageType } from '../../types/notes-page-type';
+import { NotesFilter } from '../../types/notes-filter.type';
 
 @Component({
   selector: 'nt-notes-title',
   imports: [CommonModule],
   template: `
-    @switch (type()) {
+    @switch (filter()) {
       @case ('all') {
         All notes
       }
       @case ('archived') {
         Archived notes
       }
-      @case ('tags') {
+      @case ('tag') {
         @if (tag(); as tag) {
           <span class="text-neutral-600 dark:text-neutral-300">Notes tagged:</span>
           {{ tag }}
@@ -34,7 +34,7 @@ import { NotesPageType } from '../../types/notes-page-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesTitleComponent {
-  public type = input.required<NotesPageType>();
+  public filter = input.required<NotesFilter>();
   public tag = input<string | null>(null);
   public query = input<string | null>(null);
 }

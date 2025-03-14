@@ -17,7 +17,7 @@ import { NotesHeaderComponent } from '../../ui/notes-header/notes-header.compone
   template: `
     @if (lg()) {
       <div class="flex h-full flex-col overflow-y-auto">
-        <nt-notes-header type="tags" [showSearch]="false" />
+        <nt-notes-header filter="tag" [showSearch]="false" />
         <nt-divider />
         <div class="px-8 py-6">
           <nt-tags-list

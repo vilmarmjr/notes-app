@@ -5,22 +5,22 @@ import { signalStore, withComputed, withHooks, withMethods } from '@ngrx/signals
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { withCurrentRoute } from '@web/shared/store';
 import { BreakpointService } from '@web/shared/ui';
-import { debounceTime, distinctUntilChanged, pipe, tap } from 'rxjs';
-import { NotesPageType } from '../types/notes-page-type';
+import { debounceTime, pipe, tap } from 'rxjs';
+import { NotesFilter } from '../types/notes-filter.type';
 import { withNotesPagination } from './with-notes-pagination';
 import { withSelectedNote } from './with-selected-note';
 
 export const NotesStore = signalStore(
   withCurrentRoute(),
   withComputed(store => ({
-    pageType: computed<NotesPageType>(() => store._routeData()['type']),
-    tag: computed<string>(() => store._routeParams()['tag'] || ''),
+    filter: computed<NotesFilter>(() => store._routeQueryParams()['filter']),
+    tag: computed<string>(() => store._routeQueryParams()['tag'] || ''),
     query: computed<string>(() => store._routeQueryParams()['query'] || ''),
   })),
   withComputed(store => ({
     _params: computed<PaginateNotesRequestParams>(() => ({
       query: store.query(),
-      status: store.pageType() === 'archived' ? 'archived' : 'active',
+      status: store.filter() === 'archived' ? 'archived' : 'active',
       tag: store.tag(),
     })),
   })),
@@ -34,19 +34,13 @@ export const NotesStore = signalStore(
       changeQuery: rxMethod<string>(
         pipe(
           debounceTime(300),
-          distinctUntilChanged(),
           tap(query => {
-            if (query || !breakpointService.lg()) {
-              router.navigate(['/notes/search'], {
-                queryParams: {
-                  query: query || undefined,
-                  note: store.selectedNote()?.id,
-                },
-              });
-              return;
-            }
-            router.navigate(['/notes/all'], {
-              queryParams: { note: store.selectedNote()?.id },
+            router.navigate(['/notes'], {
+              queryParams: {
+                filter: query ? 'search' : 'all',
+                query: query || undefined,
+                note: breakpointService.lg() ? store.selectedNote()?.id : undefined,
+              },
             });
           }),
         ),

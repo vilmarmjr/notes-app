@@ -1,24 +1,18 @@
 import { computed, effect, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PaginateNotesRequestParams } from '@common/models';
 import { signalStore, withComputed, withHooks, withMethods } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { withCurrentRoute } from '@web/shared/store';
 import { BreakpointService } from '@web/shared/ui';
 import { debounceTime, pipe, tap } from 'rxjs';
-import { NotesFilter } from '../types/notes-filter.type';
 import { withNotesPagination } from './with-notes-pagination';
+import { withNotesUrlParams } from './with-notes-url-params';
 import { withSelectedNote } from './with-selected-note';
 
 export const NotesStore = signalStore(
-  withCurrentRoute(),
+  withNotesUrlParams(),
   withComputed(store => ({
-    filter: computed<NotesFilter>(() => store._routeQueryParams()['filter']),
-    tag: computed<string>(() => store._routeQueryParams()['tag'] || ''),
-    query: computed<string>(() => store._routeQueryParams()['query'] || ''),
-  })),
-  withComputed(store => ({
-    _params: computed<PaginateNotesRequestParams>(() => ({
+    _requestParams: computed<PaginateNotesRequestParams>(() => ({
       query: store.query(),
       status: store.filter() === 'archived' ? 'archived' : 'active',
       tag: store.tag(),
@@ -29,7 +23,7 @@ export const NotesStore = signalStore(
   withMethods(
     (store, router = inject(Router), breakpointService = inject(BreakpointService)) => ({
       loadNextPage() {
-        store._loadNextPage(store._params());
+        store._loadNextPage(store._requestParams());
       },
       changeQuery: rxMethod<string>(
         pipe(
@@ -47,34 +41,45 @@ export const NotesStore = signalStore(
       ),
     }),
   ),
-  withHooks((store, breakpointService = inject(BreakpointService)) => ({
-    onInit() {
-      effect(() => store._loadFirstPage(store._params()));
+  withHooks(
+    (
+      store,
+      breakpointService = inject(BreakpointService),
+      router = inject(Router),
+      activatedRoute = inject(ActivatedRoute),
+    ) => ({
+      onInit() {
+        effect(() => store._loadFirstPage(store._requestParams()));
 
-      effect(() => {
-        if (!breakpointService.lg()) return;
+        effect(() => {
+          if (!breakpointService.lg()) return;
 
-        const notes = store.notes();
-        const selectedNote = store.selectedNote();
-        const isLoadingSelectedNote = store.isLoadingSelectedNote();
+          const notes = store.notes();
+          const selectedNote = store.selectedNote();
+          const isLoadingSelectedNote = store.isLoadingSelectedNote();
 
-        if (notes.length && !selectedNote && !isLoadingSelectedNote) {
-          store.addQueryParamsToCurrentRoute({ note: notes[0].id });
-        }
-      });
+          if (notes.length && !selectedNote && !isLoadingSelectedNote) {
+            router.navigate(['/notes'], {
+              relativeTo: activatedRoute,
+              queryParams: { note: notes[0].id },
+              queryParamsHandling: 'merge',
+            });
+          }
+        });
 
-      effect(() => {
-        const noteId = store._routeQueryParams()['note'];
-        const selectedNote = store.selectedNote();
+        effect(() => {
+          const noteId = store._note();
+          const selectedNote = store.selectedNote();
 
-        if (noteId && selectedNote?.id !== noteId) {
-          store.selectNote(noteId);
-          return;
-        }
-        if (!noteId && selectedNote) {
-          store._clearSelectedNote();
-        }
-      });
-    },
-  })),
+          if (noteId && selectedNote?.id !== noteId) {
+            store.selectNote(noteId);
+            return;
+          }
+          if (!noteId && selectedNote) {
+            store._clearSelectedNote();
+          }
+        });
+      },
+    }),
+  ),
 );

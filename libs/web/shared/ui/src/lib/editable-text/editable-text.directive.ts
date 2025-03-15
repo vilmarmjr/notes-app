@@ -6,18 +6,23 @@ import {
   inject,
   input,
   OnInit,
+  output,
   signal,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ntMerge } from '@web/shared/utils';
 import { cva } from 'class-variance-authority';
 
-const editableTextVariants = cva('', {
+const editableTextVariants = cva('break-all', {
   variants: {
     disabled: {
       true: '',
       false:
         '-m-1 rounded-md p-1 outline-none hover:bg-neutral-100 focus:bg-neutral-100 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800',
+    },
+    empty: {
+      true: 'text-neutral-400',
+      false: 'dark:text-base-white text-neutral-950',
     },
   },
 });
@@ -45,13 +50,18 @@ type TouchFn = () => void;
 export class EditableTextDirective implements OnInit, ControlValueAccessor {
   public userDisabled = input(false, { alias: 'disabled' });
   public userClass = input<string>('', { alias: 'class' });
+  public blurChange = output<string>();
   protected computedClass = computed(() =>
-    ntMerge(editableTextVariants({ disabled: this.disabled() }), this.userClass()),
+    ntMerge(
+      editableTextVariants({ disabled: this.disabled(), empty: !this.value() }),
+      this.userClass(),
+    ),
   );
   protected disabled = computed(() => this.formControlDisabled() || this.userDisabled());
   private placeholder = '';
   private elementRef = inject(ElementRef<HTMLElement>);
   private formControlDisabled = signal(false);
+  private value = signal('');
   private onChange: ChangeFn = () => {};
   private onTouched: TouchFn = () => {};
 
@@ -60,6 +70,7 @@ export class EditableTextDirective implements OnInit, ControlValueAccessor {
   }
 
   writeValue(value: string) {
+    this.value.set(value);
     this.elementRef.nativeElement.textContent = value || this.placeholder;
   }
 
@@ -76,9 +87,11 @@ export class EditableTextDirective implements OnInit, ControlValueAccessor {
   }
 
   protected onBlur() {
-    if (!this.element.textContent?.trim()) {
+    const textContent = this.element.textContent?.trim() || '';
+    if (!textContent) {
       this.element.textContent = this.placeholder;
     }
+    this.blurChange.emit(textContent);
   }
 
   protected onFocus() {
@@ -89,7 +102,9 @@ export class EditableTextDirective implements OnInit, ControlValueAccessor {
   }
 
   protected onInput() {
-    this.onChange(this.element.textContent?.trim() || '');
+    const value = this.element.textContent?.trim() || '';
+    this.value.set(value);
+    this.onChange(value);
   }
 
   private get element() {

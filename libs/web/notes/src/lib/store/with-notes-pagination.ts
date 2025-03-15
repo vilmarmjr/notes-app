@@ -51,6 +51,14 @@ export function withNotesPagination() {
           }),
         ),
       ),
+      _updateNote(dto: PaginateNotesResponseItemDto) {
+        patchState(store, {
+          notes: store.notes().map(note => (note.id === dto.id ? dto : note)),
+        });
+      },
+      _addNote(dto: PaginateNotesResponseItemDto) {
+        patchState(store, { notes: [dto, ...store.notes()] });
+      },
     })),
     withMethods(store => ({
       _loadFirstPage(params: PaginateNotesRequestParams) {

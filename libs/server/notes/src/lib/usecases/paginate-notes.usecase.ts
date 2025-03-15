@@ -45,7 +45,7 @@ export class PaginateNotesUseCase {
     }
 
     const [content, count] = await queryBuilder
-      .orderBy('note.createdAt', 'ASC')
+      .orderBy('note.createdAt', 'DESC')
       .take(take)
       .skip(skip)
       .getManyAndCount();

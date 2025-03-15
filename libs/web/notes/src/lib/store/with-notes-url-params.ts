@@ -19,7 +19,7 @@ export function withNotesUrlParams() {
         filter: toSignal(filter$, { requireSync: true }),
         tag: toSignal(tag$, { requireSync: true }),
         query: toSignal(query$, { requireSync: true }),
-        _note: toSignal(note$, { requireSync: true }),
+        noteId: toSignal(note$, { requireSync: true }),
       };
     }),
   );

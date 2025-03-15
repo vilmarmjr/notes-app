@@ -19,10 +19,12 @@ import { ButtonDirective, IconComponent } from '@web/shared/ui';
           Restore note
         </button>
       }
-      <button ntButton variant="border" class="justify-start">
-        <nt-icon name="delete" />
-        Delete note
-      </button>
+      @if (showDelete()) {
+        <button ntButton variant="border" class="justify-start">
+          <nt-icon name="delete" />
+          Delete note
+        </button>
+      }
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,4 +32,5 @@ import { ButtonDirective, IconComponent } from '@web/shared/ui';
 export class NoteAsideActionsComponent {
   public showArchive = input(false);
   public showRestore = input(false);
+  public showDelete = input(false);
 }

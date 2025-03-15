@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const updateNoteSchema = z.object({
   id: z.string().uuid(),
-  title: z.string().max(255),
+  title: z.string().max(255).nonempty(),
   tags: z.array(z.string().max(255)),
   content: z.string(),
 });

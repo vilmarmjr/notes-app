@@ -54,7 +54,7 @@ export class UpdateNoteUseCase {
     const existingTags = await this.tagsRepository.find({
       where: { name: In(uniqueTags), note: { id: noteId } },
     });
-    return uniqueTags.map(tag => ({
+    return uniqueTags.filter(Boolean).map(tag => ({
       id: existingTags.find(t => t.name === tag)?.id,
       name: tag,
     }));

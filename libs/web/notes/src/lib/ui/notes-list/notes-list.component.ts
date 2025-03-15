@@ -29,15 +29,17 @@ import { NotesEmptyComponent } from '../notes-empty/notes-empty.component';
             <h2 class="text-preset-3 dark:text-base-white text-neutral-950">
               {{ note.title }}
             </h2>
-            <div class="flex flex-wrap gap-1">
-              @for (tag of note.tags; track tag) {
-                <span
-                  class="text-preset-6 dark:text-base-white rounded-md bg-neutral-200 px-2 py-1 text-neutral-950 dark:bg-neutral-600"
-                >
-                  {{ tag }}
-                </span>
-              }
-            </div>
+            @if (note.tags.length) {
+              <div class="flex flex-wrap gap-1">
+                @for (tag of note.tags; track tag) {
+                  <span
+                    class="text-preset-6 dark:text-base-white rounded-md bg-neutral-200 px-2 py-1 text-neutral-950 dark:bg-neutral-600"
+                  >
+                    {{ tag }}
+                  </span>
+                }
+              </div>
+            }
             <p class="text-preset-6 text-neutral-700 dark:text-neutral-300">
               {{ note.createdAt | date }}
             </p>

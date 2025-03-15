@@ -16,7 +16,7 @@ export class CreateNoteUseCase {
     const note = await this.notesRepository.save({
       title: dto.title,
       content: dto.content,
-      tags: tags.map(tag => ({ name: tag })),
+      tags: tags.filter(Boolean).map(tag => ({ name: tag })),
       user: { id: userId },
     });
     return {

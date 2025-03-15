@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { ButtonDirective } from '@web/shared/ui';
 
 @Component({
@@ -7,10 +7,13 @@ import { ButtonDirective } from '@web/shared/ui';
   imports: [CommonModule, ButtonDirective],
   template: `
     <div class="flex gap-4">
-      <button ntButton>Save note</button>
-      <button ntButton variant="secondary">Cancel</button>
+      <button ntButton type="submit">Save note</button>
+      <button ntButton variant="secondary" type="button">Cancel</button>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NoteBottomActionsComponent {}
+export class NoteBottomActionsComponent {
+  public disableSave = input(false);
+  public disableCancel = input(false);
+}

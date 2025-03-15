@@ -10,7 +10,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { generateRadioGroupId } from './generate-radio-group-id';
 
 type ChangeFn<T = unknown> = (value: T) => void;
-type TouchFn<T = unknown> = (value: T) => void;
+type TouchFn = () => void;
 
 export type RadioGroupChangeEvent<T = unknown> = {
   value: T;
@@ -39,7 +39,7 @@ export class RadioGroupComponent<T = unknown> implements ControlValueAccessor {
   public readonly radioValueChange = output<RadioGroupChangeEvent<T>>();
 
   protected onChange: ChangeFn<T> = () => {};
-  protected onTouched: TouchFn<T> = () => {};
+  protected onTouched: TouchFn = () => {};
 
   writeValue(value: T) {
     this.value.set(value);
@@ -49,7 +49,7 @@ export class RadioGroupComponent<T = unknown> implements ControlValueAccessor {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: TouchFn<T>) {
+  registerOnTouched(fn: TouchFn) {
     this.onTouched = fn;
   }
 

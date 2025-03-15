@@ -1,6 +1,7 @@
 export * from './lib/breakpoint/breakpoint.service';
 export * from './lib/button/button.directive';
 export * from './lib/divider/divider.component';
+export * from './lib/editable-text/editable-text.directive';
 export * from './lib/form-field/error.directive';
 export * from './lib/form-field/form-field.component';
 export * from './lib/form-field/form-field.module';

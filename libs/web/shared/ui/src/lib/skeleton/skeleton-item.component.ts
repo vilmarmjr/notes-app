@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { ntMerge } from '@web/shared/utils';
 import { cva } from 'class-variance-authority';
 
-const skeletonItemClass = cva(
+const skeletonItemVariants = cva(
   'h-4 w-full animate-pulse rounded-full bg-neutral-200 dark:bg-neutral-800',
 );
 
@@ -19,6 +19,6 @@ const skeletonItemClass = cva(
 export class SkeletonItemComponent {
   public userClass = input<string>('', { alias: 'class' });
   protected computedClass = computed(() =>
-    ntMerge(skeletonItemClass(), this.userClass()),
+    ntMerge(skeletonItemVariants(), this.userClass()),
   );
 }

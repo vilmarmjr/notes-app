@@ -9,7 +9,7 @@ import { NotesService } from '../data-access/notes.service';
 type NotesPaginationState = {
   isLoading: boolean;
   isLoadingNextPage: boolean;
-  notes: PaginateNotesResponseItemDto[];
+  _pageContent: PaginateNotesResponseItemDto[];
   _page: number;
   _isLastPage: boolean;
 };
@@ -19,7 +19,7 @@ export function withNotesPagination() {
     withState<NotesPaginationState>({
       isLoading: false,
       isLoadingNextPage: false,
-      notes: [],
+      _pageContent: [],
       _page: 1,
       _isLastPage: false,
     }),
@@ -38,10 +38,10 @@ export function withNotesPagination() {
               patchState(store, {
                 isLoading: false,
                 isLoadingNextPage: false,
-                notes:
+                _pageContent:
                   response.page === 1
                     ? response.content
-                    : [...store.notes(), ...response.content],
+                    : [...store._pageContent(), ...response.content],
                 _page: response.page,
                 _isLastPage: response.last,
               });
@@ -53,11 +53,13 @@ export function withNotesPagination() {
       ),
       _updateNote(dto: PaginateNotesResponseItemDto) {
         patchState(store, {
-          notes: store.notes().map(note => (note.id === dto.id ? dto : note)),
+          _pageContent: store
+            ._pageContent()
+            .map(note => (note.id === dto.id ? dto : note)),
         });
       },
       _addNote(dto: PaginateNotesResponseItemDto) {
-        patchState(store, { notes: [dto, ...store.notes()] });
+        patchState(store, { _pageContent: [dto, ...store._pageContent()] });
       },
     })),
     withMethods(store => ({

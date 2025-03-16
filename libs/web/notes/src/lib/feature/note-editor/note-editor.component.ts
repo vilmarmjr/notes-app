@@ -1,17 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  OnInit,
+  untracked,
+} from '@angular/core';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   BreakpointService,
   DividerComponent,
   EditableTextDirective,
 } from '@web/shared/ui';
+import { debounceTime, mergeMap } from 'rxjs';
 import { NotesStore } from '../../store/notes.store';
 import { NoteAsideActionsComponent } from '../../ui/note-aside-actions/note-aside-actions.component';
 import { NoteBottomActionsComponent } from '../../ui/note-bottom-actions/note-bottom-actions.component';
 import { NoteDetailsTableComponent } from '../../ui/note-details-table/note-details-table.component';
 import { NoteEditorSkeletonComponent } from '../../ui/note-editor-skeleton/note-editor-skeleton.component';
 import { NoteTopActionsComponent } from '../../ui/note-top-actions/note-top-actions.component';
+import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
 
 @Component({
   selector: 'nt-note-editor',
@@ -81,37 +92,54 @@ import { NoteTopActionsComponent } from '../../ui/note-top-actions/note-top-acti
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NoteEditorComponent {
+export class NoteEditorComponent implements OnInit {
   private breakpointService = inject(BreakpointService);
   private fb = inject(FormBuilder);
+  private destroyRef = inject(DestroyRef);
   protected store = inject(NotesStore);
   protected lg = this.breakpointService.lg;
   protected form = computed(() => {
-    const note = this.store.selectedNote();
-    return this.fb.group({
-      title: this.fb.nonNullable.control(note?.title || '', [Validators.required]),
-      content: this.fb.nonNullable.control(note?.content || ''),
-      tags: this.fb.nonNullable.control(note?.tags.join(', ') || ''),
+    const isCreatingNewNote = this.store.isCreatingNewNote();
+    const selectedNote = this.store.selectedNote();
+    return untracked(() => {
+      const note = isCreatingNewNote ? this.store.unsavedNote() : selectedNote;
+      return this.fb.group({
+        title: this.fb.nonNullable.control(note?.title || '', [Validators.required]),
+        content: this.fb.nonNullable.control(note?.content || ''),
+        tags: this.fb.nonNullable.control(fromTagsArray(note?.tags || [])),
+      });
     });
   });
+  private form$ = toObservable(this.form);
+
+  ngOnInit() {
+    this.form$
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        mergeMap(form => form.valueChanges.pipe(debounceTime(500))),
+      )
+      .subscribe(({ title, content, tags }) =>
+        this.store.updateUnsavedNote({
+          title: title || '',
+          content: content || '',
+          tags: toTagsArray(tags || ''),
+        }),
+      );
+  }
 
   protected onTagsChange(tags: string) {
-    const tagsArray = tags
-      .split(',')
-      .map(tag => tag.trim())
-      .filter(Boolean);
-    this.form().controls.tags.setValue(tagsArray.join(', '));
+    const tagsArray = toTagsArray(tags);
+    this.form().controls.tags.setValue(fromTagsArray(tagsArray));
   }
 
   protected onSubmit() {
     const { title, content, tags } = this.form().getRawValue();
-    const tagsToSave = tags.split(', ').filter(Boolean);
-    const body = { title, content, tags: tagsToSave };
+    const dto = { title, content, tags: toTagsArray(tags) };
 
     if (this.store.isCreatingNewNote()) {
-      this.store.createNote(body);
+      this.store.createNote(dto);
     } else {
-      this.store.updateNote({ ...body, id: this.store.noteId() });
+      this.store.updateNote({ ...dto, id: this.store.noteId() });
     }
   }
 }

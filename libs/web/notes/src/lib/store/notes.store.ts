@@ -1,29 +1,21 @@
 import { computed, effect, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  CreateNoteRequestDto,
-  PaginateNotesRequestParams,
-  UpdateNoteRequestDto,
-} from '@common/models';
-import {
-  patchState,
-  signalStore,
-  withComputed,
-  withHooks,
-  withMethods,
-  withState,
-} from '@ngrx/signals';
+import { PaginateNotesRequestParams } from '@common/models';
+import { signalStore, withComputed, withHooks, withMethods } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { BreakpointService, ToastService } from '@web/shared/ui';
-import { debounceTime, finalize, pipe, switchMap, tap } from 'rxjs';
-import { NotesService } from '../data-access/notes.service';
+import { BreakpointService } from '@web/shared/ui';
+import { debounceTime, pipe, tap } from 'rxjs';
+import { createUnsavedNote } from '../utils/unsaved-note.util';
+import { withNotePersistence } from './with-note-persistence';
 import { withNotesPagination } from './with-notes-pagination';
 import { withNotesUrlParams } from './with-notes-url-params';
 import { withSelectedNote } from './with-selected-note';
 
 export const NotesStore = signalStore(
-  withState({ isSavingChanges: false }),
   withNotesUrlParams(),
+  withNotesPagination(),
+  withSelectedNote(),
+  withNotePersistence(),
   withComputed(store => ({
     _requestParams: computed<PaginateNotesRequestParams>(() => ({
       query: store.query(),
@@ -31,17 +23,14 @@ export const NotesStore = signalStore(
       tag: store.tag(),
     })),
     isCreatingNewNote: computed(() => store.noteId() === 'new'),
+    notes: computed(() => {
+      const unsavedNote = store.unsavedNote();
+      const pageContent = store._pageContent();
+      return unsavedNote ? [createUnsavedNote(unsavedNote), ...pageContent] : pageContent;
+    }),
   })),
-  withNotesPagination(),
-  withSelectedNote(),
   withMethods(
-    (
-      store,
-      router = inject(Router),
-      breakpointService = inject(BreakpointService),
-      notesService = inject(NotesService),
-      toastService = inject(ToastService),
-    ) => ({
+    (store, router = inject(Router), breakpointService = inject(BreakpointService)) => ({
       loadNextPage() {
         store._loadNextPage(store._requestParams());
       },
@@ -59,46 +48,6 @@ export const NotesStore = signalStore(
           }),
         ),
       ),
-      createNote: rxMethod<CreateNoteRequestDto>(
-        pipe(
-          tap(() => patchState(store, { isSavingChanges: true })),
-          switchMap(dto =>
-            notesService.createNote(dto).pipe(
-              tap(() => toastService.success('Note saved successfully!')),
-              tap(createdNote =>
-                store._addNote({
-                  id: createdNote.id,
-                  title: createdNote.title,
-                  tags: createdNote.tags,
-                  archived: createdNote.archived,
-                  createdAt: createdNote.createdAt,
-                }),
-              ),
-              finalize(() => patchState(store, { isSavingChanges: false })),
-            ),
-          ),
-        ),
-      ),
-      updateNote: rxMethod<UpdateNoteRequestDto>(
-        pipe(
-          tap(() => patchState(store, { isSavingChanges: true })),
-          switchMap(dto =>
-            notesService.updateNote(dto).pipe(
-              tap(() => toastService.success('Note saved successfully!')),
-              tap(updatedNote =>
-                store._updateNote({
-                  id: updatedNote.id,
-                  title: updatedNote.title,
-                  tags: updatedNote.tags,
-                  archived: updatedNote.archived,
-                  createdAt: updatedNote.createdAt,
-                }),
-              ),
-              finalize(() => patchState(store, { isSavingChanges: false })),
-            ),
-          ),
-        ),
-      ),
     }),
   ),
   withHooks(
@@ -114,7 +63,7 @@ export const NotesStore = signalStore(
         effect(() => {
           if (!breakpointService.lg()) return;
 
-          const notes = store.notes();
+          const notes = store._pageContent();
           const noteId = store.noteId();
           const isLoadingSelectedNote = store.isLoadingSelectedNote();
 

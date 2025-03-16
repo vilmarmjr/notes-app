@@ -40,9 +40,11 @@ import { NotesEmptyComponent } from '../notes-empty/notes-empty.component';
                 }
               </div>
             }
-            <p class="text-preset-6 text-neutral-700 dark:text-neutral-300">
-              {{ note.createdAt | date }}
-            </p>
+            @if (note.createdAt) {
+              <p class="text-preset-6 text-neutral-700 dark:text-neutral-300">
+                {{ note.createdAt | date }}
+              </p>
+            }
           </a>
         </li>
         @if (!last) {

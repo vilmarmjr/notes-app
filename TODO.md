@@ -19,3 +19,6 @@
 - [ ] Use views to select filtering the current logged user?
 - [ ] Research about how TypeORM handles indexes and add them if needed
 - [ ] Optimize filtering note content (research a better alternative for ILIKE)
+- [ ] Change the way new notes are created. When the user clicks "create new note", a new note should be created and the user should be redirected to the note page. The new note should have the default title as "Untitled note" on the list
+- [ ] Add note delete functionality
+- [ ] Add note archive and restore functionality

@@ -59,19 +59,19 @@ export class EditableTextDirective implements OnInit, ControlValueAccessor {
   );
   protected disabled = computed(() => this.formControlDisabled() || this.userDisabled());
   private placeholder = '';
-  private elementRef = inject(ElementRef<HTMLElement>);
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private formControlDisabled = signal(false);
   private value = signal('');
   private onChange: ChangeFn = () => {};
   private onTouched: TouchFn = () => {};
 
   ngOnInit() {
-    this.placeholder = this.elementRef.nativeElement.textContent.trim() || '';
+    this.placeholder = this.element.textContent?.trim() || '';
   }
 
   writeValue(value: string) {
     this.value.set(value);
-    this.elementRef.nativeElement.textContent = value || this.placeholder;
+    this.element.textContent = value || this.placeholder;
   }
 
   registerOnChange(fn: ChangeFn) {

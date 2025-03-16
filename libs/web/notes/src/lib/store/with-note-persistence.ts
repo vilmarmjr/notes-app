@@ -1,9 +1,9 @@
-import { effect, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { effect, inject, Signal, untracked } from '@angular/core';
 import {
   CreateNoteRequestDto,
-  PaginateNotesResponseItemDto,
+  CreateNoteResponseDto,
   UpdateNoteRequestDto,
+  UpdateNoteResponseDto,
 } from '@common/models';
 import {
   patchState,
@@ -34,86 +34,70 @@ type NotePersistanceState = {
   unsavedNote: UnsavedNote | null;
 };
 
-type RequiredMethods = {
-  _addNote: (note: PaginateNotesResponseItemDto) => void;
-  _updateNote: (note: PaginateNotesResponseItemDto) => void;
+type RequiredProps = {
+  noteId: Signal<string>;
 };
 
-function getStorageUnsavedNote() {
+function getStorageUnsavedNote(): UnsavedNote {
   try {
     const storageNote = localStorage.getItem(unsavedNoteStorageKey);
-
-    if (!storageNote) {
-      return null;
-    }
-
-    const parsedNote = JSON.parse(storageNote);
+    const parsedNote = JSON.parse(storageNote || '{}');
     return unsavedNoteSchema.parse(parsedNote);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
-    return null;
+    return { title: '', content: '', tags: [] };
   }
 }
 
 export function withNotePersistence() {
   return signalStoreFeature(
-    { methods: type<RequiredMethods>() },
+    { props: type<RequiredProps>() },
     withState<NotePersistanceState>(() => ({
       isSavingChanges: false,
-      unsavedNote: getStorageUnsavedNote(),
+      unsavedNote: null,
+    })),
+    withMethods(store => ({
+      updateUnsavedNote(unsavedNote: UnsavedNote) {
+        patchState(store, { unsavedNote });
+        localStorage.setItem(unsavedNoteStorageKey, JSON.stringify(unsavedNote));
+      },
+      clearUnsavedNote() {
+        patchState(store, { unsavedNote: null });
+        localStorage.removeItem(unsavedNoteStorageKey);
+      },
     })),
     withMethods(
       (
         store,
         notesService = inject(NotesService),
         toastService = inject(ToastService),
-        router = inject(Router),
       ) => ({
-        updateUnsavedNote(unsavedNote: UnsavedNote) {
-          patchState(store, { unsavedNote });
-        },
-        createNote: rxMethod<CreateNoteRequestDto>(
+        _createNote: rxMethod<{
+          dto: CreateNoteRequestDto;
+          onSuccess?: (response: CreateNoteResponseDto) => void;
+        }>(
           pipe(
             tap(() => patchState(store, { isSavingChanges: true })),
-            switchMap(dto =>
+            switchMap(({ dto, onSuccess }) =>
               notesService.createNote(dto).pipe(
                 tap(() => toastService.success('Note saved successfully!')),
-                tap(() => patchState(store, { unsavedNote: null })),
-                tap(createdNote =>
-                  store._addNote({
-                    id: createdNote.id,
-                    title: createdNote.title,
-                    tags: createdNote.tags,
-                    archived: createdNote.archived,
-                    createdAt: createdNote.createdAt,
-                  }),
-                ),
-                tap(createdNote =>
-                  router.navigate(['/notes'], {
-                    queryParams: { note: createdNote.id },
-                    queryParamsHandling: 'merge',
-                  }),
-                ),
+                tap(() => store.clearUnsavedNote()),
+                tap(response => onSuccess && onSuccess(response)),
                 finalize(() => patchState(store, { isSavingChanges: false })),
               ),
             ),
           ),
         ),
-        updateNote: rxMethod<UpdateNoteRequestDto>(
+        _updateNote: rxMethod<{
+          dto: UpdateNoteRequestDto;
+          onSuccess?: (response: UpdateNoteResponseDto) => void;
+        }>(
           pipe(
             tap(() => patchState(store, { isSavingChanges: true })),
-            switchMap(dto =>
+            switchMap(({ dto, onSuccess }) =>
               notesService.updateNote(dto).pipe(
                 tap(() => toastService.success('Note saved successfully!')),
-                tap(updatedNote =>
-                  store._updateNote({
-                    id: updatedNote.id,
-                    title: updatedNote.title,
-                    tags: updatedNote.tags,
-                    archived: updatedNote.archived,
-                    createdAt: updatedNote.createdAt,
-                  }),
-                ),
+                tap(response => onSuccess && onSuccess(response)),
                 finalize(() => patchState(store, { isSavingChanges: false })),
               ),
             ),
@@ -124,12 +108,12 @@ export function withNotePersistence() {
     withHooks(store => ({
       onInit() {
         effect(() => {
-          const unsavedNote = store.unsavedNote();
-          if (unsavedNote) {
-            localStorage.setItem(unsavedNoteStorageKey, JSON.stringify(unsavedNote));
-          } else {
-            localStorage.removeItem(unsavedNoteStorageKey);
-          }
+          const noteId = store.noteId();
+          untracked(() => {
+            if (noteId === 'new' && !store.unsavedNote()) {
+              patchState(store, { unsavedNote: getStorageUnsavedNote() });
+            }
+          });
         });
       },
     })),

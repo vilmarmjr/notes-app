@@ -56,7 +56,11 @@ import { SearchFieldComponent } from '../../ui/search-field/search-field.compone
     @if (store.isLoading()) {
       <nt-notes-list-skeleton class="mt-6 block" />
     } @else {
-      <nt-notes-list [notes]="store.notes()" [filter]="store.filter()" />
+      <nt-notes-list
+        [notes]="store.notes()"
+        [filter]="store.filter()"
+        [includeUntitledNote]="store.includeUntitledNote()"
+      />
     }
     <nt-create-note-button class="fixed bottom-20 right-5 sm:bottom-28 sm:right-8" />
   `,

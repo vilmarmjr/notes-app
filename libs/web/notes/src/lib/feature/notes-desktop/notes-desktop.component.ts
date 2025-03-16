@@ -58,7 +58,11 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
           @if (store.isLoading()) {
             <nt-notes-list-skeleton class="mt-2 block" />
           } @else {
-            <nt-notes-list [notes]="store.notes()" [filter]="store.filter()" />
+            <nt-notes-list
+              [notes]="store.notes()"
+              [filter]="store.filter()"
+              [includeUntitledNote]="store.includeUntitledNote()"
+            />
           }
         </div>
         <nt-divider direction="vertical" />

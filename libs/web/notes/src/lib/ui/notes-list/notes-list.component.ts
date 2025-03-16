@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { QueryParamsHandling, RouterLink, RouterLinkActive } from '@angular/router';
 import { PaginateNotesResponseItemDto } from '@common/models';
 import { DividerComponent } from '@web/shared/ui';
 import { NotesFilter } from '../../types/notes-filter.type';
@@ -17,14 +17,29 @@ import { NotesEmptyComponent } from '../notes-empty/notes-empty.component';
   ],
   template: `
     <ul class="flex flex-col gap-1">
+      @if (includeUntitledNote()) {
+        <li>
+          <a
+            class="flex flex-col gap-3 rounded-md p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+            routerLinkActive="!bg-neutral-100 dark:!bg-neutral-800"
+            [routerLink]="routerLink"
+            [queryParams]="{ note: 'new' }"
+            [queryParamsHandling]="queryParamsHandling"
+          >
+            <h2 class="text-preset-3 dark:text-base-white text-neutral-950">
+              Untitled Note
+            </h2>
+          </a>
+        </li>
+      }
       @for (note of notes(); track note.id; let last = $last) {
         <li>
           <a
             class="flex flex-col gap-3 rounded-md p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800"
             routerLinkActive="!bg-neutral-100 dark:!bg-neutral-800"
-            [routerLink]="['.']"
+            [routerLink]="routerLink"
             [queryParams]="{ note: note.id }"
-            queryParamsHandling="merge"
+            [queryParamsHandling]="queryParamsHandling"
           >
             <h2 class="text-preset-3 dark:text-base-white text-neutral-950">
               {{ note.title }}
@@ -60,4 +75,7 @@ import { NotesEmptyComponent } from '../notes-empty/notes-empty.component';
 export class NotesListComponent {
   public filter = input.required<NotesFilter>();
   public notes = input.required<PaginateNotesResponseItemDto[]>();
+  public includeUntitledNote = input(false);
+  protected readonly queryParamsHandling: QueryParamsHandling = 'merge';
+  protected readonly routerLink = ['.'];
 }

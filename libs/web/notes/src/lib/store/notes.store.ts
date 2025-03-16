@@ -1,11 +1,21 @@
 import { computed, effect, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PaginateNotesRequestParams } from '@common/models';
-import { signalStore, withComputed, withHooks, withMethods } from '@ngrx/signals';
+import {
+  CreateNoteRequestDto,
+  PaginateNotesRequestParams,
+  PaginateNotesResponseItemDto,
+  UpdateNoteRequestDto,
+} from '@common/models';
+import {
+  patchState,
+  signalStore,
+  withComputed,
+  withHooks,
+  withMethods,
+} from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { BreakpointService } from '@web/shared/ui';
 import { debounceTime, pipe, tap } from 'rxjs';
-import { createUnsavedNote } from '../utils/unsaved-note.util';
 import { withNotePersistence } from './with-note-persistence';
 import { withNotesPagination } from './with-notes-pagination';
 import { withNotesUrlParams } from './with-notes-url-params';
@@ -23,11 +33,33 @@ export const NotesStore = signalStore(
       tag: store.tag(),
     })),
     isCreatingNewNote: computed(() => store.noteId() === 'new'),
-    notes: computed(() => {
-      const unsavedNote = store.unsavedNote();
-      const pageContent = store._pageContent();
-      return unsavedNote ? [createUnsavedNote(unsavedNote), ...pageContent] : pageContent;
-    }),
+    includeUntitledNote: computed(
+      () => !!store.unsavedNote() && store.filter() === 'all',
+    ),
+  })),
+  withMethods(store => ({
+    _addLocalNote(note: PaginateNotesResponseItemDto) {
+      if (
+        store.filter() === 'all' ||
+        (store.filter() === 'tag' && note.tags.includes(store.tag()))
+      ) {
+        return patchState(store, { notes: [note, ...store.notes()] });
+      }
+      if (store.filter() !== 'archived') {
+        return store._loadFirstPage(store._requestParams());
+      }
+    },
+    _updateLocalNote(note: PaginateNotesResponseItemDto) {
+      if (store.filter() === 'all' || store.filter() === 'archived') {
+        patchState(store, {
+          notes: store
+            .notes()
+            .map(currentNote => (currentNote.id === note.id ? note : currentNote)),
+        });
+      } else {
+        store._loadFirstPage(store._requestParams());
+      }
+    },
   })),
   withMethods(
     (store, router = inject(Router), breakpointService = inject(BreakpointService)) => ({
@@ -48,6 +80,21 @@ export const NotesStore = signalStore(
           }),
         ),
       ),
+      createNote(dto: CreateNoteRequestDto) {
+        store._createNote({
+          dto,
+          onSuccess: note => {
+            store._addLocalNote(note);
+            router.navigate(['/notes'], {
+              queryParams: { note: note.id },
+              queryParamsHandling: 'merge',
+            });
+          },
+        });
+      },
+      updateNote(dto: UpdateNoteRequestDto) {
+        store._updateNote({ dto, onSuccess: store._updateLocalNote });
+      },
     }),
   ),
   withHooks(
@@ -63,7 +110,7 @@ export const NotesStore = signalStore(
         effect(() => {
           if (!breakpointService.lg()) return;
 
-          const notes = store._pageContent();
+          const notes = store.notes();
           const noteId = store.noteId();
           const isLoadingSelectedNote = store.isLoadingSelectedNote();
 

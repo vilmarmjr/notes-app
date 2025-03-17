@@ -14,6 +14,7 @@ import {
   withMethods,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { TagsStore } from '@web/shared/tags';
 import { BreakpointService } from '@web/shared/ui';
 import { debounceTime, pipe, tap } from 'rxjs';
 import { withNotePersistence } from './with-note-persistence';
@@ -62,7 +63,12 @@ export const NotesStore = signalStore(
     },
   })),
   withMethods(
-    (store, router = inject(Router), breakpointService = inject(BreakpointService)) => ({
+    (
+      store,
+      tagsStore = inject(TagsStore),
+      router = inject(Router),
+      breakpointService = inject(BreakpointService),
+    ) => ({
       loadNextPage() {
         store._loadNextPage(store._requestParams());
       },
@@ -85,6 +91,7 @@ export const NotesStore = signalStore(
           dto,
           onSuccess: note => {
             store._addLocalNote(note);
+            tagsStore.updateTags();
             router.navigate(['/notes'], {
               queryParams: { note: note.id },
               queryParamsHandling: 'merge',
@@ -93,7 +100,13 @@ export const NotesStore = signalStore(
         });
       },
       updateNote(dto: UpdateNoteRequestDto) {
-        store._updateNote({ dto, onSuccess: store._updateLocalNote });
+        store._updateNote({
+          dto,
+          onSuccess: note => {
+            store._updateLocalNote(note);
+            tagsStore.updateTags();
+          },
+        });
       },
     }),
   ),

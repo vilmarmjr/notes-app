@@ -24,6 +24,12 @@ export const TagsStore = signalStore(
         }),
       ),
     ),
+    updateTags: rxMethod<void>(
+      pipe(
+        switchMap(() => tagsService.getTags()),
+        tap(tags => patchState(store, { tags })),
+      ),
+    ),
   })),
   withHooks(store => ({
     onInit: () => store.loadTags(),

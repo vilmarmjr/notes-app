@@ -15,7 +15,7 @@ import {
   DividerComponent,
   EditableTextDirective,
 } from '@web/shared/ui';
-import { debounceTime, mergeMap } from 'rxjs';
+import { debounceTime, filter, mergeMap } from 'rxjs';
 import { NotesStore } from '../../store/notes.store';
 import { NoteAsideActionsComponent } from '../../ui/note-aside-actions/note-aside-actions.component';
 import { NoteBottomActionsComponent } from '../../ui/note-bottom-actions/note-bottom-actions.component';
@@ -116,6 +116,7 @@ export class NoteEditorComponent implements OnInit {
     this.form$
       .pipe(
         takeUntilDestroyed(this.destroyRef),
+        filter(() => this.store.isCreatingNewNote()),
         mergeMap(form => form.valueChanges.pipe(debounceTime(500))),
       )
       .subscribe(({ title, content, tags }) =>

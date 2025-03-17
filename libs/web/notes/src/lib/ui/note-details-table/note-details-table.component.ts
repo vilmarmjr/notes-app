@@ -24,6 +24,17 @@ import { EditableTextDirective, IconComponent } from '@web/shared/ui';
           Add tags separated by commas (e.g. Work, Planning)
         </td>
       </tr>
+      @if (archived()) {
+        <tr class="flex items-center">
+          <td
+            class="flex w-32 shrink-0 items-center gap-2 text-neutral-700 dark:text-neutral-300"
+          >
+            <nt-icon name="status" size="16" />
+            <span>Status</span>
+          </td>
+          <td>Archived</td>
+        </tr>
+      }
       <tr class="flex items-center">
         <td
           class="flex w-32 shrink-0 items-center gap-2 text-neutral-700 dark:text-neutral-300"
@@ -42,5 +53,6 @@ import { EditableTextDirective, IconComponent } from '@web/shared/ui';
 export class NoteDetailsTableComponent {
   public tagsControl = input.required<FormControl<string>>();
   public lastEdited = input<string>();
+  public archived = input(false);
   public tagsChange = output<string>();
 }

@@ -63,6 +63,7 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
           <nt-note-details-table
             [lastEdited]="note?.updatedAt"
             [tagsControl]="form().controls.tags"
+            [archived]="!!note?.archived"
             (tagsChange)="onTagsChange($event)"
           />
           <nt-divider />

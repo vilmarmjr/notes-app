@@ -17,6 +17,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { TagsStore } from '@web/shared/tags';
 import { BreakpointService } from '@web/shared/ui';
 import { debounceTime, pipe, tap } from 'rxjs';
+import { getStatus } from '../utils/status.util';
 import { withNotePersistence } from './with-note-persistence';
 import { withNotesDialogs } from './with-notes-dialogs';
 import { withNotesPagination } from './with-notes-pagination';
@@ -32,7 +33,7 @@ export const NotesStore = signalStore(
   withComputed(store => ({
     _requestParams: computed<PaginateNotesRequestParams>(() => ({
       query: store.query(),
-      status: store.filter() === 'archived' ? 'archived' : 'active',
+      status: getStatus(store.filter()),
       tag: store.tag(),
     })),
     isCreatingNewNote: computed(() => store.noteId() === 'new'),

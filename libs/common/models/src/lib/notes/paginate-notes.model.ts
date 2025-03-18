@@ -6,7 +6,7 @@ export const paginateNotesParamsSchema = z.object({
   tag: z.string().optional(),
   take: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
-  status: z.enum(['active', 'archived']).optional(),
+  status: z.enum(['active', 'archived', 'all']).optional(),
 });
 
 export type PaginateNotesRequestParams = z.infer<typeof paginateNotesParamsSchema>;

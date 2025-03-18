@@ -12,11 +12,13 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   BreakpointService,
+  DialogModule,
   DividerComponent,
   EditableTextDirective,
 } from '@web/shared/ui';
 import { debounceTime, filter, mergeMap } from 'rxjs';
 import { NotesStore } from '../../store/notes.store';
+import { ArchiveNoteDialogComponent } from '../../ui/archive-note-dialog/archive-note-dialog.component';
 import { NoteAsideActionsComponent } from '../../ui/note-aside-actions/note-aside-actions.component';
 import { NoteBottomActionsComponent } from '../../ui/note-bottom-actions/note-bottom-actions.component';
 import { NoteDetailsTableComponent } from '../../ui/note-details-table/note-details-table.component';
@@ -36,6 +38,8 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
     NoteEditorSkeletonComponent,
     EditableTextDirective,
     ReactiveFormsModule,
+    DialogModule,
+    ArchiveNoteDialogComponent,
   ],
   template: `
     @let note = store.selectedNote();
@@ -87,9 +91,20 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
           [showArchive]="!!note && !note.archived"
           [showRestore]="!!note && note.archived"
           [showDelete]="!!note"
+          (archiveNote)="store.setArchiveDialogOpened(true)"
         />
       }
     </div>
+    <ng-template
+      [ntShowDialog]="store.isArchiveNoteDialogOpen()"
+      (ntShowDialogChange)="store.setArchiveDialogOpened($event)"
+      [width]="440"
+    >
+      <nt-archive-note-dialog
+        [isSaving]="store.isArchivingNote()"
+        (archive)="store.archiveNote()"
+      />
+    </ng-template>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

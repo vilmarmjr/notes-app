@@ -7,6 +7,7 @@ export * from './lib/dialog/dialog-ref';
 export * from './lib/dialog/dialog-text.directive';
 export * from './lib/dialog/dialog-title.directive';
 export * from './lib/dialog/dialog.config';
+export * from './lib/dialog/dialog.directive';
 export * from './lib/dialog/dialog.module';
 export * from './lib/dialog/dialog.service';
 export * from './lib/dialog/dialog.tokens';

@@ -8,7 +8,7 @@ import { DialogRef } from './dialog-ref';
   },
 })
 export class DialogCloseDirective {
-  private dialogRef = inject(DialogRef, { skipSelf: true });
+  private dialogRef = inject(DialogRef);
 
   protected onClick() {
     this.dialogRef.close();

@@ -18,6 +18,7 @@ import { TagsStore } from '@web/shared/tags';
 import { BreakpointService } from '@web/shared/ui';
 import { debounceTime, pipe, tap } from 'rxjs';
 import { withNotePersistence } from './with-note-persistence';
+import { withNotesDialogs } from './with-notes-dialogs';
 import { withNotesPagination } from './with-notes-pagination';
 import { withNotesUrlParams } from './with-notes-url-params';
 import { withSelectedNote } from './with-selected-note';
@@ -27,6 +28,7 @@ export const NotesStore = signalStore(
   withNotesPagination(),
   withSelectedNote(),
   withNotePersistence(),
+  withNotesDialogs(),
   withComputed(store => ({
     _requestParams: computed<PaginateNotesRequestParams>(() => ({
       query: store.query(),
@@ -60,6 +62,12 @@ export const NotesStore = signalStore(
       } else {
         store._loadFirstPage(store._requestParams());
       }
+    },
+    _removeLocalNote(id: string) {
+      if (store.notes().length === 1) {
+        return store._loadFirstPage(store._requestParams());
+      }
+      patchState(store, { notes: store.notes().filter(note => note.id !== id) });
     },
   })),
   withMethods(
@@ -107,6 +115,22 @@ export const NotesStore = signalStore(
             tagsStore.updateTags();
           },
         });
+      },
+      deleteNote() {
+        store._deleteNote({ id: store.noteId() });
+      },
+      archiveNote() {
+        store._archiveNote({
+          id: store.noteId(),
+          onSuccess: () => {
+            if (store.filter() === 'all' || store.filter() === 'tag') {
+              store._removeLocalNote(store.noteId());
+            }
+          },
+        });
+      },
+      restoreNote() {
+        store._restoreNote({ id: store.noteId() });
       },
     }),
   ),

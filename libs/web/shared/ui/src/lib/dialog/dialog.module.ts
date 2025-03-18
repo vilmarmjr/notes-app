@@ -4,6 +4,7 @@ import { DialogFooterComponent } from './dialog-footer.component';
 import { DialogIconComponent } from './dialog-icon.component';
 import { DialogTextDirective } from './dialog-text.directive';
 import { DialogTitleDirective } from './dialog-title.directive';
+import { DialogDirective } from './dialog.directive';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { DialogTitleDirective } from './dialog-title.directive';
     DialogTextDirective,
     DialogFooterComponent,
     DialogIconComponent,
+    DialogDirective,
   ],
   exports: [
     DialogCloseDirective,
@@ -19,6 +21,7 @@ import { DialogTitleDirective } from './dialog-title.directive';
     DialogTextDirective,
     DialogFooterComponent,
     DialogIconComponent,
+    DialogDirective,
   ],
 })
 export class DialogModule {}

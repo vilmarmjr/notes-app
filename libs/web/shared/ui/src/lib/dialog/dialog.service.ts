@@ -1,6 +1,12 @@
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
-import { inject, Injectable, Injector } from '@angular/core';
+import { ComponentPortal, ComponentType, TemplatePortal } from '@angular/cdk/portal';
+import {
+  inject,
+  Injectable,
+  Injector,
+  TemplateRef,
+  ViewContainerRef,
+} from '@angular/core';
 import { DialogRef } from './dialog-ref';
 import { DialogConfig } from './dialog.config';
 import { DIALOG_DATA } from './dialog.tokens';
@@ -13,7 +19,8 @@ export class DialogService {
   private injector = inject(Injector);
 
   open<C = unknown, D = unknown, R = unknown>(
-    component: ComponentType<C>,
+    componentOrTemplate: ComponentType<C> | TemplateRef<unknown>,
+    vcRef: ViewContainerRef,
     config?: DialogConfig<D>,
   ): DialogRef<R> {
     const positionStrategy = this.overlay
@@ -48,7 +55,10 @@ export class DialogService {
         { provide: DIALOG_DATA, useValue: config?.data },
       ],
     });
-    const portal = new ComponentPortal(component, null, injector);
+    const portal =
+      componentOrTemplate instanceof TemplateRef
+        ? new TemplatePortal(componentOrTemplate, vcRef, undefined, injector)
+        : new ComponentPortal(componentOrTemplate, vcRef, injector);
     overlayRef.attach(portal);
     return dialogRef;
   }

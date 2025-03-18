@@ -55,6 +55,7 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
             [showArchive]="!!note && !note.archived"
             [showRestore]="!!note && note.archived"
             [showDelete]="!!note"
+            (archiveNote)="store.setArchiveDialogOpened(true)"
           />
           <nt-divider />
         }

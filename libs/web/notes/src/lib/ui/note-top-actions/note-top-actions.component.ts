@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { IconComponent } from '@web/shared/ui';
 
 @Component({
@@ -17,17 +17,29 @@ import { IconComponent } from '@web/shared/ui';
       </button>
       <div class="flex items-center gap-4">
         @if (showDelete()) {
-          <button class="text-preset-5 flex items-center justify-center" type="button">
+          <button
+            class="text-preset-5 flex items-center justify-center"
+            type="button"
+            (click)="deleteNote.emit()"
+          >
             <nt-icon name="delete" />
           </button>
         }
         @if (showArchive()) {
-          <button class="text-preset-5 flex items-center justify-center" type="button">
+          <button
+            class="text-preset-5 flex items-center justify-center"
+            type="button"
+            (click)="archiveNote.emit()"
+          >
             <nt-icon name="archive" />
           </button>
         }
         @if (showRestore()) {
-          <button class="text-preset-5 flex items-center justify-center" type="button">
+          <button
+            class="text-preset-5 flex items-center justify-center"
+            type="button"
+            (click)="restoreNote.emit()"
+          >
             <nt-icon name="restore" />
           </button>
         }
@@ -52,5 +64,8 @@ export class NoteTopActionsComponent {
   public showArchive = input(false);
   public showRestore = input(false);
   public showDelete = input(false);
+  public archiveNote = output();
+  public restoreNote = output();
+  public deleteNote = output();
   protected location = inject(Location);
 }

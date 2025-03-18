@@ -126,6 +126,7 @@ export const NotesStore = signalStore(
           onSuccess: () => {
             if (store.filter() === 'all' || store.filter() === 'tag') {
               store._removeLocalNote(store.noteId());
+              store.selectNote(store.noteId());
             }
           },
         });

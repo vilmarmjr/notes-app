@@ -38,6 +38,7 @@ export class DialogService {
         'border',
         'border-neutral-200',
         'dark:border-neutral-600',
+        'm-4',
       ],
       backdropClass: ['bg-neutral-950', '!opacity-50'],
       width: config?.width,

@@ -30,6 +30,7 @@ module.exports = {
       'green-500': '#21C16B',
       'green-100': '#D1FBE9',
       'red-500': '#FB3748',
+      'red-700': '#C02030',
       'red-100': '#FFD5D8',
       transparent: 'transparent',
     },

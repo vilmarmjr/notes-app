@@ -19,6 +19,7 @@ import {
 import { debounceTime, filter, mergeMap } from 'rxjs';
 import { NotesStore } from '../../store/notes.store';
 import { ArchiveNoteDialogComponent } from '../../ui/archive-note-dialog/archive-note-dialog.component';
+import { DeleteNoteDialogComponent } from '../../ui/delete-note-dialog/delete-note-dialog.component';
 import { NoteAsideActionsComponent } from '../../ui/note-aside-actions/note-aside-actions.component';
 import { NoteBottomActionsComponent } from '../../ui/note-bottom-actions/note-bottom-actions.component';
 import { NoteDetailsTableComponent } from '../../ui/note-details-table/note-details-table.component';
@@ -42,6 +43,7 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
     DialogModule,
     ArchiveNoteDialogComponent,
     RestoreNoteDialogComponent,
+    DeleteNoteDialogComponent,
   ],
   template: `
     @let note = store.selectedNote();
@@ -59,6 +61,7 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
             [showDelete]="!!note"
             (archiveNote)="store.setArchiveDialogOpened(true)"
             (restoreNote)="store.setRestoreDialogOpened(true)"
+            (deleteNote)="store.setDeleteDialogOpened(true)"
           />
           <nt-divider />
         }
@@ -97,6 +100,7 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
           [showDelete]="!!note"
           (archiveNote)="store.setArchiveDialogOpened(true)"
           (restoreNote)="store.setRestoreDialogOpened(true)"
+          (deleteNote)="store.setDeleteDialogOpened(true)"
         />
       }
     </div>
@@ -118,6 +122,16 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
       <nt-restore-note-dialog
         [isSaving]="store.isRestoringNote()"
         (restore)="store.restoreNote()"
+      />
+    </ng-template>
+    <ng-template
+      [ntShowDialog]="store.isDeleteNoteDialogOpen()"
+      (ntShowDialogChange)="store.setDeleteDialogOpened($event)"
+      [width]="400"
+    >
+      <nt-delete-note-dialog
+        [isSaving]="store.isDeletingNote()"
+        (delete)="store.deleteNote()"
       />
     </ng-template>
   `,

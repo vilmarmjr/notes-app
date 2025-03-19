@@ -118,7 +118,10 @@ export const NotesStore = signalStore(
         });
       },
       deleteNote() {
-        store._deleteNote({ id: store.noteId() });
+        store._deleteNote({
+          id: store.noteId(),
+          onSuccess: () => store._removeLocalNote(store.noteId()),
+        });
       },
       archiveNote() {
         store._archiveNote({

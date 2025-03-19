@@ -24,6 +24,7 @@ import { NoteBottomActionsComponent } from '../../ui/note-bottom-actions/note-bo
 import { NoteDetailsTableComponent } from '../../ui/note-details-table/note-details-table.component';
 import { NoteEditorSkeletonComponent } from '../../ui/note-editor-skeleton/note-editor-skeleton.component';
 import { NoteTopActionsComponent } from '../../ui/note-top-actions/note-top-actions.component';
+import { RestoreNoteDialogComponent } from '../../ui/restore-note-dialog/restore-note-dialog.component';
 import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
 
 @Component({
@@ -40,6 +41,7 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
     ReactiveFormsModule,
     DialogModule,
     ArchiveNoteDialogComponent,
+    RestoreNoteDialogComponent,
   ],
   template: `
     @let note = store.selectedNote();
@@ -56,6 +58,7 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
             [showRestore]="!!note && note.archived"
             [showDelete]="!!note"
             (archiveNote)="store.setArchiveDialogOpened(true)"
+            (restoreNote)="store.setRestoreDialogOpened(true)"
           />
           <nt-divider />
         }
@@ -93,6 +96,7 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
           [showRestore]="!!note && note.archived"
           [showDelete]="!!note"
           (archiveNote)="store.setArchiveDialogOpened(true)"
+          (restoreNote)="store.setRestoreDialogOpened(true)"
         />
       }
     </div>
@@ -104,6 +108,16 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
       <nt-archive-note-dialog
         [isSaving]="store.isArchivingNote()"
         (archive)="store.archiveNote()"
+      />
+    </ng-template>
+    <ng-template
+      [ntShowDialog]="store.isRestoreNoteDialogOpen()"
+      (ntShowDialogChange)="store.setRestoreDialogOpened($event)"
+      [width]="400"
+    >
+      <nt-restore-note-dialog
+        [isSaving]="store.isRestoringNote()"
+        (restore)="store.restoreNote()"
       />
     </ng-template>
   `,

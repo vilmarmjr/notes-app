@@ -124,15 +124,31 @@ export const NotesStore = signalStore(
         store._archiveNote({
           id: store.noteId(),
           onSuccess: () => {
+            store.selectNote(store.noteId());
+
             if (store.filter() === 'all' || store.filter() === 'tag') {
-              store._removeLocalNote(store.noteId());
-              store.selectNote(store.noteId());
+              return store._removeLocalNote(store.noteId());
+            }
+            if (store.filter() === 'archived') {
+              return store._loadFirstPage(store._requestParams());
             }
           },
         });
       },
       restoreNote() {
-        store._restoreNote({ id: store.noteId() });
+        store._restoreNote({
+          id: store.noteId(),
+          onSuccess: () => {
+            store.selectNote(store.noteId());
+
+            if (store.filter() === 'all' || store.filter() === 'tag') {
+              return store._loadFirstPage(store._requestParams());
+            }
+            if (store.filter() === 'archived') {
+              return store._removeLocalNote(store.noteId());
+            }
+          },
+        });
       },
     }),
   ),

@@ -5,6 +5,7 @@ import { ToastService } from '@web/shared/ui';
 import { finalize, pipe, switchMap, tap } from 'rxjs';
 import { NotesService } from '../data-access/notes.service';
 import { ArchivedNoteToastComponent } from '../ui/archived-note-toast/archived-note-toast.component';
+import { RestoredNoteToastComponent } from '../ui/restored-note-toast/restored-note-toast.component';
 
 export function withNotesDialogs() {
   return signalStoreFeature(
@@ -52,6 +53,9 @@ export function withNotesDialogs() {
             switchMap(({ id, onSuccess }) =>
               notesService.restoreNote(id).pipe(
                 tap(() => onSuccess && onSuccess()),
+                tap(() =>
+                  toastService.success(RestoredNoteToastComponent, { width: 390 }),
+                ),
                 tap(() => patchState(store, { isRestoreNoteDialogOpen: false })),
                 finalize(() => patchState(store, { isRestoringNote: false })),
               ),
@@ -64,6 +68,7 @@ export function withNotesDialogs() {
             switchMap(({ id, onSuccess }) =>
               notesService.deleteNote(id).pipe(
                 tap(() => onSuccess && onSuccess()),
+                tap(() => toastService.success('Note permanently deleted.')),
                 tap(() => patchState(store, { isDeleteNoteDialogOpen: false })),
                 finalize(() => patchState(store, { isDeletingNote: false })),
               ),

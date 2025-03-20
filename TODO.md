@@ -19,5 +19,3 @@
 - [ ] Use views to select filtering the current logged user?
 - [ ] Research about how TypeORM handles indexes and add them if needed
 - [ ] Optimize filtering note content (research a better alternative for ILIKE)
-- [ ] Add note delete functionality
-- [ ] Add note archive and restore functionality

@@ -61,7 +61,7 @@ export function withNotePersistence() {
         patchState(store, { unsavedNote });
         localStorage.setItem(unsavedNoteStorageKey, JSON.stringify(unsavedNote));
       },
-      clearUnsavedNote() {
+      _clearUnsavedNote() {
         patchState(store, { unsavedNote: null });
         localStorage.removeItem(unsavedNoteStorageKey);
       },
@@ -81,7 +81,7 @@ export function withNotePersistence() {
             switchMap(({ dto, onSuccess }) =>
               notesService.createNote(dto).pipe(
                 tap(() => toastService.success('Note saved successfully!')),
-                tap(() => store.clearUnsavedNote()),
+                tap(() => store._clearUnsavedNote()),
                 tap(response => onSuccess && onSuccess(response)),
                 finalize(() => patchState(store, { isSavingChanges: false })),
               ),

@@ -153,6 +153,13 @@ export const NotesStore = signalStore(
           },
         });
       },
+      cancelNewNote() {
+        store._clearUnsavedNote();
+        router.navigate(['/notes'], {
+          queryParams: { note: undefined },
+          queryParamsHandling: 'merge',
+        });
+      },
     }),
   ),
   withHooks(

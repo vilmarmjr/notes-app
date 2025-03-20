@@ -44,14 +44,17 @@ import { IconComponent } from '@web/shared/ui';
           </button>
         }
         <button
-          class="text-preset-5 flex items-center gap-1 hover:underline"
+          class="text-preset-5 flex items-center gap-1 enabled:hover:underline disabled:cursor-not-allowed disabled:opacity-50"
           type="button"
+          [disabled]="disableCancel()"
+          (click)="cancelChanges.emit()"
         >
           Cancel
         </button>
         <button
-          class="text-preset-5 flex items-center gap-1 text-blue-500 hover:underline"
+          class="text-preset-5 flex items-center gap-1 text-blue-500 enabled:hover:underline disabled:cursor-not-allowed disabled:opacity-50"
           type="submit"
+          [disabled]="disableSave()"
         >
           Save note
         </button>
@@ -64,8 +67,11 @@ export class NoteTopActionsComponent {
   public showArchive = input(false);
   public showRestore = input(false);
   public showDelete = input(false);
+  public disableCancel = input(false);
+  public disableSave = input(false);
   public archiveNote = output();
   public restoreNote = output();
   public deleteNote = output();
+  public cancelChanges = output();
   protected location = inject(Location);
 }

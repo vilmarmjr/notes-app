@@ -8,7 +8,7 @@ import {
   OnInit,
   untracked,
 } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   BreakpointService,
@@ -16,7 +16,7 @@ import {
   DividerComponent,
   EditableTextDirective,
 } from '@web/shared/ui';
-import { debounceTime, filter, mergeMap } from 'rxjs';
+import { debounceTime, filter, map, mergeMap, startWith, switchMap } from 'rxjs';
 import { NotesStore } from '../../store/notes.store';
 import { ArchiveNoteDialogComponent } from '../../ui/archive-note-dialog/archive-note-dialog.component';
 import { DeleteNoteDialogComponent } from '../../ui/delete-note-dialog/delete-note-dialog.component';
@@ -59,9 +59,12 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
             [showArchive]="!!note && !note.archived"
             [showRestore]="!!note && note.archived"
             [showDelete]="!!note"
+            [disableSave]="disableSave()"
+            [disableCancel]="disableCancel()"
             (archiveNote)="store.setArchiveDialogOpened(true)"
             (restoreNote)="store.setRestoreDialogOpened(true)"
             (deleteNote)="store.setDeleteDialogOpened(true)"
+            (cancelChanges)="cancelChanges()"
           />
           <nt-divider />
         }
@@ -87,8 +90,9 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
         @if (lg() && !store.isLoadingSelectedNote() && noteId) {
           <nt-divider />
           <nt-note-bottom-actions
-            [disableSave]="store.isSavingChanges()"
-            [disableCancel]="store.isSavingChanges()"
+            [disableSave]="disableSave()"
+            [disableCancel]="disableCancel()"
+            (cancelChanges)="cancelChanges()"
           />
         }
       </form>
@@ -142,6 +146,7 @@ export class NoteEditorComponent implements OnInit {
   private fb = inject(FormBuilder);
   private destroyRef = inject(DestroyRef);
   protected store = inject(NotesStore);
+
   protected lg = this.breakpointService.lg;
   protected form = computed(() => {
     const isCreatingNewNote = this.store.isCreatingNewNote();
@@ -156,6 +161,35 @@ export class NoteEditorComponent implements OnInit {
     });
   });
   private form$ = toObservable(this.form);
+  private hasFormChanges = toSignal(
+    this.form$.pipe(
+      switchMap(form =>
+        form.valueChanges.pipe(
+          debounceTime(500),
+          startWith(form.value),
+          map(() => this.hasChangedFormValues()),
+        ),
+      ),
+    ),
+    { initialValue: false },
+  );
+  private isFormInvalid = toSignal(
+    this.form$.pipe(
+      switchMap(form =>
+        form.statusChanges.pipe(debounceTime(500), startWith(form.status)),
+      ),
+      map(status => status === 'INVALID'),
+    ),
+    { initialValue: true },
+  );
+  protected disableSave = computed(
+    () => this.isFormInvalid() || this.store.isSavingChanges(),
+  );
+  protected disableCancel = computed(
+    () =>
+      this.store.isSavingChanges() ||
+      (!this.store.isCreatingNewNote() && !this.hasFormChanges()),
+  );
 
   ngOnInit() {
     this.form$
@@ -187,5 +221,34 @@ export class NoteEditorComponent implements OnInit {
     } else {
       this.store.updateNote({ ...dto, id: this.store.noteId() });
     }
+  }
+
+  protected cancelChanges() {
+    if (this.store.isCreatingNewNote()) {
+      return this.store.cancelNewNote();
+    }
+
+    const selectedNote = this.store.selectedNote();
+
+    if (!selectedNote) return;
+
+    this.form().patchValue({
+      title: selectedNote.title,
+      content: selectedNote.content,
+      tags: fromTagsArray(selectedNote.tags),
+    });
+  }
+
+  private hasChangedFormValues() {
+    const selectedNote = this.store.selectedNote();
+
+    if (!selectedNote) return false;
+
+    const { title, content, tags } = this.form().value;
+    return (
+      title !== selectedNote.title ||
+      content !== selectedNote.content ||
+      fromTagsArray(selectedNote.tags) !== tags
+    );
   }
 }

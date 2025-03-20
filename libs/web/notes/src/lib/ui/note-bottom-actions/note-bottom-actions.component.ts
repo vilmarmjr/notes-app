@@ -10,7 +10,7 @@ import { ButtonDirective } from '@web/shared/ui';
       <button ntButton type="submit" [disabled]="disableSave()">Save note</button>
       <button
         ntButton
-        variant="secondary"
+        variant="border"
         type="button"
         [disabled]="disableCancel()"
         (click)="cancelChanges.emit()"

@@ -9,3 +9,18 @@
 .dark {
   color-scheme: dark;
 }
+
+@layer utilities {
+  .scrollable {
+    scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+  }
+
+  .scrollable:hover {
+    scrollbar-color: #cacfd8 transparent;
+  }
+
+  .dark .scrollable:hover {
+    scrollbar-color: #2b303b transparent;
+  }
+}

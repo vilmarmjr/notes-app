@@ -36,7 +36,7 @@ import { NoteEditorComponent } from '../note-editor/note-editor.component';
       <nt-divider />
       <div class="flex min-h-0 flex-1">
         <div
-          class="flex w-72 flex-col gap-4 overflow-y-auto px-4 py-5"
+          class="scrollable flex w-72 flex-col gap-4 overflow-y-auto px-4 py-5"
           (ntScrollEnd)="store.loadNextPage()"
         >
           <button

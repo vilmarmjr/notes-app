@@ -11,7 +11,7 @@ import { LogoComponent } from '../logo/logo.component';
   selector: 'nt-sidebar',
   imports: [CommonModule, LogoComponent, DividerComponent, NavModule, TagsListComponent],
   template: `
-    <aside class="flex h-full w-64 flex-col overflow-y-auto px-4 py-5">
+    <aside class="scrollable flex h-full w-64 flex-col overflow-y-auto px-4 py-5">
       <nt-logo class="mb-5" />
       <nt-nav class="mb-2">
         <nt-nav-link

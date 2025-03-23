@@ -8,8 +8,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, TitleStrategy, withViewTransitions } from '@angular/router';
 import {
   apiInterceptor,
+  CustomTitleStrategy,
   errorInterceptor,
-  NotesTitleStrategy,
   withCredentialsInterceptor,
 } from '@web/core';
 import { environment } from '../environments/environment';
@@ -35,7 +35,7 @@ export const appConfig: ApplicationConfig = {
     },
     {
       provide: TitleStrategy,
-      useClass: NotesTitleStrategy,
+      useClass: CustomTitleStrategy,
     },
   ],
 };

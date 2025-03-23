@@ -13,7 +13,7 @@ const notesTitles: Record<NotesFilter, string> = {
 const defaultTitle = 'Notes';
 
 @Injectable()
-export class NotesTitleStrategy extends TitleStrategy {
+export class CustomTitleStrategy extends TitleStrategy {
   private title = inject(Title);
 
   updateTitle(snapshot: RouterStateSnapshot): void {

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DesktopHeaderComponent } from '@web/core/layout';
+import { DesktopHeaderComponent } from '@web/core';
 import { IconComponent } from '@web/shared/ui';
 import { NotesFilter } from '../../types/notes-filter.type';
 import { NotesTitleComponent } from '../notes-title/notes-title.component';

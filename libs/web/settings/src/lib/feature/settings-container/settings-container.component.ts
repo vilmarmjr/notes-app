@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { DesktopHeaderComponent } from '@web/core/layout';
+import { DesktopHeaderComponent } from '@web/core';
 import { BreakpointService, DividerComponent } from '@web/shared/ui';
 import { SettingsStore } from '../../store/settings.store';
 import { SettingsNavComponent } from '../../ui/settings-nav/settings-nav.component';

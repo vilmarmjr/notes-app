@@ -22,27 +22,15 @@ export default [
             },
             {
               sourceTag: 'web:auth',
-              onlyDependOnLibsWithTags: [
-                '/^web:shared.*/',
-                '/^web:core.*/',
-                '/^common.*/',
-              ],
+              onlyDependOnLibsWithTags: ['/^web:shared.*/', 'web:core', '/^common.*/'],
             },
             {
               sourceTag: 'web:notes',
-              onlyDependOnLibsWithTags: [
-                '/^web:shared.*/',
-                '/^web:core.*/',
-                '/^common.*/',
-              ],
+              onlyDependOnLibsWithTags: ['/^web:shared.*/', 'web:core', '/^common.*/'],
             },
             {
               sourceTag: 'web:settings',
-              onlyDependOnLibsWithTags: [
-                '/^web:shared.*/',
-                '/^web:core.*/',
-                '/^common.*/',
-              ],
+              onlyDependOnLibsWithTags: ['/^web:shared.*/', 'web:core', '/^common.*/'],
             },
             {
               sourceTag: 'web:core',

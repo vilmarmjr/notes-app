@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { ShellService } from '@web/core/layout';
+import { ShellService } from '@web/core';
 import { BreakpointService } from '@web/shared/ui';
 import { map } from 'rxjs';
 import { NotesStore } from '../../store/notes.store';

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { LogoComponent } from '@web/core/layout';
+import { LogoComponent } from '@web/core';
 import { EmailFieldComponent } from '@web/shared/form';
 import { ButtonDirective } from '@web/shared/ui';
 import { AuthContainerComponent } from '../../ui/auth-container/auth-container.component';

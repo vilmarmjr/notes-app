@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { ShellComponent } from '@web/core/layout';
+import { ShellComponent } from '@web/core';
 
 export const appRoutes: Route[] = [
   {

@@ -36,7 +36,7 @@ import { InfoErrorComponent } from '../info-error/info-error.component';
         @if (showForgotLink()) {
           <a
             class="text-preset-6 text-neutral-600 underline hover:text-blue-500 dark:text-neutral-400"
-            routerLink="/forgot-password"
+            routerLink="/recover-password"
             tabindex="-1"
           >
             Forgot

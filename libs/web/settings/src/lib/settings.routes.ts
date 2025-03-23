@@ -17,6 +17,7 @@ export const settingsRoutes: Route[] = [
         path: 'all',
         loadComponent: () =>
           import('./feature/settings/settings.component').then(c => c.SettingsComponent),
+        title: 'Notes - Settings',
       },
       {
         path: 'color-theme',
@@ -24,6 +25,7 @@ export const settingsRoutes: Route[] = [
           import('./feature/color-theme/color-theme.component').then(
             m => m.ColorThemeComponent,
           ),
+        title: 'Notes - Color theme',
       },
       {
         path: 'font-theme',
@@ -31,6 +33,7 @@ export const settingsRoutes: Route[] = [
           import('./feature/font-theme/font-theme.component').then(
             m => m.FontThemeComponent,
           ),
+        title: 'Notes - Font theme',
       },
       {
         path: 'change-password',
@@ -38,6 +41,7 @@ export const settingsRoutes: Route[] = [
           import('./feature/change-password/change-password.component').then(
             m => m.ChangePasswordComponent,
           ),
+        title: 'Notes - Change password',
       },
       {
         path: '**',

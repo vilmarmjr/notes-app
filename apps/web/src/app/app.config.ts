@@ -5,7 +5,7 @@ import {
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideRouter, withViewTransitions } from '@angular/router';
+import { provideRouter, TitleStrategy, withViewTransitions } from '@angular/router';
 import {
   apiInterceptor,
   errorInterceptor,
@@ -13,6 +13,7 @@ import {
 } from '@web/core/interceptors';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
+import { NotesTitleStrategy } from './title.strategy';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,6 +32,10 @@ export const appConfig: ApplicationConfig = {
       useValue: {
         dateFormat: 'd MMM y',
       } satisfies DatePipeConfig,
+    },
+    {
+      provide: TitleStrategy,
+      useClass: NotesTitleStrategy,
     },
   ],
 };

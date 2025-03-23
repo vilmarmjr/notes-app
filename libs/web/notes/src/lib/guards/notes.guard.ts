@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { notesFilters } from '../constants/notes-filters.constant';
-import { NotesFilter } from '../types/notes-filter.type';
+import { NotesFilter, notesFilters } from '@web/shared';
 
 export const notesGuard: CanActivateFn = route => {
   const router = inject(Router);

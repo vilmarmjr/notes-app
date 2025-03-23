@@ -6,10 +6,14 @@ import {
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, TitleStrategy, withViewTransitions } from '@angular/router';
-import { apiInterceptor, errorInterceptor, withCredentialsInterceptor } from '@web/core';
+import {
+  apiInterceptor,
+  errorInterceptor,
+  NotesTitleStrategy,
+  withCredentialsInterceptor,
+} from '@web/core';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
-import { NotesTitleStrategy } from './title.strategy';
 
 export const appConfig: ApplicationConfig = {
   providers: [

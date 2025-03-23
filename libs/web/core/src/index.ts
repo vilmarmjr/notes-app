@@ -10,3 +10,4 @@ export * from './lib/layout/mobile-header/mobile-header.component';
 export * from './lib/layout/shell/shell.component';
 export * from './lib/layout/shell/shell.service';
 export * from './lib/layout/sidebar/sidebar.component';
+export * from './lib/strategies/title.strategy';

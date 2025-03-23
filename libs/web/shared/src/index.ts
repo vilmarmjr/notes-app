@@ -1,3 +1,4 @@
+export * from './lib/constants/notes-filters.constant';
 export * from './lib/data-access/auth.service';
 export * from './lib/data-access/settings.service';
 export * from './lib/data-access/tags.service';
@@ -8,6 +9,7 @@ export * from './lib/form/ui/password-field/password-field.component';
 export * from './lib/form/validators/match-other.validator';
 export * from './lib/store/tags.store';
 export * from './lib/store/theme.store';
+export * from './lib/types/notes-filter.type';
 export * from './lib/ui/tags-list/tags-list.component';
 export * from './lib/utils/http';
 export * from './lib/utils/math';

@@ -16,6 +16,5 @@
 - [ ] Research about how TypeORM handles indexes and add them if needed
 - [ ] Optimize filtering note content (research a better alternative for ILIKE)
 - [ ] Add dialog animations
-- [ ] Move title strategy to core lib
 - [ ] Add rich text editor
 - [ ] Add StoryBook components page

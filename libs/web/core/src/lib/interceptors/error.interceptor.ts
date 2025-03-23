@@ -25,16 +25,16 @@ const errorMessages: Record<ApplicationError, string> = {
 const defaultErrorMessage = 'An unexpected error occurred. Please try again';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  const _toastService = inject(ToastService);
-  const _router = inject(Router);
+  const toastService = inject(ToastService);
+  const router = inject(Router);
   return next(req).pipe(
     catchError(err => {
       const error: ErrorResponse = err.error;
 
-      _toastService.error(errorMessages[error.message] || defaultErrorMessage);
+      toastService.error(errorMessages[error.message] || defaultErrorMessage);
 
       if (error.statusCode === HttpStatusCode.Unauthorized) {
-        _router.navigate(['/login']);
+        router.navigate(['/login']);
       }
 
       return throwError(() => error);

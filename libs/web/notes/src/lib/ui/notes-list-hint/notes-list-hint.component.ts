@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { NotesFilter } from '../../types/notes-filter.type';
+import { NotesFilter } from '@web/shared';
 
 @Component({
   selector: 'nt-notes-list-hint',

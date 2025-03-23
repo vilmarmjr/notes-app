@@ -61,34 +61,22 @@ export default [
             },
             {
               sourceTag: 'server:auth',
-              onlyDependOnLibsWithTags: [
-                '/^server:shared.*/',
-                '/^common.*/',
-                'server:users',
-              ],
+              onlyDependOnLibsWithTags: ['server:shared', 'server:users', '/^common.*/'],
             },
             {
               sourceTag: 'server:users',
-              onlyDependOnLibsWithTags: ['/^server:shared.*/', '/^common.*/'],
+              onlyDependOnLibsWithTags: ['server:shared', '/^common.*/'],
             },
             {
               sourceTag: 'server:notes',
-              onlyDependOnLibsWithTags: ['/^server:shared.*/', '/^common.*/'],
+              onlyDependOnLibsWithTags: ['server:shared', '/^common.*/'],
             },
             {
               sourceTag: 'server:settings',
-              onlyDependOnLibsWithTags: ['/^server:shared.*/', '/^common.*/'],
+              onlyDependOnLibsWithTags: ['server:shared', '/^common.*/'],
             },
             {
-              sourceTag: 'server:shared-http',
-              onlyDependOnLibsWithTags: ['server:shared-entities', '/^common.*/'],
-            },
-            {
-              sourceTag: 'server:shared-validation',
-              onlyDependOnLibsWithTags: ['/^common.*/', 'server:shared-http'],
-            },
-            {
-              sourceTag: 'server:shared-entities',
+              sourceTag: 'server:shared',
               onlyDependOnLibsWithTags: ['/^common.*/'],
             },
           ],

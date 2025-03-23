@@ -1,5 +1,5 @@
 import { ColorTheme, ColorThemes, FontTheme, FontThemes } from '@common/models';
-import { BaseEntity, User } from '@server/shared/entities';
+import { BaseEntity, User } from '@server/shared';
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
 @Entity('settings')

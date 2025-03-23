@@ -1,7 +1,7 @@
 import { PaginateNotesRequestParams, PaginateNotesResponseDto } from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { paginateResponse } from '@server/shared/http';
+import { paginateResponse } from '@server/shared';
 import { Brackets, Repository } from 'typeorm';
 import { Note } from '../entities/note.entity';
 

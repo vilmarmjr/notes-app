@@ -1,5 +1,5 @@
 import { Controller, Get, Req } from '@nestjs/common';
-import { ApplicationRequest } from '@server/shared/http';
+import { ApplicationRequest } from '@server/shared';
 import { GetTagsUseCase } from '../usecases/get-tags.usecase';
 
 @Controller('tags')

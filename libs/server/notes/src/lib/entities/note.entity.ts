@@ -1,4 +1,4 @@
-import { BaseEntity, User } from '@server/shared/entities';
+import { BaseEntity, User } from '@server/shared';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Tag } from './tag.entity';
 

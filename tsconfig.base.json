@@ -20,16 +20,14 @@
       "@server/auth": ["libs/server/auth/src/index.ts"],
       "@server/notes": ["libs/server/notes/src/index.ts"],
       "@server/settings": ["libs/server/settings/src/index.ts"],
-      "@server/shared/entities": ["libs/server/shared/entities/src/index.ts"],
-      "@server/shared/http": ["libs/server/shared/http/src/index.ts"],
-      "@server/shared/validation": ["libs/server/shared/validation/src/index.ts"],
+      "@server/shared": ["libs/server/shared/src/index.ts"],
       "@server/users": ["libs/server/users/src/index.ts"],
       "@web/auth": ["libs/web/auth/src/index.ts"],
       "@web/core": ["libs/web/core/src/index.ts"],
       "@web/notes": ["libs/web/notes/src/index.ts"],
       "@web/settings": ["libs/web/settings/src/index.ts"],
-      "@web/ui": ["libs/web/ui/src/index.ts"],
-      "@web/shared": ["libs/web/shared/src/index.ts"]
+      "@web/shared": ["libs/web/shared/src/index.ts"],
+      "@web/ui": ["libs/web/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

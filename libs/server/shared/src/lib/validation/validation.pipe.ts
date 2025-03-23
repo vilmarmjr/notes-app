@@ -1,7 +1,7 @@
 import { FieldsErrors } from '@common/models';
 import { HttpStatus, PipeTransform } from '@nestjs/common';
-import { ApplicationException } from '@server/shared/http';
 import { ZodSchema } from 'zod';
+import { ApplicationException } from '../http/application.exception';
 
 class ValidationPipe implements PipeTransform {
   constructor(private schema: ZodSchema) {}

@@ -1,7 +1,7 @@
 import { GetNoteResponseDto, NotesErrors } from '@common/models';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ApplicationException } from '@server/shared/http';
+import { ApplicationException } from '@server/shared';
 import { Repository } from 'typeorm';
 import { Note } from '../entities/note.entity';
 import { Tag } from '../entities/tag.entity';

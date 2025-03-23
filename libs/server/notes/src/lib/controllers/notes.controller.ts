@@ -29,8 +29,7 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
-import { ApplicationRequest } from '@server/shared/http';
-import { validateSchema } from '@server/shared/validation';
+import { ApplicationRequest, validateSchema } from '@server/shared';
 import { ArchiveNoteUseCase } from '../usecases/archive-note.usecase';
 import { CreateNoteUseCase } from '../usecases/create-note.usecase';
 import { DeleteNoteUseCase } from '../usecases/delete-note.usecase';

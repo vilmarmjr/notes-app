@@ -1,7 +1,7 @@
 import { AuthErrors } from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApplicationException } from '@server/shared/http';
+import { ApplicationException } from '@server/shared';
 
 @Injectable()
 export class LocalAuthGuard extends AuthGuard('local') {

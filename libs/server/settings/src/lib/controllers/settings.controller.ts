@@ -5,8 +5,7 @@ import {
   saveFontThemeSchema,
 } from '@common/models';
 import { Body, Controller, Get, HttpCode, HttpStatus, Put, Req } from '@nestjs/common';
-import { ApplicationRequest } from '@server/shared/http';
-import { validateSchema } from '@server/shared/validation';
+import { ApplicationRequest, validateSchema } from '@server/shared';
 import { GetSettingsUseCase } from '../usecases/get-settings.usecase';
 import { UpdateColorThemeUseCase } from '../usecases/update-color-theme.usecase';
 import { UpdateFontThemeUseCase } from '../usecases/update-font-theme.usecase';

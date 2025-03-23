@@ -10,14 +10,14 @@ import {
   untracked,
 } from '@angular/core';
 import { ColorTheme, ColorThemes } from '@common/models';
-import { ThemeStore, toUiColorTheme } from '@web/shared/theme';
+import { ThemeStore, toUiColorTheme } from '@web/shared';
 import {
   ButtonDirective,
   ColorThemeService,
   IconComponent,
   IconName,
   RadioModule,
-} from '@web/shared/ui';
+} from '@web/ui';
 import { SettingsHeaderComponent } from '../../ui/settings-header/settings-header.component';
 import { SettingsContainerComponent } from '../settings-container/settings-container.component';
 

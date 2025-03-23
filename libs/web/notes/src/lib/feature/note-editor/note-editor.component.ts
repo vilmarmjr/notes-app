@@ -15,7 +15,7 @@ import {
   DialogModule,
   DividerComponent,
   EditableTextDirective,
-} from '@web/shared/ui';
+} from '@web/ui';
 import { debounceTime, filter, map, mergeMap, startWith, switchMap } from 'rxjs';
 import { NotesStore } from '../../store/notes.store';
 import { ArchiveNoteDialogComponent } from '../../ui/archive-note-dialog/archive-note-dialog.component';

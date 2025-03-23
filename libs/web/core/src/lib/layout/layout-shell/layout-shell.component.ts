@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BreakpointService, DividerComponent } from '@web/shared/ui';
-import { ScrollEndDirective } from '@web/shared/utils';
+import { ScrollEndDirective } from '@web/shared';
+import { BreakpointService, DividerComponent } from '@web/ui';
 import { BottomNavComponent } from '../bottom-nav/bottom-nav.component';
 import { ContentComponent } from '../content/content.component';
 import { MobileHeaderComponent } from '../mobile-header/mobile-header.component';

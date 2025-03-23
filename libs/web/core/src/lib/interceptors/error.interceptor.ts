@@ -8,7 +8,7 @@ import {
   FieldsErrors,
   NotesErrors,
 } from '@common/models';
-import { ToastService } from '@web/shared/ui';
+import { ToastService } from '@web/ui';
 import { catchError, throwError } from 'rxjs';
 
 const errorMessages: Record<ApplicationError, string> = {

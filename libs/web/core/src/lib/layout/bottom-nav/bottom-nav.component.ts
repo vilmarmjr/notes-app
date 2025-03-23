@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Params, RouterLink, RouterLinkActive } from '@angular/router';
-import { DividerComponent, IconComponent, IconName } from '@web/shared/ui';
+import { DividerComponent, IconComponent, IconName } from '@web/ui';
 
 @Component({
   selector: 'nt-bottom-nav',

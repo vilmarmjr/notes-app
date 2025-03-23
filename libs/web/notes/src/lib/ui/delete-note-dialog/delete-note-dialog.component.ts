@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { ButtonDirective, DialogModule, IconComponent } from '@web/shared/ui';
+import { ButtonDirective, DialogModule, IconComponent } from '@web/ui';
 
 @Component({
   selector: 'nt-delete-note-dialog',

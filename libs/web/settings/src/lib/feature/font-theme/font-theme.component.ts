@@ -10,14 +10,14 @@ import {
   untracked,
 } from '@angular/core';
 import { FontTheme, FontThemes } from '@common/models';
-import { ThemeStore, toUiFontTheme } from '@web/shared/theme';
+import { ThemeStore, toUiFontTheme } from '@web/shared';
 import {
   ButtonDirective,
   FontThemeService,
   IconComponent,
   IconName,
   RadioModule,
-} from '@web/shared/ui';
+} from '@web/ui';
 import { SettingsHeaderComponent } from '../../ui/settings-header/settings-header.component';
 import { SettingsContainerComponent } from '../settings-container/settings-container.component';
 

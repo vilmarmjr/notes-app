@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { ButtonDirective, IconComponent } from '@web/shared/ui';
+import { ButtonDirective, IconComponent } from '@web/ui';
 
 @Component({
   selector: 'nt-note-aside-actions',

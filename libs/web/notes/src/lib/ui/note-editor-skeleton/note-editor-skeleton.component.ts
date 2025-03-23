@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SkeletonModule } from '@web/shared/ui';
+import { SkeletonModule } from '@web/ui';
 
 @Component({
   selector: 'nt-note-editor-skeleton',

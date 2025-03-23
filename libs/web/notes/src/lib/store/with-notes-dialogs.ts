@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { patchState, signalStoreFeature, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { ToastService } from '@web/shared/ui';
+import { ToastService } from '@web/ui';
 import { finalize, pipe, switchMap, tap } from 'rxjs';
 import { NotesService } from '../data-access/notes.service';
 import { ArchivedNoteToastComponent } from '../ui/archived-note-toast/archived-note-toast.component';

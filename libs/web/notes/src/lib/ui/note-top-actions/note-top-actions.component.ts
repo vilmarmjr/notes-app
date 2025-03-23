@@ -1,6 +1,6 @@
 import { CommonModule, Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
-import { IconComponent } from '@web/shared/ui';
+import { IconComponent } from '@web/ui';
 
 @Component({
   selector: 'nt-note-top-actions',

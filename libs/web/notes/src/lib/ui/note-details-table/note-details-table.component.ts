@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { EditableTextDirective, IconComponent } from '@web/shared/ui';
+import { EditableTextDirective, IconComponent } from '@web/ui';
 
 @Component({
   selector: 'nt-note-details-table',

@@ -6,6 +6,7 @@
     "serve:web": "nx serve web",
     "serve:server": "nx serve server",
     "serve:all": "nx run-many --parallel --target=serve --projects=web,server",
+    "lint:all": "nx run-many --target=lint",
     "prepare": "husky install"
   },
   "pnpm": {

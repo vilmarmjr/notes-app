@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Route } from '@angular/router';
-import { BreakpointService } from '@web/shared/ui';
+import { BreakpointService } from '@web/ui';
 import { SettingsStore } from './store/settings.store';
 
 export const settingsRoutes: Route[] = [

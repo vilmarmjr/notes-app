@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { QueryParamsHandling, RouterLink, RouterLinkActive } from '@angular/router';
 import { PaginateNotesResponseItemDto } from '@common/models';
-import { DividerComponent } from '@web/shared/ui';
+import { DividerComponent } from '@web/ui';
 import { NotesFilter } from '../../types/notes-filter.type';
 import { NotesEmptyComponent } from '../notes-empty/notes-empty.component';
 

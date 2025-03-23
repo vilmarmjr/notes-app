@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { TagsListComponent, TagsStore } from '@web/shared/tags';
-import { BreakpointService, DividerComponent } from '@web/shared/ui';
+import { TagsListComponent, TagsStore } from '@web/shared';
+import { BreakpointService, DividerComponent } from '@web/ui';
 import { CreateNoteButtonComponent } from '../../ui/create-note-button/create-note-button.component';
 import { NotesHeaderComponent } from '../../ui/notes-header/notes-header.component';
 

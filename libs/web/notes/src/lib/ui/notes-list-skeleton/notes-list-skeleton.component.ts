@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SkeletonModule } from '@web/shared/ui';
-import { generateRandomNumber } from '@web/shared/utils';
+import { generateRandomNumber } from '@web/shared';
+import { SkeletonModule } from '@web/ui';
 
 @Component({
   selector: 'nt-notes-list-skeleton',

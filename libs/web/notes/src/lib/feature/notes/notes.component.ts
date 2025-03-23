@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { ShellService } from '@web/core';
-import { BreakpointService } from '@web/shared/ui';
+import { BreakpointService } from '@web/ui';
 import { map } from 'rxjs';
 import { NotesStore } from '../../store/notes.store';
 import { NoteEditorComponent } from '../note-editor/note-editor.component';

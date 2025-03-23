@@ -22,43 +22,38 @@ export default [
             },
             {
               sourceTag: 'web:auth',
-              onlyDependOnLibsWithTags: ['/^web:shared.*/', 'web:core', '/^common.*/'],
+              onlyDependOnLibsWithTags: [
+                'web:shared',
+                'web:core',
+                'web:ui',
+                '/^common.*/',
+              ],
             },
             {
               sourceTag: 'web:notes',
-              onlyDependOnLibsWithTags: ['/^web:shared.*/', 'web:core', '/^common.*/'],
+              onlyDependOnLibsWithTags: [
+                'web:shared',
+                'web:core',
+                'web:ui',
+                '/^common.*/',
+              ],
             },
             {
               sourceTag: 'web:settings',
-              onlyDependOnLibsWithTags: ['/^web:shared.*/', 'web:core', '/^common.*/'],
+              onlyDependOnLibsWithTags: [
+                'web:shared',
+                'web:core',
+                'web:ui',
+                '/^common.*/',
+              ],
             },
             {
               sourceTag: 'web:core',
-              onlyDependOnLibsWithTags: ['/^web:shared.*/', '/^common.*/'],
+              onlyDependOnLibsWithTags: ['web:shared', 'web:ui', '/^common.*/'],
             },
             {
-              sourceTag: 'web:shared-ui',
-              onlyDependOnLibsWithTags: ['web:shared-utils'],
-            },
-            {
-              sourceTag: 'web:shared-form',
-              onlyDependOnLibsWithTags: ['web:shared-ui', 'web:shared-utils'],
-            },
-            {
-              sourceTag: 'web:shared-tags',
-              onlyDependOnLibsWithTags: ['web:shared-ui', 'common:models'],
-            },
-            {
-              sourceTag: 'web:shared-data-access',
-              onlyDependOnLibsWithTags: ['common:models'],
-            },
-            {
-              sourceTag: 'web:shared-theme',
-              onlyDependOnLibsWithTags: [
-                'web:shared-data-access',
-                'web:shared-ui',
-                'common:models',
-              ],
+              sourceTag: 'web:shared',
+              onlyDependOnLibsWithTags: ['web:ui', '/^common.*/'],
             },
             {
               sourceTag: 'server',

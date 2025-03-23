@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { TagsListComponent, TagsStore } from '@web/shared/tags';
-import { DividerComponent, NavModule } from '@web/shared/ui';
+import { TagsListComponent, TagsStore } from '@web/shared';
+import { DividerComponent, NavModule } from '@web/ui';
 import { map } from 'rxjs';
 import { LogoComponent } from '../logo/logo.component';
 

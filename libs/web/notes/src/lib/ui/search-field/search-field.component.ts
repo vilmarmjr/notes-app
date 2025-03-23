@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { FormFieldModule, IconComponent, InputDirective } from '@web/shared/ui';
+import { FormFieldModule, IconComponent, InputDirective } from '@web/ui';
 
 @Component({
   selector: 'nt-search-field',

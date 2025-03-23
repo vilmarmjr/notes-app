@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { IconComponent } from '@web/shared/ui';
+import { IconComponent } from '@web/ui';
 import { NotesStore } from '../../store/notes.store';
 import { CreateNoteButtonComponent } from '../../ui/create-note-button/create-note-button.component';
 import { NotesListHintComponent } from '../../ui/notes-list-hint/notes-list-hint.component';

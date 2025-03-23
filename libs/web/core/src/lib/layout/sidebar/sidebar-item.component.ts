@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { IconComponent, IconName } from '@web/shared/ui';
+import { IconComponent, IconName } from '@web/ui';
 
 @Component({
   selector: 'nt-sidebar-item',

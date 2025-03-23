@@ -10,9 +10,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '@web/core';
-import { AuthService } from '@web/shared/data-access';
-import { EmailFieldComponent, PasswordFieldComponent } from '@web/shared/form';
-import { ButtonDirective, DividerComponent, IconComponent } from '@web/shared/ui';
+import { AuthService, EmailFieldComponent, PasswordFieldComponent } from '@web/shared';
+import { ButtonDirective, DividerComponent, IconComponent } from '@web/ui';
 import { AuthContainerComponent } from '../../ui/auth-container/auth-container.component';
 
 @Component({

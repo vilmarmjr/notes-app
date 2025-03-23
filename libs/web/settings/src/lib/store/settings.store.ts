@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { ChangePasswordRequestDto } from '@common/models';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { AuthService } from '@web/shared/data-access';
-import { ToastService } from '@web/shared/ui';
+import { AuthService } from '@web/shared';
+import { ToastService } from '@web/ui';
 import { catchError, finalize, of, pipe, switchMap, tap } from 'rxjs';
 
 export type ChangePasswordParams = {

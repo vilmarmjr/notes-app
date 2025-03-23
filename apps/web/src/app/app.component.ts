@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivationEnd, ActivationStart, Router, RouterModule } from '@angular/router';
-import { ColorThemeService, FontThemeService, ProgressComponent } from '@web/shared/ui';
+import { ColorThemeService, FontThemeService, ProgressComponent } from '@web/ui';
 import { filter, map, merge } from 'rxjs';
 
 @Component({

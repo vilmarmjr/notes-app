@@ -14,8 +14,8 @@ import {
   withMethods,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { TagsStore } from '@web/shared/tags';
-import { BreakpointService } from '@web/shared/ui';
+import { TagsStore } from '@web/shared';
+import { BreakpointService } from '@web/ui';
 import { debounceTime, pipe, tap } from 'rxjs';
 import { getStatus } from '../utils/status.util';
 import { withNotePersistence } from './with-note-persistence';

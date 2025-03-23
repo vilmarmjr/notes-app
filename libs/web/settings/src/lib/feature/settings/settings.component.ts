@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { BreakpointService } from '@web/shared/ui';
+import { BreakpointService } from '@web/ui';
 import { SettingsStore } from '../../store/settings.store';
 import { SettingsHeaderComponent } from '../../ui/settings-header/settings-header.component';
 import { SettingsNavComponent } from '../../ui/settings-nav/settings-nav.component';

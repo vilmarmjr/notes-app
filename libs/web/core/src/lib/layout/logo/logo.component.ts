@@ -1,6 +1,6 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { ColorThemeService } from '@web/shared/ui';
+import { ColorThemeService } from '@web/ui';
 
 @Component({
   selector: 'nt-logo',

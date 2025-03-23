@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { DividerComponent, IconName, NavModule } from '@web/shared/ui';
+import { DividerComponent, IconName, NavModule } from '@web/ui';
 @Component({
   selector: 'nt-settings-nav',
   imports: [CommonModule, NavModule, DividerComponent],

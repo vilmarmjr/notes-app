@@ -14,7 +14,7 @@ import {
   withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { ToastService } from '@web/shared/ui';
+import { ToastService } from '@web/ui';
 import { finalize, pipe, switchMap, tap } from 'rxjs';
 import { z } from 'zod';
 import { NotesService } from '../data-access/notes.service';

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { IconComponent } from '@web/shared/ui';
+import { IconComponent } from '@web/ui';
 
 @Component({
   selector: 'nt-create-note-button',

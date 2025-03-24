@@ -8,7 +8,9 @@ const meta: Meta<IconComponent> = {
   component: IconComponent,
   title: 'Icon',
 };
+
 export default meta;
+
 type Story = StoryObj<IconComponent>;
 
 function buildStory(iconName: IconName): Story {

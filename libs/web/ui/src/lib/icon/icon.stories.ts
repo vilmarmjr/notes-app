@@ -38,7 +38,7 @@ function buildStory(iconName: IconName): Story {
     },
     render: args => ({
       props: args,
-      template: `<nt-icon [name]="name" [size]="size" />`,
+      template: `<nt-icon class="text-base-black dark:text-base-white" [name]="name" [size]="size" />`,
     }),
   };
 }

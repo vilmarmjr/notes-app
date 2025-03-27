@@ -14,11 +14,11 @@ import { combineLatest, filter, map, startWith, tap } from 'rxjs';
 import { ntMerge } from '../core/merge';
 import { generateInputId } from './generate-input-id';
 
-const inputVariants = cva('text-preset-5 w-full bg-transparent outline-none', {
+const inputVariants = cva('w-full bg-transparent text-preset-5 outline-none', {
   variants: {
     disabled: {
       false:
-        'dark:text-base-white text-neutral-950 placeholder-neutral-500 dark:placeholder-neutral-300',
+        'text-neutral-950 placeholder-neutral-500 dark:text-base-white dark:placeholder-neutral-300',
       true: 'text-neutral-300 placeholder-neutral-300 dark:text-neutral-500',
     },
   },

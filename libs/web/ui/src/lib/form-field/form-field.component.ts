@@ -28,7 +28,7 @@ const inputContainerVariants = cva(
       },
       error: {
         false:
-          'dark:focus-within:border-base-white border-neutral-300 focus-within:border-neutral-950 dark:border-neutral-600',
+          'border-neutral-300 focus-within:border-neutral-950 dark:border-neutral-600 dark:focus-within:border-base-white',
         true: 'border-red-500',
       },
     },
@@ -98,10 +98,13 @@ export class FormFieldComponent {
   constructor() {
     effect(() => {
       const hint = this.hint();
+      const prefix = this.prefix();
+      const suffix = this.suffix();
+      const isDisabled = this.input().disabled();
 
-      if (hint) {
-        hint.setDisabledState(this.input().disabled());
-      }
+      hint?.setDisabledState(isDisabled);
+      prefix?.setDisabledState(isDisabled);
+      suffix?.setDisabledState(isDisabled);
     });
   }
 }

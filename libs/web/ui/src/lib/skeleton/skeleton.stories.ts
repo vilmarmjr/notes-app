@@ -19,15 +19,15 @@ type Story = StoryObj<SkeletonComponent>;
 export const Default: Story = {
   render: () => ({
     template: `
-    <nt-skeleton class="flex flex-col gap-5">
-      <nt-skeleton-item class="mt-6 h-4 w-2/3 md:w-1/4" />
-      <nt-skeleton-item class="h-4 w-28" />
-      <nt-skeleton-item class="h-4 w-2/3 md:w-1/4" />
-      <nt-skeleton-item class="h-4 w-1/3" />
-      <nt-skeleton-item class="h-4 w-28" />
-      <nt-skeleton-item class="h-4 w-2/3 md:w-1/4" />
-      <nt-skeleton-item class="h-4 w-1/3" />
-    </nt-skeleton>
+      <nt-skeleton class="flex flex-col gap-5">
+        <nt-skeleton-item class="mt-6 h-4 w-2/3 md:w-1/4" />
+        <nt-skeleton-item class="h-4 w-28" />
+        <nt-skeleton-item class="h-4 w-2/3 md:w-1/4" />
+        <nt-skeleton-item class="h-4 w-1/3" />
+        <nt-skeleton-item class="h-4 w-28" />
+        <nt-skeleton-item class="h-4 w-2/3 md:w-1/4" />
+        <nt-skeleton-item class="h-4 w-1/3" />
+      </nt-skeleton>
     `,
   }),
 };

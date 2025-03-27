@@ -1,8 +1,15 @@
-import { computed, Directive, input } from '@angular/core';
+import { computed, Directive, input, signal } from '@angular/core';
 import { cva } from 'class-variance-authority';
 import { ntMerge } from '../core/merge';
 
-const suffixVariants = cva('text-neutral-500');
+const suffixVariants = cva('shrink-0', {
+  variants: {
+    disabled: {
+      true: 'text-neutral-300',
+      false: 'text-neutral-500 dark:text-neutral-400',
+    },
+  },
+});
 
 @Directive({
   selector: '[ntSuffix]',
@@ -12,5 +19,12 @@ const suffixVariants = cva('text-neutral-500');
 })
 export class SuffixDirective {
   public userClass = input<string>('', { alias: 'class' });
-  protected computedClass = computed(() => ntMerge(suffixVariants(), this.userClass()));
+  protected computedClass = computed(() =>
+    ntMerge(suffixVariants({ disabled: this.disabled() }), this.userClass()),
+  );
+  private disabled = signal(false);
+
+  setDisabledState(isDisabled: boolean) {
+    this.disabled.set(isDisabled);
+  }
 }

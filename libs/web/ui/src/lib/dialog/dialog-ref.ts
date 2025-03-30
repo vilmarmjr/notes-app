@@ -7,9 +7,9 @@ export class DialogRef<R = unknown> {
   constructor(private overlayRef: OverlayRef) {}
 
   public close(result?: R) {
-    this.overlayRef.dispose();
     this.afterClosedSubject.next(result);
     this.afterClosedSubject.complete();
+    this.overlayRef.dispose();
   }
 
   public afterClosed(): Observable<R | undefined> {

@@ -43,7 +43,7 @@ import { FormFieldModule } from './form-field.module';
     </div>
   `,
 })
-class StoryComponent implements AfterViewInit {
+class DemoComponent implements AfterViewInit {
   protected control = new FormControl<string | null>(null, [Validators.required]);
 
   ngAfterViewInit(): void {
@@ -52,7 +52,7 @@ class StoryComponent implements AfterViewInit {
 }
 
 const meta: Meta<FormFieldComponent> = {
-  component: StoryComponent,
+  component: DemoComponent,
   title: 'Form field',
 };
 

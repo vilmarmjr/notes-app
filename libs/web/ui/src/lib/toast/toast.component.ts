@@ -5,8 +5,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   ComponentRef,
+  DestroyRef,
   ElementRef,
   inject,
+  OnInit,
   viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -36,7 +38,7 @@ import { TOAST_CONFIG } from './toast.service';
       [class]="config.type === 'error' ? 'text-red-500' : 'text-green-500'"
       [name]="config.type === 'error' ? 'crossmark' : 'checkmark'"
     />
-    <span class="text-preset-6 dark:text-base-white w-full text-neutral-950">
+    <span class="w-full text-preset-6 text-neutral-950 dark:text-base-white">
       @if (isText) {
         {{ config.content }}
       }
@@ -51,14 +53,15 @@ import { TOAST_CONFIG } from './toast.service';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ToastComponent {
+export class ToastComponent implements OnInit {
   protected config = inject(TOAST_CONFIG);
   protected toastRef = inject(ToastRef);
   protected isText = typeof this.config.content === 'string';
   private elementRef = inject(ElementRef);
   private portalOutlet = viewChild.required(CdkPortalOutlet);
+  private destroyRef = inject(DestroyRef);
 
-  constructor() {
+  ngOnInit() {
     const mouseEnter$ = fromEvent(this.elementRef.nativeElement, 'mouseenter');
     const mouseLeave$ = fromEvent(this.elementRef.nativeElement, 'mouseleave');
     const extendedTimeout$ = timer(this.config.extendedTimeout).pipe(
@@ -70,7 +73,9 @@ export class ToastComponent {
       ),
       timer(this.config.timeout).pipe(takeUntil(mouseEnter$)),
     );
-    timeout$.pipe(takeUntilDestroyed()).subscribe(() => this.toastRef.close());
+    timeout$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.toastRef.close());
   }
 
   public attachComponentPortal<T>(componentPortal: ComponentPortal<T>): ComponentRef<T> {

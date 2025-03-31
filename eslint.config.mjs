@@ -21,6 +21,10 @@ export default [
               onlyDependOnLibsWithTags: ['/^web.*/', '/^common.*/'],
             },
             {
+              sourceTag: 'web-e2e',
+              onlyDependOnLibsWithTags: ['/^common.*/'],
+            },
+            {
               sourceTag: 'web:auth',
               onlyDependOnLibsWithTags: [
                 'web:shared',

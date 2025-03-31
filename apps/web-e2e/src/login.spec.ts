@@ -1,3 +1,4 @@
+import { AuthErrors } from '@common/models';
 import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
 
@@ -26,4 +27,21 @@ test('disables submit button when form is invalid', async ({ page }) => {
   await expect(button).toBeDisabled();
   await page.getByLabel('Email address').fill(faker.internet.email());
   await expect(button).toBeEnabled();
+});
+
+test('shows toast when trying to log in with invalid credentials', async ({ page }) => {
+  await page.route('*/**/api/login', async route => {
+    await route.fulfill({
+      json: {
+        statusCode: 422,
+        message: AuthErrors.INCORRECT_EMAIL_OR_PASSWORD,
+      },
+      status: 422,
+    });
+  });
+  await page.goto('/login');
+  await page.getByLabel('Email address').fill(faker.internet.email());
+  await page.getByLabel('Password').fill(faker.word.noun());
+  await page.getByTestId('login-button').click();
+  await expect(page.getByText('Incorrect email or password')).toBeVisible();
 });

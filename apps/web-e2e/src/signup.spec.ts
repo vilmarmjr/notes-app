@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
 
 test('shows page elements', async ({ page }) => {
@@ -17,4 +18,17 @@ test('shows page elements', async ({ page }) => {
   await expect(signupButton).toBeVisible();
   await expect(signupButton).toHaveText('Sign up');
   await expect(page.getByTestId('login-with-google-button')).toBeVisible();
+});
+
+test('disables submit button when form is invalid', async ({ page }) => {
+  await page.goto('/signup');
+  const button = page.getByTestId('signup-button');
+  await expect(button).toBeDisabled();
+  await page.getByLabel('Email address').fill(faker.word.noun());
+  await expect(button).toBeDisabled();
+  await page.getByLabel('Password').fill(faker.word.noun({ length: 7 }));
+  await expect(button).toBeDisabled();
+  await page.getByLabel('Email address').fill(faker.internet.email());
+  await page.getByLabel('Password').fill(faker.word.noun({ length: 8 }));
+  await expect(button).toBeEnabled();
 });

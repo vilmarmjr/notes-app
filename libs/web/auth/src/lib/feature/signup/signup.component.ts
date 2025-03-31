@@ -32,10 +32,10 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
   template: `
     <nt-auth-container>
       <nt-logo class="mb-4" />
-      <h1 class="text-preset-1 dark:text-base-white mb-2 text-neutral-950">
+      <h1 class="mb-2 text-preset-1 text-neutral-950 dark:text-base-white">
         Create your account
       </h1>
-      <p class="text-preset-5 mb-10 text-center">
+      <p class="mb-10 text-center text-preset-5">
         Sign up to start organizing your notes and boost your productivity.
       </p>
       <form
@@ -45,13 +45,23 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
       >
         <nt-email-field formControlName="email" />
         <nt-password-field [hint]="passwordHint" formControlName="password" />
-        <button ntButton type="submit" [disabled]="form.invalid || isSubmitting()">
+        <button
+          ntButton
+          type="submit"
+          data-testid="signup-button"
+          [disabled]="form.invalid || isSubmitting()"
+        >
           Sign up
         </button>
       </form>
       <nt-divider class="mb-6" />
-      <p class="text-preset-5 mb-4">Or log in with:</p>
-      <button ntButton variant="border" class="mb-4 w-full">
+      <p class="mb-4 text-preset-5">Or log in with:</p>
+      <button
+        ntButton
+        variant="border"
+        class="mb-4 w-full"
+        data-testid="login-with-google-button"
+      >
         <nt-icon name="google" />
         Google
       </button>
@@ -59,7 +69,8 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
       <p class="text-preset-5">
         Already have an account?
         <a
-          class="dark:text-base-white text-neutral-950 hover:text-blue-500"
+          class="text-neutral-950 hover:text-blue-500 dark:text-base-white"
+          data-testid="login-link"
           routerLink="/login"
         >
           Login

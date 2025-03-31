@@ -12,6 +12,7 @@ test('shows page elements', async ({ page }) => {
   const signupLink = page.getByTestId('signup-link');
   await expect(signupLink).toBeVisible();
   await expect(signupLink).toHaveAttribute('href', '/signup');
+  await expect(signupLink).toHaveText('Sign up');
   const forgotPasswordLink = page.getByTestId('forgot-password-link');
   await expect(forgotPasswordLink).toBeVisible();
   await expect(forgotPasswordLink).toHaveAttribute('href', '/recover-password');

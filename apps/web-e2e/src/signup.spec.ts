@@ -52,3 +52,46 @@ test('shows toast when trying to sign up with an email which is already taken', 
   await page.getByTestId('signup-button').click();
   await expect(page.getByText('Email is already taken')).toBeVisible();
 });
+
+test('signs up and navigates after success', async ({ page }) => {
+  await page.route('*/**/api/signup', async route => {
+    await route.fulfill({
+      json: {
+        id: faker.string.uuid(),
+        email: faker.internet.email(),
+      },
+      status: 200,
+    });
+  });
+  await page.route('*/**/api/notes?status=active&page=1', async route => {
+    await route.fulfill({
+      json: {
+        page: 1,
+        content: [],
+        total: 0,
+        last: true,
+      },
+      status: 200,
+    });
+  });
+  await page.route('*/**/api/tags', async route => {
+    await route.fulfill({
+      json: {
+        tags: [],
+      },
+      status: 200,
+    });
+  });
+  await page.route('*/**/api/settings', async route => {
+    await route.fulfill({
+      json: {},
+      status: 200,
+    });
+  });
+  await page.goto('/signup');
+  await page.getByLabel('Email address').fill(faker.internet.email());
+  await page.getByLabel('Password').fill(faker.word.noun({ length: 8 }));
+  await page.getByTestId('signup-button').click();
+  await page.waitForURL('/notes?filter=all');
+  expect(page.url()).toContain('/notes?filter=all');
+});

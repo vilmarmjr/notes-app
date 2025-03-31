@@ -25,6 +25,7 @@ import { InfoErrorComponent } from '../info-error/info-error.component';
         ntInput
         type="email"
         placeholder="email@example.com"
+        data-testid="email-input"
         [formControl]="control"
       />
       @if (control.errors) {

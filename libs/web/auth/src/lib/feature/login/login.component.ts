@@ -31,10 +31,10 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
   template: `
     <nt-auth-container>
       <nt-logo class="mb-4" />
-      <h1 class="text-preset-1 dark:text-base-white mb-2 text-neutral-950">
+      <h1 class="mb-2 text-preset-1 text-neutral-950 dark:text-base-white">
         Welcome to Notes
       </h1>
-      <p class="text-preset-5 mb-10 text-center">Please log in to continue</p>
+      <p class="mb-10 text-center text-preset-5">Please log in to continue</p>
       <form
         class="mb-4 flex w-full flex-col gap-2"
         [formGroup]="form"
@@ -42,13 +42,23 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
       >
         <nt-email-field formControlName="email" />
         <nt-password-field formControlName="password" [showForgotLink]="true" />
-        <button ntButton type="submit" [disabled]="form.invalid || isSubmitting()">
+        <button
+          ntButton
+          type="submit"
+          data-testid="login-button"
+          [disabled]="form.invalid || isSubmitting()"
+        >
           Log in
         </button>
       </form>
       <nt-divider class="mb-6" />
-      <p class="text-preset-5 mb-4">Or log in with:</p>
-      <button ntButton variant="border" class="mb-4 w-full">
+      <p class="mb-4 text-preset-5">Or log in with:</p>
+      <button
+        ntButton
+        variant="border"
+        class="mb-4 w-full"
+        data-testid="login-with-google-button"
+      >
         <nt-icon name="google" />
         Google
       </button>
@@ -56,8 +66,9 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
       <p class="text-preset-5">
         No account yet?
         <a
-          class="dark:text-base-white text-neutral-950 hover:text-blue-500"
+          class="text-neutral-950 hover:text-blue-500 dark:text-base-white"
           routerLink="/signup"
+          data-testid="signup-link"
         >
           Sign up
         </a>

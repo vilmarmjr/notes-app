@@ -38,6 +38,7 @@ import { InfoErrorComponent } from '../info-error/info-error.component';
             class="text-preset-6 text-neutral-600 underline hover:text-blue-500 dark:text-neutral-400"
             routerLink="/recover-password"
             tabindex="-1"
+            data-testid="forgot-password-link"
           >
             Forgot
           </a>
@@ -45,6 +46,7 @@ import { InfoErrorComponent } from '../info-error/info-error.component';
       </div>
       <input
         ntInput
+        data-testid="password-input"
         [type]="showPassword() ? 'text' : 'password'"
         [formControl]="control"
       />

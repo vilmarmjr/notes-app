@@ -1,3 +1,4 @@
+import { AuthErrors } from '@common/models';
 import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
 
@@ -31,4 +32,23 @@ test('disables submit button when form is invalid', async ({ page }) => {
   await page.getByLabel('Email address').fill(faker.internet.email());
   await page.getByLabel('Password').fill(faker.word.noun({ length: 8 }));
   await expect(button).toBeEnabled();
+});
+
+test('shows toast when trying to sign up with an email which is already taken', async ({
+  page,
+}) => {
+  await page.route('*/**/api/signup', async route => {
+    await route.fulfill({
+      json: {
+        statusCode: 422,
+        message: AuthErrors.EMAIL_IS_ALREADY_TAKEN,
+      },
+      status: 422,
+    });
+  });
+  await page.goto('/signup');
+  await page.getByLabel('Email address').fill(faker.internet.email());
+  await page.getByLabel('Password').fill(faker.word.noun({ length: 8 }));
+  await page.getByTestId('signup-button').click();
+  await expect(page.getByText('Email is already taken')).toBeVisible();
 });

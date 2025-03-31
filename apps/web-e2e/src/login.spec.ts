@@ -45,3 +45,46 @@ test('shows toast when trying to log in with invalid credentials', async ({ page
   await page.getByTestId('login-button').click();
   await expect(page.getByText('Incorrect email or password')).toBeVisible();
 });
+
+test('logs in and navigates after success', async ({ page }) => {
+  await page.route('*/**/api/login', async route => {
+    await route.fulfill({
+      json: {
+        id: faker.string.uuid(),
+        email: faker.internet.email(),
+      },
+      status: 200,
+    });
+  });
+  await page.route('*/**/api/notes?status=active&page=1', async route => {
+    await route.fulfill({
+      json: {
+        page: 1,
+        content: [],
+        total: 0,
+        last: true,
+      },
+      status: 200,
+    });
+  });
+  await page.route('*/**/api/tags', async route => {
+    await route.fulfill({
+      json: {
+        tags: [],
+      },
+      status: 200,
+    });
+  });
+  await page.route('*/**/api/settings', async route => {
+    await route.fulfill({
+      json: {},
+      status: 200,
+    });
+  });
+  await page.goto('/login');
+  await page.getByLabel('Email address').fill(faker.internet.email());
+  await page.getByLabel('Password').fill(faker.word.noun());
+  await page.getByTestId('login-button').click();
+  await page.waitForURL('/notes?filter=all');
+  expect(page.url()).toContain('/notes?filter=all');
+});

@@ -9,8 +9,12 @@ test('shows page elements', async ({ page }) => {
   await expect(page.getByText('Please log in to continue')).toBeVisible();
   await expect(page.getByTestId('email-input')).toBeVisible();
   await expect(page.getByTestId('password-input')).toBeVisible();
-  await expect(page.getByTestId('signup-link')).toBeVisible();
-  await expect(page.getByTestId('forgot-password-link')).toBeVisible();
+  const signupLink = page.getByTestId('signup-link');
+  await expect(signupLink).toBeVisible();
+  await expect(signupLink).toHaveAttribute('href', '/signup');
+  const forgotPasswordLink = page.getByTestId('forgot-password-link');
+  await expect(forgotPasswordLink).toBeVisible();
+  await expect(forgotPasswordLink).toHaveAttribute('href', '/recover-password');
   const logInButton = page.getByTestId('login-button');
   await expect(logInButton).toBeVisible();
   await expect(logInButton).toHaveText('Log in');

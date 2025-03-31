@@ -1,4 +1,11 @@
-import { AuthErrors } from '@common/models';
+import {
+  AuthErrors,
+  ErrorResponse,
+  GetTagsResponseDto,
+  LogInResponseDto,
+  PaginateNotesResponseDto,
+  SettingsResponseDto,
+} from '@common/models';
 import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
 
@@ -40,7 +47,7 @@ test('shows toast when trying to log in with invalid credentials', async ({ page
       json: {
         statusCode: 422,
         message: AuthErrors.INCORRECT_EMAIL_OR_PASSWORD,
-      },
+      } satisfies ErrorResponse,
       status: 422,
     });
   });
@@ -57,7 +64,7 @@ test('logs in and navigates after success', async ({ page }) => {
       json: {
         id: faker.string.uuid(),
         email: faker.internet.email(),
-      },
+      } satisfies LogInResponseDto,
       status: 200,
     });
   });
@@ -68,7 +75,7 @@ test('logs in and navigates after success', async ({ page }) => {
         content: [],
         total: 0,
         last: true,
-      },
+      } satisfies PaginateNotesResponseDto,
       status: 200,
     });
   });
@@ -76,13 +83,13 @@ test('logs in and navigates after success', async ({ page }) => {
     await route.fulfill({
       json: {
         tags: [],
-      },
+      } satisfies GetTagsResponseDto,
       status: 200,
     });
   });
   await page.route('*/**/api/settings', async route => {
     await route.fulfill({
-      json: {},
+      json: {} satisfies SettingsResponseDto,
       status: 200,
     });
   });

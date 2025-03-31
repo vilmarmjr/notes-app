@@ -1,4 +1,11 @@
-import { AuthErrors } from '@common/models';
+import {
+  AuthErrors,
+  ErrorResponse,
+  GetTagsResponseDto,
+  PaginateNotesResponseDto,
+  SettingsResponseDto,
+  SignUpResponseDto,
+} from '@common/models';
 import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
 
@@ -42,7 +49,7 @@ test('shows toast when trying to sign up with an email which is already taken', 
       json: {
         statusCode: 422,
         message: AuthErrors.EMAIL_IS_ALREADY_TAKEN,
-      },
+      } satisfies ErrorResponse,
       status: 422,
     });
   });
@@ -59,7 +66,7 @@ test('signs up and navigates after success', async ({ page }) => {
       json: {
         id: faker.string.uuid(),
         email: faker.internet.email(),
-      },
+      } satisfies SignUpResponseDto,
       status: 200,
     });
   });
@@ -70,7 +77,7 @@ test('signs up and navigates after success', async ({ page }) => {
         content: [],
         total: 0,
         last: true,
-      },
+      } satisfies PaginateNotesResponseDto,
       status: 200,
     });
   });
@@ -78,13 +85,13 @@ test('signs up and navigates after success', async ({ page }) => {
     await route.fulfill({
       json: {
         tags: [],
-      },
+      } satisfies GetTagsResponseDto,
       status: 200,
     });
   });
   await page.route('*/**/api/settings', async route => {
     await route.fulfill({
-      json: {},
+      json: {} satisfies SettingsResponseDto,
       status: 200,
     });
   });

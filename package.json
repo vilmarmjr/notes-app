@@ -9,7 +9,8 @@
     "lint:all": "nx run-many --target=lint",
     "storybook": "nx run web-ui:storybook",
     "prepare": "husky install",
-    "e2e:web": "nx e2e web-e2e"
+    "e2e:web": "nx e2e web-e2e",
+    "migration:run": "npx typeorm-ts-node-commonjs migration:run -d ./apps/server/src/database/datasource.ts"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

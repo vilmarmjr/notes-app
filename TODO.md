@@ -5,7 +5,6 @@
 - [ ] Add icon button component
 - [ ] Check HTML semantics
 - [ ] Add unit and e2e tests
-- [ ] Add database migrations (https://typeorm.io/migrations#creating-a-new-migration)
 - [ ] Add forgot password feature
 - [ ] Add login with google
 - [ ] Add button spinner

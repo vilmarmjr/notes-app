@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '@server/auth';
 import { NotesModule } from '@server/notes';
 import { SettingsModule } from '@server/settings';
+import { env } from '@server/shared';
 import { UsersModule } from '@server/users';
-import { env } from '../env';
 
 @Module({
   imports: [

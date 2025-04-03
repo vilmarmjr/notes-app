@@ -6,6 +6,7 @@ const envSchema = z.object({
   POSTGRES_USERNAME: z.string(),
   POSTGRES_PASSWORD: z.string(),
   POSTGRES_DB: z.string(),
+  JWT_SECRET: z.string(),
 });
 
 export const env = envSchema.parse(process.env);

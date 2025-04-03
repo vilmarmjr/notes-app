@@ -1,5 +1,5 @@
+import { env } from '@server/shared';
 import { DataSource } from 'typeorm';
-import { env } from '../env';
 
 export default new DataSource({
   type: 'postgres',

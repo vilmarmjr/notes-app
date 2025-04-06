@@ -1,5 +1,5 @@
 import { Environment } from './environment.type';
 
 export const environment: Environment = {
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl: 'https://notes-app-zj1g.onrender.com/api',
 };

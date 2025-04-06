@@ -10,8 +10,8 @@
     "storybook": "nx run web-ui:storybook",
     "prepare": "husky install",
     "e2e:web": "nx e2e web-e2e",
-    "migration:run": "npx typeorm-ts-node-commonjs migration:run -d ./apps/server/src/database/datasource.ts",
-    "build:server": "nx build server"
+    "build:server": "nx build server",
+    "migration:run": "ts-node --project apps/server/tsconfig.app.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./apps/server/src/database/datasource.ts"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -99,6 +99,7 @@
     "@typescript-eslint/utils": "^8.19.0",
     "angular-eslint": "^19.0.2",
     "autoprefixer": "^10.4.0",
+    "dotenv": "^16.4.7",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-playwright": "^1.6.2",
@@ -116,6 +117,7 @@
     "tailwindcss": "^3.0.2",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "tslib": "^2.3.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.19.0",

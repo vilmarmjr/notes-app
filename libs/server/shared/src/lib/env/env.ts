@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import 'dotenv/config';
+
 const envSchema = z.object({
   POSTGRES_HOST: z.string(),
   POSTGRES_PORT: z.coerce.number(),

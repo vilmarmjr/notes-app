@@ -8,7 +8,7 @@ process.env.TZ = 'UTC';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin: true,
+      origin: ['http://localhost:4200', 'https://notes-app-fem.vercel.app'],
       credentials: true,
     },
   });

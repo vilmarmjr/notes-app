@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ChangePasswordRequestDto } from '@common/models';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { SessionService } from '@web/core';
 import { AuthService } from '@web/shared';
 import { ToastService } from '@web/ui';
 import { catchError, finalize, of, pipe, switchMap, tap } from 'rxjs';
@@ -18,6 +19,7 @@ export const SettingsStore = signalStore(
     (
       store,
       authService = inject(AuthService),
+      sessionService = inject(SessionService),
       toastService = inject(ToastService),
       router = inject(Router),
     ) => ({
@@ -26,6 +28,7 @@ export const SettingsStore = signalStore(
           tap(() => patchState(store, { isLoggingOut: true })),
           switchMap(() =>
             authService.logOut().pipe(
+              tap(() => sessionService.clearAccessToken()),
               tap(() => router.navigate(['/login'])),
               catchError(() => of(undefined)),
               finalize(() => patchState(store, { isLoggingOut: false })),

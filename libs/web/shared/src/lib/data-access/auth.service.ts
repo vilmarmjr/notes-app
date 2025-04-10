@@ -4,6 +4,7 @@ import {
   ChangePasswordRequestDto,
   LogInRequestDto,
   LogInResponseDto,
+  RefreshTokenResponseDto,
   SignUpRequestDto,
   SignUpResponseDto,
 } from '@common/models';
@@ -13,18 +14,26 @@ export class AuthService {
   private http = inject(HttpClient);
 
   logIn(dto: LogInRequestDto) {
-    return this.http.post<LogInResponseDto>('login', dto);
+    return this.http.post<LogInResponseDto>('auth/login', dto, { withCredentials: true });
   }
 
   logOut() {
-    return this.http.post<void>('logout', null);
+    return this.http.post<void>('auth/logout', null, { withCredentials: true });
   }
 
   signUp(dto: SignUpRequestDto) {
-    return this.http.post<SignUpResponseDto>('signup', dto);
+    return this.http.post<SignUpResponseDto>('auth/signup', dto, {
+      withCredentials: true,
+    });
   }
 
   changePassword(dto: ChangePasswordRequestDto) {
-    return this.http.put<void>('change-password', dto);
+    return this.http.put<void>('auth/password', dto, { withCredentials: true });
+  }
+
+  refreshToken() {
+    return this.http.post<RefreshTokenResponseDto>('auth/refresh', null, {
+      withCredentials: true,
+    });
   }
 }

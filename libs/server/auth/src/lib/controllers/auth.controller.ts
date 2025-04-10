@@ -1,7 +1,9 @@
 import {
   ChangePasswordRequestDto,
+  ChangePasswordResponseDto,
   changePasswordSchema,
   LogInResponseDto,
+  RefreshTokenResponseDto,
   SignUpRequestDto,
   signUpRequestSchema,
   SignUpResponseDto,
@@ -21,9 +23,10 @@ import { ApplicationRequest, Public, validateSchema } from '@server/shared';
 import { Request, Response } from 'express';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { AuthService } from '../services/auth.service';
-import { clearTokenCookie, setTokenCookie } from '../utils/response.util';
+import { extractRefreshTokenFromCookies } from '../utils/request.util';
+import { clearRefreshTokenCookie, setRefreshTokenCookie } from '../utils/response.util';
 
-@Controller()
+@Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
@@ -35,9 +38,12 @@ export class AuthController {
     @Req() req: ApplicationRequest,
     @Res({ passthrough: true }) res: Response,
   ): Promise<LogInResponseDto> {
-    const token = await this.authService.signIn(req.user.id, req.user.email);
-    setTokenCookie(token, res);
-    return { id: req.user.id, email: req.user.email };
+    const { accessToken, refreshToken } = await this.authService.signIn(
+      req.user.id,
+      req.user.email,
+    );
+    setRefreshTokenCookie(refreshToken, res);
+    return { accessToken };
   }
 
   @Public()
@@ -46,24 +52,36 @@ export class AuthController {
     @Body(validateSchema(signUpRequestSchema)) dto: SignUpRequestDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<SignUpResponseDto> {
-    const { id, email, token } = await this.authService.signUp(dto);
-    setTokenCookie(token, res);
-    return { id, email };
+    const { accessToken, refreshToken } = await this.authService.signUp(dto);
+    setRefreshTokenCookie(refreshToken, res);
+    return { accessToken };
   }
 
-  @Put('change-password')
+  @Put('password')
   @HttpCode(HttpStatus.NO_CONTENT)
   async changePassword(
     @Body(validateSchema(changePasswordSchema)) dto: ChangePasswordRequestDto,
     @Req() req: ApplicationRequest,
     @Res({ passthrough: true }) res: Response,
-  ) {
-    const token = await this.authService.changePassword(req.user, dto);
-    setTokenCookie(token, res);
+  ): Promise<ChangePasswordResponseDto> {
+    const { accessToken, refreshToken } = await this.authService.changePassword(
+      req.user,
+      dto,
+    );
+    setRefreshTokenCookie(refreshToken, res);
+    return { accessToken };
   }
 
   @Post('logout')
   async logOut(@Res({ passthrough: true }) res: Response, @Req() req: Request) {
-    req.logout(() => clearTokenCookie(res));
+    req.logout(() => clearRefreshTokenCookie(res));
+  }
+
+  @Public()
+  @Post('refresh')
+  async refreshToken(@Req() req: ApplicationRequest): Promise<RefreshTokenResponseDto> {
+    const refreshToken = extractRefreshTokenFromCookies(req);
+    const accessToken = await this.authService.generateNewAccessToken(refreshToken);
+    return { accessToken };
   }
 }

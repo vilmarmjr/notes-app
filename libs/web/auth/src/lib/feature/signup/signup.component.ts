@@ -10,7 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { PASSWORD_MIN_LENGTH } from '@common/models';
-import { LogoComponent } from '@web/core';
+import { LogoComponent, SessionService } from '@web/core';
 import { AuthService, EmailFieldComponent, PasswordFieldComponent } from '@web/shared';
 import { ButtonDirective, DividerComponent, IconComponent } from '@web/ui';
 import { AuthContainerComponent } from '../../ui/auth-container/auth-container.component';
@@ -83,6 +83,7 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
 export class SignupComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private sessionService = inject(SessionService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
 
@@ -102,7 +103,10 @@ export class SignupComponent {
     this.authService
       .signUp({ email, password })
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => this.router.navigate(['/']))
+      .subscribe(({ accessToken }) => {
+        this.sessionService.setAccessToken(accessToken);
+        this.router.navigate(['/']);
+      })
       .add(() => this.isSubmitting.set(false));
   }
 }

@@ -44,7 +44,7 @@ test('disables submit button when form is invalid', async ({ page }) => {
 test('shows toast when trying to sign up with an email which is already taken', async ({
   page,
 }) => {
-  await page.route('*/**/api/signup', async route => {
+  await page.route('*/**/api/auth/signup', async route => {
     await route.fulfill({
       json: {
         statusCode: 422,
@@ -61,11 +61,10 @@ test('shows toast when trying to sign up with an email which is already taken', 
 });
 
 test('signs up and navigates after success', async ({ page }) => {
-  await page.route('*/**/api/signup', async route => {
+  await page.route('*/**/api/auth/signup', async route => {
     await route.fulfill({
       json: {
-        id: faker.string.uuid(),
-        email: faker.internet.email(),
+        accessToken: faker.string.uuid(),
       } satisfies SignUpResponseDto,
       status: 200,
     });

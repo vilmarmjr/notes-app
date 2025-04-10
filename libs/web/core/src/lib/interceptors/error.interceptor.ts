@@ -1,4 +1,4 @@
-import { HttpInterceptorFn, HttpStatusCode } from '@angular/common/http';
+import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -14,10 +14,12 @@ import { catchError, throwError } from 'rxjs';
 const errorMessages: Record<ApplicationError, string> = {
   [AuthErrors.EMAIL_IS_ALREADY_TAKEN]: 'Email is already taken',
   [AuthErrors.INCORRECT_EMAIL_OR_PASSWORD]: 'Incorrect email or password',
-  [AuthErrors.UNAUTHORIZED]: 'You are not authorized to perform this action',
+  [AuthErrors.UNAUTHORIZED]:
+    'You are not authorized to perform this action. Please log in to continue',
   [AuthErrors.INVALID_OLD_PASSWORD]: 'Invalid old password',
   [AuthErrors.OLD_AND_NEW_PASSWORD_MUST_BE_DIFFERENT]:
     'Old and new password must be different',
+  [AuthErrors.INVALID_OR_EXPIRED_ACCESS_TOKEN]: 'The session is expired',
   [FieldsErrors.INVALID_FIELDS]: 'Invalid fields',
   [NotesErrors.NOTE_NOT_FOUND]: 'Note not found',
 };
@@ -28,16 +30,21 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const toastService = inject(ToastService);
   const router = inject(Router);
   return next(req).pipe(
-    catchError(err => {
-      const error: ErrorResponse = err.error;
+    catchError(response => {
+      const error: ErrorResponse = response.error;
 
-      toastService.error(errorMessages[error.message] || defaultErrorMessage);
+      if (
+        error.message !== AuthErrors.INVALID_OR_EXPIRED_ACCESS_TOKEN &&
+        error.message !== AuthErrors.UNAUTHORIZED
+      ) {
+        toastService.error(errorMessages[error.message] || defaultErrorMessage);
+      }
 
-      if (error.statusCode === HttpStatusCode.Unauthorized) {
+      if (error.message === AuthErrors.UNAUTHORIZED) {
         router.navigate(['/login']);
       }
 
-      return throwError(() => error);
+      return throwError(() => response);
     }),
   );
 };

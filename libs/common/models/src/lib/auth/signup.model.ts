@@ -9,6 +9,5 @@ export const signUpRequestSchema = z.object({
 export type SignUpRequestDto = z.infer<typeof signUpRequestSchema>;
 
 export type SignUpResponseDto = {
-  id: string;
-  email: string;
+  accessToken: string;
 };

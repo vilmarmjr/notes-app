@@ -1,6 +1,6 @@
 export * from './lib/interceptors/api.interceptor';
 export * from './lib/interceptors/error.interceptor';
-export * from './lib/interceptors/with-credentials.interceptor';
+export * from './lib/interceptors/token.interceptor';
 export * from './lib/layout/bottom-nav/bottom-nav.component';
 export * from './lib/layout/content/content.component';
 export * from './lib/layout/desktop-header/desktop-header.component';
@@ -10,4 +10,5 @@ export * from './lib/layout/mobile-header/mobile-header.component';
 export * from './lib/layout/shell/shell.component';
 export * from './lib/layout/shell/shell.service';
 export * from './lib/layout/sidebar/sidebar.component';
+export * from './lib/services/session.service';
 export * from './lib/strategies/title.strategy';

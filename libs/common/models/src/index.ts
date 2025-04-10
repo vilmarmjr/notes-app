@@ -1,6 +1,7 @@
 export * from './lib/auth/auth.constants';
 export * from './lib/auth/change-password.model';
 export * from './lib/auth/login.model';
+export * from './lib/auth/refresh-token.model';
 export * from './lib/auth/signup.model';
 export * from './lib/error/error-response.model';
 export * from './lib/error/error.constants';

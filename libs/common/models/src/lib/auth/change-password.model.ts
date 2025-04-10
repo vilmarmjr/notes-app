@@ -7,3 +7,7 @@ export const changePasswordSchema = z.object({
 });
 
 export type ChangePasswordRequestDto = z.infer<typeof changePasswordSchema>;
+
+export type ChangePasswordResponseDto = {
+  accessToken: string;
+};

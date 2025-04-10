@@ -10,7 +10,7 @@ import {
   apiInterceptor,
   CustomTitleStrategy,
   errorInterceptor,
-  withCredentialsInterceptor,
+  tokenInterceptor,
 } from '@web/core';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
@@ -22,7 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([
         apiInterceptor(environment.apiUrl),
-        withCredentialsInterceptor,
+        tokenInterceptor,
         errorInterceptor,
       ]),
     ),

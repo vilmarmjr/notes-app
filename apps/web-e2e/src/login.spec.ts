@@ -42,7 +42,7 @@ test('disables submit button when form is invalid', async ({ page }) => {
 });
 
 test('shows toast when trying to log in with invalid credentials', async ({ page }) => {
-  await page.route('*/**/api/login', async route => {
+  await page.route('*/**/api/auth/login', async route => {
     await route.fulfill({
       json: {
         statusCode: 422,
@@ -59,11 +59,10 @@ test('shows toast when trying to log in with invalid credentials', async ({ page
 });
 
 test('logs in and navigates after success', async ({ page }) => {
-  await page.route('*/**/api/login', async route => {
+  await page.route('*/**/api/auth/login', async route => {
     await route.fulfill({
       json: {
-        id: faker.string.uuid(),
-        email: faker.internet.email(),
+        accessToken: faker.string.uuid(),
       } satisfies LogInResponseDto,
       status: 200,
     });

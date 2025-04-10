@@ -1,9 +1,13 @@
 import { AuthErrors, ChangePasswordRequestDto, SignUpRequestDto } from '@common/models';
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ApplicationException, User } from '@server/shared';
 import { UsersService } from '@server/users';
 import { compare, hash } from 'bcrypt';
+import {
+  ACCESS_TOKEN_EXPIRATION,
+  REFRESH_TOKEN_EXPIRATION,
+} from '../constants/token.constants';
 import { JwtPayload } from '../types/jwt-payload.type';
 
 const HASH_SALT = 10;
@@ -24,14 +28,16 @@ export class AuthService {
 
     const password = await hash(dto.password, HASH_SALT);
     const user = await this.usersService.save({ email: dto.email, password });
-    const token = await this.signIn(user.id, user.password);
-    return { id: user.id, email: user.email, token };
+    const { accessToken, refreshToken } = await this.signIn(user.id, user.password);
+    return { accessToken, refreshToken };
   }
 
   async signIn(id: string, email: string) {
     const payload: JwtPayload = { sub: id, email: email };
-    const token = await this.jwtService.signAsync(payload);
-    return token;
+    return Promise.all([
+      this.jwtService.signAsync(payload, { expiresIn: ACCESS_TOKEN_EXPIRATION }),
+      this.jwtService.signAsync(payload, { expiresIn: REFRESH_TOKEN_EXPIRATION }),
+    ]).then(([accessToken, refreshToken]) => ({ accessToken, refreshToken }));
   }
 
   async validateUser(email: string, password: string) {
@@ -62,5 +68,23 @@ export class AuthService {
     const password = await hash(newPassword, HASH_SALT);
     const { id, email } = await this.usersService.save({ id: user.id, password });
     return this.signIn(id, email);
+  }
+
+  async generateNewAccessToken(refreshToken: string | null) {
+    if (!refreshToken) {
+      throw new ApplicationException(AuthErrors.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
+    }
+
+    const decoded = this.jwtService.decode<JwtPayload>(refreshToken);
+
+    if (!decoded) {
+      throw new ApplicationException(AuthErrors.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
+    }
+
+    const payload: JwtPayload = { email: decoded.email, sub: decoded.sub };
+    const accessToken = await this.jwtService.signAsync(payload, {
+      expiresIn: ACCESS_TOKEN_EXPIRATION,
+    });
+    return accessToken;
   }
 }

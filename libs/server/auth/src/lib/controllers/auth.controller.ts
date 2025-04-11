@@ -20,7 +20,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApplicationRequest, Public, validateSchema } from '@server/shared';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { AuthService } from '../services/auth.service';
 import { extractRefreshTokenFromCookies } from '../utils/request.util';
@@ -73,13 +73,22 @@ export class AuthController {
   }
 
   @Post('logout')
-  async logOut(@Res({ passthrough: true }) res: Response, @Req() req: Request) {
+  async logOut(
+    @Res({ passthrough: true }) res: Response,
+    @Req() req: ApplicationRequest,
+  ) {
+    const refreshToken = extractRefreshTokenFromCookies(req);
+
+    if (refreshToken) {
+      await this.authService.deleteRefreshToken(req.user, refreshToken);
+    }
+
     req.logout(() => clearRefreshTokenCookie(res));
   }
 
   @Public()
   @Post('refresh')
-  async refreshToken(@Req() req: ApplicationRequest): Promise<RefreshTokenResponseDto> {
+  async refresh(@Req() req: ApplicationRequest): Promise<RefreshTokenResponseDto> {
     const refreshToken = extractRefreshTokenFromCookies(req);
     const accessToken = await this.authService.generateNewAccessToken(refreshToken);
     return { accessToken };

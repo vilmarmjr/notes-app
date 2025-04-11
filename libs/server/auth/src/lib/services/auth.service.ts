@@ -1,13 +1,16 @@
 import { AuthErrors, ChangePasswordRequestDto, SignUpRequestDto } from '@common/models';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { InjectRepository } from '@nestjs/typeorm';
 import { ApplicationException, User } from '@server/shared';
 import { UsersService } from '@server/users';
 import { compare, hash } from 'bcrypt';
+import { Repository } from 'typeorm';
 import {
   ACCESS_TOKEN_EXPIRATION,
   REFRESH_TOKEN_EXPIRATION,
 } from '../constants/token.constants';
+import { RefreshToken } from '../entities/refresh-token.entity';
 import { JwtPayload } from '../types/jwt-payload.type';
 
 const HASH_SALT = 10;
@@ -17,6 +20,8 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
+    @InjectRepository(RefreshToken)
+    private refreshTokenRepository: Repository<RefreshToken>,
   ) {}
 
   async signUp(dto: SignUpRequestDto) {
@@ -34,10 +39,12 @@ export class AuthService {
 
   async signIn(id: string, email: string) {
     const payload: JwtPayload = { sub: id, email: email };
-    return Promise.all([
+    const { accessToken, refreshToken } = await Promise.all([
       this.jwtService.signAsync(payload, { expiresIn: ACCESS_TOKEN_EXPIRATION }),
       this.jwtService.signAsync(payload, { expiresIn: REFRESH_TOKEN_EXPIRATION }),
     ]).then(([accessToken, refreshToken]) => ({ accessToken, refreshToken }));
+    await this.refreshTokenRepository.save({ token: refreshToken, user: { id } });
+    return { accessToken, refreshToken };
   }
 
   async validateUser(email: string, password: string) {
@@ -81,10 +88,29 @@ export class AuthService {
       throw new ApplicationException(AuthErrors.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
     }
 
+    const tokenExists = await this.refreshTokenRepository.existsBy({
+      token: refreshToken,
+      user: { id: decoded.sub },
+    });
+
+    if (!tokenExists) {
+      throw new ApplicationException(AuthErrors.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
+    }
+
     const payload: JwtPayload = { email: decoded.email, sub: decoded.sub };
     const accessToken = await this.jwtService.signAsync(payload, {
       expiresIn: ACCESS_TOKEN_EXPIRATION,
     });
     return accessToken;
+  }
+
+  async deleteRefreshToken(user: User, token: string) {
+    const refreshToken = await this.refreshTokenRepository.findOne({
+      where: { token, user: { id: user.id } },
+    });
+
+    if (refreshToken) {
+      await this.refreshTokenRepository.delete(refreshToken.id);
+    }
   }
 }

@@ -16,3 +16,4 @@
 - [ ] Optimize filtering note content (research a better alternative for ILIKE)
 - [ ] Add dialog animations
 - [ ] Add rich text editor
+- [ ] Remove refresh token from database on login, register and change password

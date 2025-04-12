@@ -77,7 +77,8 @@ export class AuthService {
     await this.refreshTokenRepository
       .createQueryBuilder()
       .delete()
-      .where('user_id = :id', { id: user.id });
+      .where('user_id = :id', { id: user.id })
+      .execute();
     return this.signIn(id, email);
   }
 

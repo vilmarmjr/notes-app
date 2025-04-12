@@ -21,6 +21,7 @@ import {
 } from '@nestjs/common';
 import { ApplicationRequest, Public, validateSchema } from '@server/shared';
 import { Response } from 'express';
+import { Transactional } from 'typeorm-transactional';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { AuthService } from '../services/auth.service';
 import { extractRefreshTokenFromCookies } from '../utils/request.util';
@@ -30,6 +31,7 @@ import { clearRefreshTokenCookie, setRefreshTokenCookie } from '../utils/respons
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @Transactional()
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
   @Public()
@@ -46,6 +48,7 @@ export class AuthController {
     return { accessToken };
   }
 
+  @Transactional()
   @Public()
   @Post('signup')
   async signUp(
@@ -57,6 +60,7 @@ export class AuthController {
     return { accessToken };
   }
 
+  @Transactional()
   @Put('password')
   @HttpCode(HttpStatus.NO_CONTENT)
   async changePassword(

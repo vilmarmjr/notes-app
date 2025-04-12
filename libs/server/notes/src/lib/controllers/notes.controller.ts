@@ -30,6 +30,7 @@ import {
   Req,
 } from '@nestjs/common';
 import { ApplicationRequest, validateSchema } from '@server/shared';
+import { Transactional } from 'typeorm-transactional';
 import { ArchiveNoteUseCase } from '../usecases/archive-note.usecase';
 import { CreateNoteUseCase } from '../usecases/create-note.usecase';
 import { DeleteNoteUseCase } from '../usecases/delete-note.usecase';
@@ -50,6 +51,7 @@ export class NotesController {
     private paginateNotesUseCase: PaginateNotesUseCase,
   ) {}
 
+  @Transactional()
   @Post()
   createNote(
     @Body(validateSchema(createNoteSchema)) dto: CreateNoteRequestDto,
@@ -58,6 +60,7 @@ export class NotesController {
     return this.createNoteUseCase.execute(req.user.id, dto);
   }
 
+  @Transactional()
   @Put()
   updateNote(
     @Body(validateSchema(updateNoteSchema)) dto: UpdateNoteRequestDto,

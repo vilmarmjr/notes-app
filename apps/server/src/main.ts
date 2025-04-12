@@ -1,11 +1,13 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
+import { initializeTransactionalContext } from 'typeorm-transactional';
 import { AppModule } from './app/app.module';
 
 process.env.TZ = 'UTC';
 
 async function bootstrap() {
+  initializeTransactionalContext();
   const app = await NestFactory.create(AppModule, {
     cors: {
       origin: ['http://localhost:4200', 'https://notes-app-fem.vercel.app'],

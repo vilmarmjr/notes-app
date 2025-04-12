@@ -74,6 +74,10 @@ export class AuthService {
 
     const password = await hash(newPassword, HASH_SALT);
     const { id, email } = await this.usersService.save({ id: user.id, password });
+    await this.refreshTokenRepository
+      .createQueryBuilder()
+      .delete()
+      .where('user_id = :id', { id: user.id });
     return this.signIn(id, email);
   }
 

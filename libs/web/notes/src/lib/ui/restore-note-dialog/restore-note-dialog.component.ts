@@ -15,7 +15,7 @@ import { ButtonDirective, DialogModule, IconComponent } from '@web/ui';
       </nt-dialog-icon>
       <div class="flex flex-col gap-1">
         <h2 ntDialogTitle>Restore note</h2>
-        <p ntDialogText>Are you sure you want to archive this note?</p>
+        <p ntDialogText>Are you sure you want to restore this note?</p>
       </div>
     </div>
     <nt-dialog-footer>

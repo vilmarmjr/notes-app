@@ -4,7 +4,6 @@ export * from './lib/interceptors/token.interceptor';
 export * from './lib/layout/bottom-nav/bottom-nav.component';
 export * from './lib/layout/content/content.component';
 export * from './lib/layout/desktop-header/desktop-header.component';
-export * from './lib/layout/layout-shell/layout-shell.component';
 export * from './lib/layout/logo/logo.component';
 export * from './lib/layout/mobile-header/mobile-header.component';
 export * from './lib/layout/shell/shell.component';

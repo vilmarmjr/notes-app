@@ -33,9 +33,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
       if (error.message === AuthErrors.INVALID_OR_EXPIRED_ACCESS_TOKEN && refreshToken$) {
         return refreshToken$.pipe(
           tap(token => sessionService.setAccessToken(token)),
-          switchMap(token =>
-            next(withToken(req, token)).pipe(catchError(err => throwError(() => err))),
-          ),
+          switchMap(token => next(withToken(req, token))),
         );
       }
 

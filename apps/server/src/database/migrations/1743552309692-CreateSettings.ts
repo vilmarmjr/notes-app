@@ -3,10 +3,22 @@ import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm
 export class CreateSettings1743552309692 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      "CREATE TYPE \"settings_font_theme_enum\" AS ENUM('SANS_SERIF', 'SERIF', 'MONOSPACE')",
+      `
+      DO $$ BEGIN
+        CREATE TYPE settings_font_theme_enum AS ENUM('SANS_SERIF', 'SERIF', 'MONOSPACE');
+      EXCEPTION
+        WHEN duplicate_object THEN null;
+      END $$;
+      `,
     );
     await queryRunner.query(
-      "CREATE TYPE \"settings_color_theme_enum\" AS ENUM('LIGHT', 'DARK', 'SYSTEM')",
+      `
+      DO $$ BEGIN
+        CREATE TYPE settings_color_theme_enum AS ENUM('LIGHT', 'DARK', 'SYSTEM');
+      EXCEPTION
+        WHEN duplicate_object THEN null;
+      END $$;
+      `,
     );
 
     await queryRunner.createTable(

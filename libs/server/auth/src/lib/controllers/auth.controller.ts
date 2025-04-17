@@ -11,6 +11,7 @@ import {
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -19,9 +20,10 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { ApplicationRequest, Public, validateSchema } from '@server/shared';
+import { ApplicationRequest, env, Public, validateSchema } from '@server/shared';
 import { Response } from 'express';
 import { Transactional } from 'typeorm-transactional';
+import { GoogleAuthGuard } from '../guards/google-auth.guard';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
@@ -100,5 +102,27 @@ export class AuthController {
     const refreshToken = extractRefreshTokenFromCookies(req);
     const accessToken = await this.tokenService.generateNewAccessToken(refreshToken);
     return { accessToken };
+  }
+
+  @Get('google')
+  @UseGuards(GoogleAuthGuard)
+  @Public()
+  async googleAuth() {
+    // This endpoint initiates the Google OAuth flow
+  }
+
+  @Transactional()
+  @Get('google/callback')
+  @UseGuards(GoogleAuthGuard)
+  @Public()
+  async googleAuthCallback(
+    @Req() req: ApplicationRequest,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<void> {
+    if (!req.user) return;
+
+    const { refreshToken } = await this.authService.signIn(req.user.id, req.user.email);
+    setRefreshTokenCookie(refreshToken, res);
+    res.redirect(env.FRONTEND_URL);
   }
 }

@@ -8,6 +8,7 @@ import {
   SignUpRequestDto,
   SignUpResponseDto,
 } from '@common/models';
+import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -15,6 +16,10 @@ export class AuthService {
 
   logIn(dto: LogInRequestDto) {
     return this.http.post<LogInResponseDto>('auth/login', dto, { withCredentials: true });
+  }
+
+  logInWithGoogle() {
+    window.location.href = `${environment.apiUrl}/auth/google`;
   }
 
   logOut() {

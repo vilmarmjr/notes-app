@@ -1,3 +1,3 @@
-import { notesFilters } from '../constants/notes-filters.constant';
+import { notesFilters } from '../constants/notes-filters.constants';
 
 export type NotesFilter = (typeof notesFilters)[number];

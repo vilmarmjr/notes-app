@@ -1,4 +1,5 @@
 import { Column, Entity } from 'typeorm';
+import { SignInMethod, SignInMethods } from '../models/sign-in-method.model';
 import { BaseEntity } from './base.entity';
 
 @Entity('users')
@@ -8,4 +9,11 @@ export class User extends BaseEntity {
 
   @Column({ length: 255 })
   password!: string;
+
+  @Column({
+    type: 'enum',
+    enum: SignInMethods,
+    name: 'sign_in_method',
+  })
+  signInMethod!: SignInMethod;
 }

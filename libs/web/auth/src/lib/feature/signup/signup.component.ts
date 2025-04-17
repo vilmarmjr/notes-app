@@ -61,6 +61,7 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
         variant="border"
         class="mb-4 w-full"
         data-testid="login-with-google-button"
+        (click)="logInWithGoogle()"
       >
         <nt-icon name="google" />
         Google
@@ -108,5 +109,9 @@ export class SignupComponent {
         this.router.navigate(['/']);
       })
       .add(() => this.isSubmitting.set(false));
+  }
+
+  protected logInWithGoogle() {
+    this.authService.logInWithGoogle();
   }
 }

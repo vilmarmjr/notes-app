@@ -4,14 +4,21 @@ import {
   Component,
   DestroyRef,
   inject,
+  OnInit,
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ApplicationError } from '@common/models';
 import { LogoComponent, SessionService } from '@web/core';
-import { AuthService, EmailFieldComponent, PasswordFieldComponent } from '@web/shared';
-import { ButtonDirective, DividerComponent, IconComponent } from '@web/ui';
+import {
+  AuthService,
+  EmailFieldComponent,
+  errorMessages,
+  PasswordFieldComponent,
+} from '@web/shared';
+import { ButtonDirective, DividerComponent, IconComponent, ToastService } from '@web/ui';
 import { AuthContainerComponent } from '../../ui/auth-container/auth-container.component';
 
 @Component({
@@ -58,6 +65,7 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
         variant="border"
         class="mb-4 w-full"
         data-testid="login-with-google-button"
+        (click)="logInWithGoogle()"
       >
         <nt-icon name="google" />
         Google
@@ -77,18 +85,24 @@ import { AuthContainerComponent } from '../../ui/auth-container/auth-container.c
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private sessionService = inject(SessionService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private toastService = inject(ToastService);
 
   protected isSubmitting = signal(false);
   protected form = this.fb.group({
     email: this.fb.nonNullable.control('', [Validators.email, Validators.required]),
     password: this.fb.nonNullable.control('', [Validators.required]),
   });
+
+  ngOnInit(): void {
+    this.handleError();
+  }
 
   protected logIn() {
     const { email, password } = this.form.getRawValue();
@@ -101,5 +115,22 @@ export class LoginComponent {
         this.router.navigate(['/']);
       })
       .add(() => this.isSubmitting.set(false));
+  }
+
+  protected logInWithGoogle() {
+    this.authService.logInWithGoogle();
+  }
+
+  private handleError() {
+    const error = this.route.snapshot.queryParams['error'];
+
+    if (!error) return;
+
+    const errorMessage = errorMessages[error as ApplicationError];
+
+    if (!errorMessage) return;
+
+    this.toastService.error(errorMessage);
+    this.router.navigate(['/login']);
   }
 }

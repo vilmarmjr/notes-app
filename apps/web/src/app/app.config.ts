@@ -12,7 +12,7 @@ import {
   errorInterceptor,
   tokenInterceptor,
 } from '@web/core';
-import { environment } from '../environments/environment';
+import { environment } from '@web/shared';
 import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {

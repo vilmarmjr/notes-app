@@ -5,4 +5,5 @@ export * from './lib/http/application-request.type';
 export * from './lib/http/application.exception';
 export * from './lib/http/paginate-response.util';
 export * from './lib/http/public.strategy';
+export * from './lib/models/sign-in-method.model';
 export * from './lib/validation/validation.pipe';

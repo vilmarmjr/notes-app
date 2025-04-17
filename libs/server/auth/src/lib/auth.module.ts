@@ -10,6 +10,7 @@ import { RefreshToken } from './entities/refresh-token.entity';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { AuthService } from './services/auth.service';
 import { TokenService } from './services/token.service';
+import { GoogleStrategy } from './strategies/google.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 
@@ -20,6 +21,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     TokenService,
     LocalStrategy,
     JwtStrategy,
+    GoogleStrategy,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,

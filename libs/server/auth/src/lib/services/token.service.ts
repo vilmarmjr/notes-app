@@ -68,7 +68,7 @@ export class TokenService {
       throw new ApplicationException(AuthErrors.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
     }
 
-    const decoded = this.jwtService.decode<JwtPayload>(refreshToken);
+    const decoded = this.jwtService.verify<JwtPayload>(refreshToken);
 
     if (!decoded) {
       throw new ApplicationException(AuthErrors.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
@@ -106,5 +106,9 @@ export class TokenService {
 
   deleteOneTimeToken(id: string) {
     return this.refreshTokenRepository.update(id, { oneTimeToken: null });
+  }
+
+  verifyToken(token: string) {
+    return this.jwtService.verifyAsync(token);
   }
 }

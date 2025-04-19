@@ -1,3 +1,4 @@
+import { env } from '@server/shared';
 import { CookieOptions, Response } from 'express';
 import {
   REFRESH_TOKEN_EXPIRATION_IN_DAYS,
@@ -8,6 +9,7 @@ const cookieOptions: CookieOptions = {
   httpOnly: true,
   secure: true,
   sameSite: 'none',
+  domain: env.REFRESH_TOKEN_COOKIE_DOMAIN,
 };
 
 export function setRefreshTokenCookie(token: string, response: Response) {

@@ -13,6 +13,7 @@ const envSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string(),
   GOOGLE_CALLBACK_URL: z.string(),
   FRONTEND_URL: z.string(),
+  REFRESH_TOKEN_COOKIE_DOMAIN: z.string(),
 });
 
 export const env = envSchema.parse(process.env);

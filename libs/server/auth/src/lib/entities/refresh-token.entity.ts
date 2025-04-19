@@ -3,8 +3,11 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity('refresh_tokens')
 export class RefreshToken extends BaseEntity {
-  @Column({ length: 512 })
+  @Column({ type: 'varchar', length: 512 })
   token!: string;
+
+  @Column({ type: 'varchar', length: 512, nullable: true, name: 'one_time_token' })
+  oneTimeToken!: string | null;
 
   @ManyToOne(() => User, { nullable: false })
   @JoinColumn({ name: 'user_id' })

@@ -10,7 +10,7 @@ export class Settings extends BaseEntity {
     name: 'font_theme',
     nullable: true,
   })
-  fontTheme!: FontTheme;
+  fontTheme!: FontTheme | null;
 
   @Column({
     type: 'enum',
@@ -18,7 +18,7 @@ export class Settings extends BaseEntity {
     name: 'color_theme',
     nullable: true,
   })
-  colorTheme!: ColorTheme;
+  colorTheme!: ColorTheme | null;
 
   @OneToOne(() => User, { nullable: false })
   @JoinColumn({ name: 'user_id' })

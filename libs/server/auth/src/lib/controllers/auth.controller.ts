@@ -1,4 +1,7 @@
 import {
+  AuthorizeRequestDto,
+  authorizeRequestSchema,
+  AuthorizeResponseDto,
   ChangePasswordRequestDto,
   ChangePasswordResponseDto,
   changePasswordSchema,
@@ -67,6 +70,20 @@ export class AuthController {
   }
 
   @Transactional()
+  @Public()
+  @Post('authorize')
+  async authorize(
+    @Body(validateSchema(authorizeRequestSchema)) dto: AuthorizeRequestDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<AuthorizeResponseDto> {
+    const { refreshToken, accessToken } = await this.authService.authorize(
+      dto.oneTimeToken,
+    );
+    setRefreshTokenCookie(refreshToken, res);
+    return { accessToken };
+  }
+
+  @Transactional()
   @Put('password')
   @HttpCode(HttpStatus.NO_CONTENT)
   async changePassword(
@@ -121,8 +138,11 @@ export class AuthController {
   ): Promise<void> {
     if (!req.user) return;
 
-    const { refreshToken } = await this.authService.signIn(req.user.id, req.user.email);
-    setRefreshTokenCookie(refreshToken, res);
-    res.redirect(env.FRONTEND_URL);
+    const { oneTimeToken } = await this.authService.signIn(
+      req.user.id,
+      req.user.email,
+      true,
+    );
+    res.redirect(`${env.FRONTEND_URL}/authorize?t=${oneTimeToken}`);
   }
 }

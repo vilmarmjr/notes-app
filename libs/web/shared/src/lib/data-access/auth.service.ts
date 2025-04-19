@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {
+  AuthorizeResponseDto,
   ChangePasswordRequestDto,
   LogInRequestDto,
   LogInResponseDto,
@@ -36,9 +37,17 @@ export class AuthService {
     return this.http.put<void>('auth/password', dto, { withCredentials: true });
   }
 
-  refreshToken() {
+  refresh() {
     return this.http.post<RefreshTokenResponseDto>('auth/refresh', null, {
       withCredentials: true,
     });
+  }
+
+  authorize(oneTimeToken: string) {
+    return this.http.post<AuthorizeResponseDto>(
+      'auth/authorize',
+      { oneTimeToken },
+      { withCredentials: true },
+    );
   }
 }

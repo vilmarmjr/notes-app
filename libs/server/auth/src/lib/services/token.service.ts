@@ -6,6 +6,7 @@ import { ApplicationException, User } from '@server/shared';
 import { Repository } from 'typeorm';
 import {
   ACCESS_TOKEN_EXPIRATION,
+  ONE_TIME_TOKEN_EXPIRATION,
   REFRESH_TOKEN_EXPIRATION,
 } from '../constants/token.constants';
 import { RefreshToken } from '../entities/refresh-token.entity';
@@ -39,17 +40,26 @@ export class TokenService {
     return { accessToken, refreshToken };
   }
 
-  generateTokens(payload: JwtPayload) {
-    return Promise.all([
-      this.jwtService.signAsync(payload, { expiresIn: ACCESS_TOKEN_EXPIRATION }),
-      this.jwtService.signAsync(payload, { expiresIn: REFRESH_TOKEN_EXPIRATION }),
-    ]).then(([accessToken, refreshToken]) => ({ accessToken, refreshToken }));
+  generateAccessToken(payload: JwtPayload) {
+    return this.jwtService.signAsync(payload, { expiresIn: ACCESS_TOKEN_EXPIRATION });
   }
 
-  saveRefreshToken(userId: string, refreshToken: string) {
+  generateRefreshToken(payload: JwtPayload) {
+    return this.jwtService.signAsync(payload, { expiresIn: REFRESH_TOKEN_EXPIRATION });
+  }
+
+  generateOneTimeToken(userId: string) {
+    return this.jwtService.signAsync(
+      { sub: userId },
+      { expiresIn: ONE_TIME_TOKEN_EXPIRATION },
+    );
+  }
+
+  saveRefreshToken(userId: string, refreshToken: string, oneTimeToken?: string) {
     return this.refreshTokenRepository.save({
       token: refreshToken,
       user: { id: userId },
+      oneTimeToken,
     });
   }
 
@@ -88,5 +98,13 @@ export class TokenService {
     if (refreshToken) {
       await this.refreshTokenRepository.delete(refreshToken.id);
     }
+  }
+
+  findByOneTimeToken(token: string) {
+    return this.refreshTokenRepository.findOne({ where: { oneTimeToken: token } });
+  }
+
+  deleteOneTimeToken(id: string) {
+    return this.refreshTokenRepository.update(id, { oneTimeToken: null });
   }
 }

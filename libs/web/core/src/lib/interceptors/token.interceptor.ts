@@ -19,7 +19,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (!refreshToken$) {
     refreshToken$ = inject(AuthService)
-      .refreshToken()
+      .refresh()
       .pipe(
         map(({ accessToken }) => accessToken),
         share(),

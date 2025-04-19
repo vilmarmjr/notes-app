@@ -1,4 +1,5 @@
 export * from './lib/auth/auth.constants';
+export * from './lib/auth/authorize.model';
 export * from './lib/auth/change-password.model';
 export * from './lib/auth/login.model';
 export * from './lib/auth/refresh-token.model';

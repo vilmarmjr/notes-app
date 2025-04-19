@@ -32,11 +32,17 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
-  async signIn(userId: string, email: string) {
+  async signIn(userId: string, email: string, withOneTimeToken = false) {
     const payload: JwtPayload = { sub: userId, email: email };
-    const { accessToken, refreshToken } = await this.tokenService.generateTokens(payload);
-    await this.tokenService.saveRefreshToken(userId, refreshToken);
-    return { accessToken, refreshToken };
+    const [accessToken, refreshToken] = await Promise.all([
+      this.tokenService.generateAccessToken(payload),
+      this.tokenService.generateRefreshToken(payload),
+    ]);
+    const oneTimeToken = withOneTimeToken
+      ? await this.tokenService.generateOneTimeToken(userId)
+      : undefined;
+    await this.tokenService.saveRefreshToken(userId, refreshToken, oneTimeToken);
+    return { accessToken, refreshToken, oneTimeToken };
   }
 
   async validateUser(email: string, password: string) {
@@ -95,5 +101,18 @@ export class AuthService {
       password: hashedPassword,
       signInMethod,
     });
+  }
+
+  async authorize(oneTimeToken: string) {
+    const entity = await this.tokenService.findByOneTimeToken(oneTimeToken);
+
+    if (!entity) {
+      throw new ApplicationException(AuthErrors.UNAUTHORIZED);
+    }
+
+    await this.tokenService.deleteOneTimeToken(entity.id);
+    const accessToken = await this.tokenService.generateNewAccessToken(entity.token);
+
+    return { refreshToken: entity.token, accessToken };
   }
 }

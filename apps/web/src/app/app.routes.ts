@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { ShellComponent } from '@web/core';
+import { authorizeGuard } from './authorize.guard';
 
 export const appRoutes: Route[] = [
   {
@@ -21,6 +22,11 @@ export const appRoutes: Route[] = [
     path: 'reset-password',
     loadComponent: () => import('@web/auth').then(c => c.ResetPasswordComponent),
     title: 'Notes - Reset password',
+  },
+  {
+    path: 'authorize',
+    canActivate: [authorizeGuard],
+    children: [],
   },
   {
     path: '',

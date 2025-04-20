@@ -2,8 +2,8 @@ import { inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { signalStoreFeature, withProps } from '@ngrx/signals';
-import { NotesFilter } from '@web/shared';
 import { map } from 'rxjs';
+import { NotesFilter } from '../../types/notes-filter.type';
 
 export function withNotesUrlParams() {
   return signalStoreFeature(

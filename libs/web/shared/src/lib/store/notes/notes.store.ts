@@ -14,10 +14,10 @@ import {
   withMethods,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { TagsStore } from '@web/shared';
 import { BreakpointService } from '@web/ui';
 import { debounceTime, pipe, tap } from 'rxjs';
-import { getStatus } from '../utils/status.util';
+import { getStatus } from '../../utils/notes/status.util';
+import { TagsStore } from '../tags.store';
 import { withNotePersistence } from './with-note-persistence';
 import { withNotesDialogs } from './with-notes-dialogs';
 import { withNotesPagination } from './with-notes-pagination';

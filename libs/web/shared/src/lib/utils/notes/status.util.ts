@@ -1,5 +1,5 @@
 import { PaginateNotesRequestParams } from '@common/models';
-import { NotesFilter } from '@web/shared';
+import { NotesFilter } from '../../types/notes-filter.type';
 
 export function getStatus(filter: NotesFilter): PaginateNotesRequestParams['status'] {
   if (filter === 'archived') {

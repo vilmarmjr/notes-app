@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NotesStore } from '@web/shared';
 import { IconComponent } from '@web/ui';
-import { NotesStore } from '../../store/notes.store';
 import { CreateNoteButtonComponent } from '../../ui/create-note-button/create-note-button.component';
 import { NotesListHintComponent } from '../../ui/notes-list-hint/notes-list-hint.component';
 import { NotesListSkeletonComponent } from '../../ui/notes-list-skeleton/notes-list-skeleton.component';
@@ -27,7 +27,7 @@ import { SearchFieldComponent } from '../../ui/search-field/search-field.compone
     @if (store.filter() === 'tag') {
       <div class="mb-4 flex justify-start">
         <a
-          class="text-preset-5 dark:text-base-white flex items-center gap-1 text-neutral-600"
+          class="flex items-center gap-1 text-preset-5 text-neutral-600 dark:text-base-white"
           routerLink="/notes/tags"
         >
           <nt-icon name="arrowLeft" />
@@ -35,7 +35,7 @@ import { SearchFieldComponent } from '../../ui/search-field/search-field.compone
         </a>
       </div>
     }
-    <h1 class="text-preset-1 dark:text-base-white mb-4 block text-neutral-950">
+    <h1 class="mb-4 block text-preset-1 text-neutral-950 dark:text-base-white">
       <nt-notes-title [filter]="store.filter()" [tag]="store.tag()" />
     </h1>
     @if (store.filter() === 'search') {

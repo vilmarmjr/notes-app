@@ -17,7 +17,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { ToastService } from '@web/ui';
 import { finalize, pipe, switchMap, tap } from 'rxjs';
 import { z } from 'zod';
-import { NotesService } from '../data-access/notes.service';
+import { NotesService } from '../../data-access/notes.service';
 
 const unsavedNoteStorageKey = 'nt-unsaved-note';
 

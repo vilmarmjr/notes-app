@@ -3,9 +3,9 @@ import { patchState, signalStoreFeature, withMethods, withState } from '@ngrx/si
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { ToastService } from '@web/ui';
 import { finalize, pipe, switchMap, tap } from 'rxjs';
-import { NotesService } from '../data-access/notes.service';
-import { ArchivedNoteToastComponent } from '../ui/archived-note-toast/archived-note-toast.component';
-import { RestoredNoteToastComponent } from '../ui/restored-note-toast/restored-note-toast.component';
+import { NotesService } from '../../data-access/notes.service';
+import { ArchivedNoteToastComponent } from '../../ui/archived-note-toast/archived-note-toast.component';
+import { RestoredNoteToastComponent } from '../../ui/restored-note-toast/restored-note-toast.component';
 
 export function withNotesDialogs() {
   return signalStoreFeature(

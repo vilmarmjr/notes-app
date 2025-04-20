@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ScrollEndDirective } from '@web/shared';
+import { NotesStore, ScrollEndDirective } from '@web/shared';
 import { ButtonDirective, DividerComponent, IconComponent } from '@web/ui';
-import { NotesStore } from '../../store/notes.store';
 import { NotesHeaderComponent } from '../../ui/notes-header/notes-header.component';
 import { NotesListHintComponent } from '../../ui/notes-list-hint/notes-list-hint.component';
 import { NotesListSkeletonComponent } from '../../ui/notes-list-skeleton/notes-list-skeleton.component';

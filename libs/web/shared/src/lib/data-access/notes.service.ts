@@ -9,7 +9,7 @@ import {
   UpdateNoteRequestDto,
   UpdateNoteResponseDto,
 } from '@common/models';
-import { buildHttpParams } from '@web/shared';
+import { buildHttpParams } from '../utils/http';
 
 @Injectable({ providedIn: 'root' })
 export class NotesService {

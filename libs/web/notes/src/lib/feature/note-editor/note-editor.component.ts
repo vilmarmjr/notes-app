@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NotesStore } from '@web/shared';
 import {
   BreakpointService,
   DialogModule,
@@ -17,7 +18,6 @@ import {
   EditableTextDirective,
 } from '@web/ui';
 import { debounceTime, filter, map, mergeMap, startWith, switchMap } from 'rxjs';
-import { NotesStore } from '../../store/notes.store';
 import { ArchiveNoteDialogComponent } from '../../ui/archive-note-dialog/archive-note-dialog.component';
 import { DeleteNoteDialogComponent } from '../../ui/delete-note-dialog/delete-note-dialog.component';
 import { NoteAsideActionsComponent } from '../../ui/note-aside-actions/note-aside-actions.component';
@@ -84,7 +84,7 @@ import { fromTagsArray, toTagsArray } from '../../utils/tags.util';
           <textarea
             placeholder="Start typing your note here..."
             formControlName="content"
-            class="bg-base-white h-full w-full resize-none text-neutral-800 placeholder-neutral-400 outline-0 dark:bg-neutral-950 dark:text-neutral-100"
+            class="h-full w-full resize-none bg-base-white text-neutral-800 placeholder-neutral-400 outline-0 dark:bg-neutral-950 dark:text-neutral-100"
           ></textarea>
         }
         @if (lg() && !store.isLoadingSelectedNote() && noteId) {

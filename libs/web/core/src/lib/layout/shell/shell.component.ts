@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ScrollEndDirective, TagsStore, ThemeStore } from '@web/shared';
+import { NotesStore, ScrollEndDirective, TagsStore, ThemeStore } from '@web/shared';
 import { BreakpointService, DividerComponent } from '@web/ui';
 import { BottomNavComponent } from '../bottom-nav/bottom-nav.component';
 import { ContentComponent } from '../content/content.component';
@@ -23,7 +23,7 @@ import { ShellService } from './shell.service';
   ],
   template: `
     @if (lg()) {
-      <div class="bg-base-white flex h-full w-full dark:bg-neutral-950">
+      <div class="flex h-full w-full bg-base-white dark:bg-neutral-950">
         <nt-sidebar />
         <nt-divider direction="vertical" />
         <div class="h-full flex-1">
@@ -46,7 +46,7 @@ import { ShellService } from './shell.service';
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ThemeStore, TagsStore],
+  providers: [ThemeStore, TagsStore, NotesStore],
 })
 export class ShellComponent implements OnInit {
   private themeStore = inject(ThemeStore);

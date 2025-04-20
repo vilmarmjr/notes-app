@@ -4,7 +4,7 @@ import { tapResponse } from '@ngrx/operators';
 import { patchState, signalStoreFeature, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap, tap } from 'rxjs';
-import { NotesService } from '../data-access/notes.service';
+import { NotesService } from '../../data-access/notes.service';
 
 type NotesPaginationState = {
   isLoading: boolean;

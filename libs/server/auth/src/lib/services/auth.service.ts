@@ -106,7 +106,7 @@ export class AuthService {
   async authorize(oneTimeToken: string) {
     const entity = await this.sessionService.findByOneTimeToken(oneTimeToken);
 
-    if (!entity || !this.sessionService.verifyToken(entity.refreshToken)) {
+    if (!entity || !(await this.sessionService.verifyToken(entity.refreshToken))) {
       throw new ApplicationException(AuthErrors.UNAUTHORIZED);
     }
 

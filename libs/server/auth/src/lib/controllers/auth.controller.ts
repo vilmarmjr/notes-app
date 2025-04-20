@@ -29,7 +29,7 @@ import { Transactional } from 'typeorm-transactional';
 import { GoogleAuthGuard } from '../guards/google-auth.guard';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { AuthService } from '../services/auth.service';
-import { TokenService } from '../services/token.service';
+import { SessionService } from '../services/session.service';
 import { extractRefreshTokenFromCookies } from '../utils/request.util';
 import { clearRefreshTokenCookie, setRefreshTokenCookie } from '../utils/response.util';
 
@@ -37,7 +37,7 @@ import { clearRefreshTokenCookie, setRefreshTokenCookie } from '../utils/respons
 export class AuthController {
   constructor(
     private authService: AuthService,
-    private tokenService: TokenService,
+    private sessionService: SessionService,
   ) {}
 
   @Transactional()
@@ -107,7 +107,7 @@ export class AuthController {
     const refreshToken = extractRefreshTokenFromCookies(req);
 
     if (refreshToken) {
-      await this.tokenService.deleteRefreshToken(req.user, refreshToken);
+      await this.sessionService.deleteSession(req.user, refreshToken);
     }
 
     req.logout(() => clearRefreshTokenCookie(res));
@@ -117,7 +117,7 @@ export class AuthController {
   @Post('refresh')
   async refresh(@Req() req: ApplicationRequest): Promise<RefreshTokenResponseDto> {
     const refreshToken = extractRefreshTokenFromCookies(req);
-    const accessToken = await this.tokenService.generateNewAccessToken(refreshToken);
+    const accessToken = await this.sessionService.generateNewAccessToken(refreshToken);
     return { accessToken };
   }
 

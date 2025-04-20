@@ -9,19 +9,19 @@ import {
   ONE_TIME_TOKEN_EXPIRATION,
   REFRESH_TOKEN_EXPIRATION,
 } from '../constants/token.constants';
-import { RefreshToken } from '../entities/refresh-token.entity';
+import { Session } from '../entities/session.entity';
 import { JwtPayload } from '../types/jwt-payload.type';
 
 @Injectable()
-export class TokenService {
+export class SessionService {
   constructor(
     private jwtService: JwtService,
-    @InjectRepository(RefreshToken)
-    private refreshTokenRepository: Repository<RefreshToken>,
+    @InjectRepository(Session)
+    private sessionRepository: Repository<Session>,
   ) {}
 
-  deleteUserTokens(user: User) {
-    return this.refreshTokenRepository
+  deleteUserSessions(user: User) {
+    return this.sessionRepository
       .createQueryBuilder()
       .delete()
       .where('user_id = :id', { id: user.id })
@@ -30,11 +30,11 @@ export class TokenService {
 
   async signIn(payload: JwtPayload) {
     const { accessToken, refreshToken } = await Promise.all([
-      this.jwtService.signAsync(payload, { expiresIn: ACCESS_TOKEN_EXPIRATION }),
-      this.jwtService.signAsync(payload, { expiresIn: REFRESH_TOKEN_EXPIRATION }),
+      this.generateAccessToken(payload),
+      this.generateRefreshToken(payload),
     ]).then(([accessToken, refreshToken]) => ({ accessToken, refreshToken }));
-    await this.refreshTokenRepository.save({
-      token: refreshToken,
+    await this.sessionRepository.save({
+      refreshToken,
       user: { id: payload.sub },
     });
     return { accessToken, refreshToken };
@@ -55,11 +55,11 @@ export class TokenService {
     );
   }
 
-  saveRefreshToken(userId: string, refreshToken: string, oneTimeToken?: string) {
-    return this.refreshTokenRepository.save({
-      token: refreshToken,
-      user: { id: userId },
+  saveSession(userId: string, refreshToken: string, oneTimeToken?: string) {
+    return this.sessionRepository.save({
+      refreshToken,
       oneTimeToken,
+      user: { id: userId },
     });
   }
 
@@ -74,38 +74,36 @@ export class TokenService {
       throw new ApplicationException(AuthErrors.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
     }
 
-    const tokenExists = await this.refreshTokenRepository.existsBy({
-      token: refreshToken,
+    const sessionExists = await this.sessionRepository.existsBy({
+      refreshToken,
       user: { id: decoded.sub },
     });
 
-    if (!tokenExists) {
+    if (!sessionExists) {
       throw new ApplicationException(AuthErrors.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
     }
 
     const payload: JwtPayload = { email: decoded.email, sub: decoded.sub };
-    const accessToken = await this.jwtService.signAsync(payload, {
-      expiresIn: ACCESS_TOKEN_EXPIRATION,
-    });
+    const accessToken = await this.generateAccessToken(payload);
     return accessToken;
   }
 
-  async deleteRefreshToken(user: User, token: string) {
-    const refreshToken = await this.refreshTokenRepository.findOne({
-      where: { token, user: { id: user.id } },
+  async deleteSession(user: User, token: string) {
+    const session = await this.sessionRepository.findOne({
+      where: { refreshToken: token, user: { id: user.id } },
     });
 
-    if (refreshToken) {
-      await this.refreshTokenRepository.delete(refreshToken.id);
+    if (session) {
+      await this.sessionRepository.delete(session.id);
     }
   }
 
   findByOneTimeToken(token: string) {
-    return this.refreshTokenRepository.findOne({ where: { oneTimeToken: token } });
+    return this.sessionRepository.findOne({ where: { oneTimeToken: token } });
   }
 
   deleteOneTimeToken(id: string) {
-    return this.refreshTokenRepository.update(id, { oneTimeToken: null });
+    return this.sessionRepository.update(id, { oneTimeToken: null });
   }
 
   verifyToken(token: string) {

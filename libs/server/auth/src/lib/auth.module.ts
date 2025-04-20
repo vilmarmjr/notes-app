@@ -6,10 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { env } from '@server/shared';
 import { UsersModule } from '@server/users';
 import { AuthController } from './controllers/auth.controller';
-import { RefreshToken } from './entities/refresh-token.entity';
+import { Session } from './entities/session.entity';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { AuthService } from './services/auth.service';
-import { TokenService } from './services/token.service';
+import { SessionService } from './services/session.service';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
@@ -18,7 +18,7 @@ import { LocalStrategy } from './strategies/local.strategy';
   controllers: [AuthController],
   providers: [
     AuthService,
-    TokenService,
+    SessionService,
     LocalStrategy,
     JwtStrategy,
     GoogleStrategy,
@@ -34,7 +34,7 @@ import { LocalStrategy } from './strategies/local.strategy';
       global: true,
       secret: env.JWT_SECRET,
     }),
-    TypeOrmModule.forFeature([RefreshToken]),
+    TypeOrmModule.forFeature([Session]),
   ],
 })
 export class AuthModule {}

@@ -6,13 +6,13 @@ import { compare, hash } from 'bcrypt';
 import { HASH_SALT } from '../constants/hash.constants';
 import { JwtPayload } from '../types/jwt-payload.type';
 import { generateRandomPassword } from '../utils/password.util';
-import { TokenService } from './token.service';
+import { SessionService } from './session.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private tokenService: TokenService,
+    private sessionService: SessionService,
   ) {}
 
   async signUp(dto: SignUpRequestDto) {
@@ -35,13 +35,13 @@ export class AuthService {
   async signIn(userId: string, email: string, withOneTimeToken = false) {
     const payload: JwtPayload = { sub: userId, email: email };
     const [accessToken, refreshToken] = await Promise.all([
-      this.tokenService.generateAccessToken(payload),
-      this.tokenService.generateRefreshToken(payload),
+      this.sessionService.generateAccessToken(payload),
+      this.sessionService.generateRefreshToken(payload),
     ]);
     const oneTimeToken = withOneTimeToken
-      ? await this.tokenService.generateOneTimeToken(userId)
+      ? await this.sessionService.generateOneTimeToken(userId)
       : undefined;
-    await this.tokenService.saveRefreshToken(userId, refreshToken, oneTimeToken);
+    await this.sessionService.saveSession(userId, refreshToken, oneTimeToken);
     return { accessToken, refreshToken, oneTimeToken };
   }
 
@@ -76,7 +76,7 @@ export class AuthService {
 
     const password = await hash(newPassword, HASH_SALT);
     const { id, email } = await this.usersService.save({ id: user.id, password });
-    await this.tokenService.deleteUserTokens(user);
+    await this.sessionService.deleteUserSessions(user);
     return this.signIn(id, email);
   }
 
@@ -104,15 +104,17 @@ export class AuthService {
   }
 
   async authorize(oneTimeToken: string) {
-    const entity = await this.tokenService.findByOneTimeToken(oneTimeToken);
+    const entity = await this.sessionService.findByOneTimeToken(oneTimeToken);
 
-    if (!entity || !this.tokenService.verifyToken(entity.token)) {
+    if (!entity || !this.sessionService.verifyToken(entity.refreshToken)) {
       throw new ApplicationException(AuthErrors.UNAUTHORIZED);
     }
 
-    await this.tokenService.deleteOneTimeToken(entity.id);
-    const accessToken = await this.tokenService.generateNewAccessToken(entity.token);
+    await this.sessionService.deleteOneTimeToken(entity.id);
+    const accessToken = await this.sessionService.generateNewAccessToken(
+      entity.refreshToken,
+    );
 
-    return { refreshToken: entity.token, accessToken };
+    return { refreshToken: entity.refreshToken, accessToken };
   }
 }

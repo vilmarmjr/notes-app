@@ -1,16 +1,19 @@
-import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { IconComponent } from '@web/ui';
 
 @Component({
   selector: 'nt-note-top-actions',
-  imports: [CommonModule, IconComponent],
+  imports: [CommonModule, IconComponent, RouterLink],
   template: `
     <div class="flex justify-between gap-4 text-neutral-600 dark:text-neutral-300">
       <button
-        class="text-preset-5 flex items-center gap-1"
+        class="flex items-center gap-1 text-preset-5"
         type="button"
-        (click)="location.back()"
+        routerLink="/notes"
+        [queryParams]="{ note: null }"
+        queryParamsHandling="merge"
       >
         <nt-icon name="arrowLeft" />
         Go back
@@ -18,7 +21,7 @@ import { IconComponent } from '@web/ui';
       <div class="flex items-center gap-4">
         @if (showDelete()) {
           <button
-            class="text-preset-5 flex items-center justify-center"
+            class="flex items-center justify-center text-preset-5"
             type="button"
             (click)="deleteNote.emit()"
           >
@@ -27,7 +30,7 @@ import { IconComponent } from '@web/ui';
         }
         @if (showArchive()) {
           <button
-            class="text-preset-5 flex items-center justify-center"
+            class="flex items-center justify-center text-preset-5"
             type="button"
             (click)="archiveNote.emit()"
           >
@@ -36,7 +39,7 @@ import { IconComponent } from '@web/ui';
         }
         @if (showRestore()) {
           <button
-            class="text-preset-5 flex items-center justify-center"
+            class="flex items-center justify-center text-preset-5"
             type="button"
             (click)="restoreNote.emit()"
           >
@@ -44,7 +47,7 @@ import { IconComponent } from '@web/ui';
           </button>
         }
         <button
-          class="text-preset-5 flex items-center gap-1 enabled:hover:underline disabled:cursor-not-allowed disabled:opacity-50"
+          class="flex items-center gap-1 text-preset-5 enabled:hover:underline disabled:cursor-not-allowed disabled:opacity-50"
           type="button"
           [disabled]="disableCancel()"
           (click)="cancelChanges.emit()"
@@ -52,7 +55,7 @@ import { IconComponent } from '@web/ui';
           Cancel
         </button>
         <button
-          class="text-preset-5 flex items-center gap-1 text-blue-500 enabled:hover:underline disabled:cursor-not-allowed disabled:opacity-50"
+          class="flex items-center gap-1 text-preset-5 text-blue-500 enabled:hover:underline disabled:cursor-not-allowed disabled:opacity-50"
           type="submit"
           [disabled]="disableSave()"
         >
@@ -73,5 +76,4 @@ export class NoteTopActionsComponent {
   public restoreNote = output();
   public deleteNote = output();
   public cancelChanges = output();
-  protected location = inject(Location);
 }

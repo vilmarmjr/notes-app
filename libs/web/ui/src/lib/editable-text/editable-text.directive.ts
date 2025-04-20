@@ -22,7 +22,7 @@ const editableTextVariants = cva('break-all', {
     },
     empty: {
       true: 'text-neutral-400',
-      false: 'dark:text-base-white text-neutral-950',
+      false: 'text-neutral-950 dark:text-base-white',
     },
   },
 });
@@ -38,6 +38,7 @@ type TouchFn = () => void;
     '(input)': 'onInput()',
     '(blur)': 'onBlur()',
     '(focus)': 'onFocus()',
+    '(keydown)': 'onKeyDown($event)',
   },
   providers: [
     {
@@ -87,11 +88,8 @@ export class EditableTextDirective implements OnInit, ControlValueAccessor {
   }
 
   protected onBlur() {
-    const textContent = this.element.textContent?.trim() || '';
-    if (!textContent) {
-      this.element.textContent = this.placeholder;
-    }
-    this.blurChange.emit(textContent);
+    this.element.textContent = this.value() || this.placeholder;
+    this.blurChange.emit(this.value());
   }
 
   protected onFocus() {
@@ -105,6 +103,12 @@ export class EditableTextDirective implements OnInit, ControlValueAccessor {
     const value = this.element.textContent?.trim() || '';
     this.value.set(value);
     this.onChange(value);
+  }
+
+  protected onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
   }
 
   private get element() {

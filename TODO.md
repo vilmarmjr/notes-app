@@ -14,4 +14,3 @@
 - [ ] Add dialog animations
 - [ ] Add rich text editor
 - [ ] Hide change password option for Google sign in users
-- [ ] Prevent line breaks on note title and tags

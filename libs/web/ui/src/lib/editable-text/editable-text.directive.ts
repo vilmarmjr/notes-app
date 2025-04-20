@@ -94,7 +94,7 @@ export class EditableTextDirective implements OnInit, ControlValueAccessor {
 
   protected onFocus() {
     this.onTouched();
-    if (this.element.textContent?.trim() === this.placeholder) {
+    if (!this.value()) {
       this.element.textContent = '';
     }
   }

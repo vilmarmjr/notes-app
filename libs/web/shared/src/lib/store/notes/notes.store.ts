@@ -41,7 +41,7 @@ export const NotesStore = signalStore(
       () => !!store.unsavedNote() && store.filter() === 'all',
     ),
   })),
-  withMethods(store => ({
+  withMethods((store, router = inject(Router)) => ({
     _addLocalNote(note: PaginateNotesResponseItemDto) {
       if (
         store.filter() === 'all' ||
@@ -66,9 +66,14 @@ export const NotesStore = signalStore(
     },
     _removeLocalNote(id: string) {
       if (store.notes().length === 1) {
-        return store._loadFirstPage(store._requestParams());
+        store._loadFirstPage(store._requestParams());
+      } else {
+        patchState(store, { notes: store.notes().filter(note => note.id !== id) });
       }
-      patchState(store, { notes: store.notes().filter(note => note.id !== id) });
+      router.navigate(['/notes'], {
+        queryParams: { note: undefined },
+        queryParamsHandling: 'merge',
+      });
     },
   })),
   withMethods(
@@ -177,9 +182,10 @@ export const NotesStore = signalStore(
 
           const notes = store.notes();
           const noteId = store.noteId();
+          const isLoadingNotes = store.isLoading();
           const isLoadingSelectedNote = store.isLoadingSelectedNote();
 
-          if (notes.length && !noteId && !isLoadingSelectedNote) {
+          if (notes.length && !noteId && !isLoadingNotes && !isLoadingSelectedNote) {
             router.navigate(['/notes'], {
               relativeTo: activatedRoute,
               queryParams: { note: notes[0].id },

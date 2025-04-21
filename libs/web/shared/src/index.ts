@@ -3,6 +3,7 @@ export * from './lib/constants/notes-filters.constants';
 export * from './lib/data-access/auth.service';
 export * from './lib/data-access/settings.service';
 export * from './lib/data-access/tags.service';
+export * from './lib/data-access/users.service';
 export * from './lib/directives/scroll-end.directive';
 export * from './lib/environments/environment';
 export * from './lib/form/ui/email-field/email-field.component';

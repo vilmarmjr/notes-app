@@ -1,7 +1,6 @@
+import { SignInMethod, SignInMethods } from '@common/models';
 import { Column, Entity } from 'typeorm';
-import { SignInMethod, SignInMethods } from '../models/sign-in-method.model';
 import { BaseEntity } from './base.entity';
-
 @Entity('users')
 export class User extends BaseEntity {
   @Column({ unique: true, length: 255 })

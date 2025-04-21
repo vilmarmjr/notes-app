@@ -1,6 +1,12 @@
-import { AuthErrors, ChangePasswordRequestDto, SignUpRequestDto } from '@common/models';
+import {
+  AuthErrors,
+  ChangePasswordRequestDto,
+  SignInMethod,
+  SignInMethods,
+  SignUpRequestDto,
+} from '@common/models';
 import { Injectable } from '@nestjs/common';
-import { ApplicationException, SignInMethod, SignInMethods, User } from '@server/shared';
+import { ApplicationException, User } from '@server/shared';
 import { UsersService } from '@server/users';
 import { compare, hash } from 'bcrypt';
 import { HASH_SALT } from '../constants/hash.constants';

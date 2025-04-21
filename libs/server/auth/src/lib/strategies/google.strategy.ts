@@ -1,6 +1,7 @@
+import { SignInMethods } from '@common/models';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { env, SignInMethods } from '@server/shared';
+import { env } from '@server/shared';
 import { Profile, Strategy, VerifyCallback } from 'passport-google-oauth20';
 import { AuthService } from '../services/auth.service';
 

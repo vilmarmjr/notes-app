@@ -13,4 +13,3 @@
 - [ ] Optimize filtering note content (research a better alternative for ILIKE)
 - [ ] Add dialog animations
 - [ ] Add rich text editor
-- [ ] Hide change password option for Google sign in users

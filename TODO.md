@@ -6,7 +6,6 @@
 - [ ] Check HTML semantics
 - [ ] Add unit and e2e tests
 - [ ] Add forgot password feature
-- [ ] Add button spinner
 - [ ] Update Tailwind to v4
 - [ ] Use views to select filtering the current logged user?
 - [ ] Research about how TypeORM handles indexes and add them if needed

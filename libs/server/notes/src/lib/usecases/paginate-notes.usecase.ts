@@ -16,7 +16,7 @@ export class PaginateNotesUseCase {
     const take = params.take || 10;
     const page = params.page || 1;
     const skip = (page - 1) * take;
-    const query = `%${params.query || ''}%`;
+    const query = params.query ? `%${params.query || ''}%` : '';
     const queryBuilder = this.notesRepository
       .createQueryBuilder('note')
       .leftJoinAndSelect('note.tags', 'tag')

@@ -8,6 +8,5 @@
 - [ ] Add forgot password feature
 - [ ] Update Tailwind to v4
 - [ ] Use views to select filtering the current logged user?
-- [ ] Optimize filtering note content (research a better alternative for ILIKE)
 - [ ] Add dialog animations
 - [ ] Add rich text editor

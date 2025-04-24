@@ -26,7 +26,7 @@ import { NotesEmptyComponent } from '../notes-empty/notes-empty.component';
             [queryParams]="{ note: 'new' }"
             [queryParamsHandling]="queryParamsHandling"
           >
-            <h2 class="text-preset-3 dark:text-base-white text-neutral-950">
+            <h2 class="break-all text-preset-3 text-neutral-950 dark:text-base-white">
               Untitled Note
             </h2>
           </a>
@@ -41,14 +41,14 @@ import { NotesEmptyComponent } from '../notes-empty/notes-empty.component';
             [queryParams]="{ note: note.id }"
             [queryParamsHandling]="queryParamsHandling"
           >
-            <h2 class="text-preset-3 dark:text-base-white text-neutral-950">
+            <h2 class="break-all text-preset-3 text-neutral-950 dark:text-base-white">
               {{ note.title }}
             </h2>
             @if (note.tags.length) {
               <div class="flex flex-wrap gap-1">
                 @for (tag of note.tags; track tag) {
                   <span
-                    class="text-preset-6 dark:text-base-white rounded-md bg-neutral-200 px-2 py-1 text-neutral-950 dark:bg-neutral-600"
+                    class="rounded-md bg-neutral-200 px-2 py-1 text-preset-6 text-neutral-950 dark:bg-neutral-600 dark:text-base-white"
                   >
                     {{ tag }}
                   </span>

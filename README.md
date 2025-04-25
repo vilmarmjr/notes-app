@@ -27,3 +27,21 @@ The back-end is hosted on Render’s free tier, so it may occasionally be asleep
 - NestJS
 - PostgreSQL
 - TypeORM
+
+## Running locally
+
+To get this project running locally, make sure you have the following dependencies installed:
+
+- Node.js 20+
+- Docker
+- PNPM
+
+Next, create a `.env` file in the root directory using the `.env.example` file as a reference.
+
+Once that’s set up, run the following commands to start the database and launch the development server:
+
+1. `docker compose up -d`
+2. `pnpm install`
+3. `pnpm serve:all`
+
+Open your browser and navigate to `http://localhost:4200/`. The app will automatically reload when you make changes to any source files.

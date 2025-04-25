@@ -17,13 +17,18 @@ export class PaginateNotesUseCase {
     const page = params.page || 1;
     const skip = (page - 1) * take;
     const query = params.query ? `%${params.query || ''}%` : '';
-    const queryBuilder = this.notesRepository
+
+    const notesBuilder = this.notesRepository
       .createQueryBuilder('note')
       .leftJoinAndSelect('note.tags', 'tag')
       .where('note.user_id = :userId', { userId });
 
+    const countBuilder = this.notesRepository
+      .createQueryBuilder('note')
+      .where('note.user_id = :userId', { userId });
+
     if (query) {
-      queryBuilder.andWhere(
+      notesBuilder.andWhere(
         new Brackets(qb => {
           qb.where('note.title ILIKE :query', { query })
             .orWhere('note.content ILIKE :query', { query })
@@ -33,22 +38,27 @@ export class PaginateNotesUseCase {
     }
 
     if (params.status === 'archived') {
-      queryBuilder.andWhere('note.archived = true');
+      notesBuilder.andWhere('note.archived = true');
+      countBuilder.andWhere('note.archived = true');
     }
 
     if (params.status === 'active') {
-      queryBuilder.andWhere('note.archived = false');
+      notesBuilder.andWhere('note.archived = false');
+      countBuilder.andWhere('note.archived = false');
     }
 
     if (params.tag) {
-      queryBuilder.andWhere('tag.name = :tag', { tag: params.tag });
+      notesBuilder.andWhere('tag.name = :tag', { tag: params.tag });
+      countBuilder
+        .innerJoin('note.tags', 'tag')
+        .andWhere('tag.name = :tag', { tag: params.tag });
     }
 
-    const [content, count] = await queryBuilder
-      .orderBy('note.createdAt', 'DESC')
-      .take(take)
-      .skip(skip)
-      .getManyAndCount();
+    const [content, count] = await Promise.all([
+      notesBuilder.orderBy('note.createdAt', 'DESC').take(take).skip(skip).getMany(),
+      countBuilder.getCount(),
+    ]);
+
     const notes = content.map(note => ({
       id: note.id,
       createdAt: note.createdAt.toISOString(),
@@ -56,6 +66,7 @@ export class PaginateNotesUseCase {
       tags: note.tags.map(tag => tag.name),
       archived: note.archived,
     }));
+
     return paginateResponse(notes, count, page, take);
   }
 }

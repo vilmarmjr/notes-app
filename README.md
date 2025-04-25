@@ -41,8 +41,8 @@ Next, create a `.env` file in the root directory using the `.env.example` file a
 Once that’s set up, run the following commands to start the database and launch the development server:
 
 1. `docker compose up -d`
-2. `pnpm migration:run`
-3. `pnpm install`
+2. `pnpm install`
+3. `pnpm migration:run`
 4. `pnpm serve:all`
 
 Open your browser and navigate to `http://localhost:4200/`. The app will automatically reload when you make changes to any source files.
